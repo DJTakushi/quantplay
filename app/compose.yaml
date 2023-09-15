@@ -1,0 +1,13 @@
+services:
+  quantDatabase:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: quant
+      MYSQL_TCP_PORT: 3308
+    ports:
+      - 3308:3308
+    volumes:
+      - quant-db:/var/lib/mysql
+volumes:
+  quant-db:
