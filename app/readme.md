@@ -22,5 +22,9 @@ erDiagram
   DB }|--|{ PortfolioManager : uses
 ```
 
+```
+mysql -h 127.0.0.1 -P 3308 -u my_user -p
+```
+
 # Resources
 - https://medium.com/@chrischuck35/how-to-create-a-mysql-instance-with-docker-compose-1598f3cc1bee
