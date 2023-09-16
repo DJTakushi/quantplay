@@ -23,7 +23,13 @@ erDiagram
 ```
 
 ```
-mysql -h 127.0.0.1 -P 3308 -u my_user -p
+mysql -h 127.0.0.1 -P 3308 -u my_user -p quant
+```
+
+```
+CREATE TABLE ibm_ohlcv (open float(2), high float(2), low float(2), close float(2), volume int );
+
+INSERT INTO [TODO]
 ```
 
 # Resources
