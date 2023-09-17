@@ -26,10 +26,13 @@ erDiagram
 mysql -h 127.0.0.1 -P 3308 -u my_user -p quant
 ```
 
+### Sample Queries
 ```
-CREATE TABLE ibm_ohlcv (open float(2), high float(2), low float(2), close float(2), volume int );
+CREATE TABLE ibm_ohlcv (ticker varchar(255), date DATE, open float(2), high float(2), low float(2), close float(2), volume int);
 
-INSERT INTO [TODO]
+INSERT INTO ibm_ohlcv (ticker, date, open, high, low, close, volume) VALUES ("ibm", "2023-09-17", 0.00, 0.01, 0.002, 0.003, 69);
+
+SELECT * FROM ibm_ohlcv WHERE ticker="ibm";
 ```
 
 # Resources
