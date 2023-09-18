@@ -28,7 +28,6 @@ def createIntradyTable():
 
 def insert_TIME_SERIES_INTRADAY(data):
   # inserts an intraday time series into the database
-  # TODO: delete previous records for the day if they already exist
   mycursor = mydb.cursor()
   j_ = json.loads(data)
   ticker_ = j_["Meta Data"]["2. Symbol"]
@@ -60,7 +59,6 @@ def insert_TIME_SERIES_INTRADAY(data):
     cmd_ += "\""+refresh_+"\");"
     mycursor.execute(cmd_)
     mydb.commit()
-
 
 if __name__ == "__main__":
   print("Creating intraday table...")
