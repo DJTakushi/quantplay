@@ -1,5 +1,6 @@
 import mysql.connector
 import json
+import apigetter
 
 INTRADAY_TABLE_ = "intraday_ohlcv"
 
@@ -32,37 +33,53 @@ def insert_TIME_SERIES_INTRADAY(data):
   j_ = json.loads(data)
   ticker_ = j_["Meta Data"]["2. Symbol"]
   refresh_ = j_["Meta Data"]["3. Last Refreshed"]
-  checked_preexisting_ = False
-  for datetime_ , data in j_["Time Series (5min)"].items():
+
+  # get json key for Time Series (which varies by api call)
+  time_series_key_ = ""
+  for key, val in j_.items():
+    if "Time Series (" in key:
+      time_series_key_ = key
+
+  deleted_dates_ = set() #dates that have already been deleted
+  entries_ = []
+  for datetime_ , data in j_[time_series_key_].items():
     mycursor = mydb.cursor()
 
     # remove preexisting records that match ticker & date
-    if checked_preexisting_ == False:
-      date_ = datetime_[:10]
+    date_ = datetime_[:10]
+    if date_ not in deleted_dates_:
+      print("clearing "+date_+" entries for "+ticker_)
       cmd_ = "DELETE FROM " +INTRADAY_TABLE_
       cmd_ += " WHERE ticker = \"" + ticker_ + "\" "
       cmd_ += "AND DATE(datetime) = \"" + date_ + "\";"
       mycursor.execute(cmd_)
       mydb.commit()
-      checked_preexisting_ = True
+      deleted_dates_.add(date_) #cache cleared date
 
-    cmd_ = "INSERT INTO " + INTRADAY_TABLE_
-    cmd_ += "(ticker, datetime, open, high, low, close, volume, refresh) "
-    cmd_ += "VALUES (\""
-    cmd_ += ticker_ +"\", \""
-    cmd_ += datetime_ +"\", "
-    cmd_ += data["1. open"] +", "
-    cmd_ += data["2. high"] +", "
-    cmd_ += data["3. low"] +", "
-    cmd_ += data["4. close"] +", "
-    cmd_ += data["5. volume"] +", "
-    cmd_ += "\""+refresh_+"\");"
-    mycursor.execute(cmd_)
-    mydb.commit()
+    # add entry from json to entries
+    entry_ = (ticker_,datetime_,data["1. open"],data["2. high"],
+              data["3. low"],data["4. close"],data["5. volume"],refresh_)
+    entries_.append(entry_)
+
+  # insert into table
+  cmd_ = "INSERT INTO " + INTRADAY_TABLE_
+  cmd_ += " (ticker, datetime, open, high, low, close, volume, refresh) "
+  cmd_ += "VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+  mycursor.executemany(cmd_,entries_)# executemany is MUCH faster than execute
+  mydb.commit()
 
 if __name__ == "__main__":
   print("Creating intraday table...")
   createIntradyTable()
 
-  file = open ("testdata/intraday_ibm.json")
-  insert_TIME_SERIES_INTRADAY(file.read())
+  # get data, but this takes an API call
+  # data_ = apigetter.get_TIME_SERIES_INTRADAY("IBM")
+  # f = open("output.json", "a")
+  # f.write(data_)
+  # f.close()
+  # print("data_:"+data_)
+
+  # file = open ("testdata/intraday_ibm.json")
+  file = open ("testdata/intraday_ibm_large.json")
+  data_ = file.read()
+  insert_TIME_SERIES_INTRADAY(data_)
