@@ -40,24 +40,12 @@ def insert_TIME_SERIES_INTRADAY(data):
     # remove preexisting records that match ticker & date
     if checked_preexisting_ == False:
       date_ = datetime_[:10]
-      cmd_ = "SELECT datetime FROM "+INTRADAY_TABLE_
-      cmd_ += " WHERE DATE(datetime) = \""+date_+"\""
-      cmd_ += " AND ticker = \""+ ticker_+"\""
-      cmd_ += ";"
+      cmd_ = "DELETE FROM " +INTRADAY_TABLE_
+      cmd_ += " WHERE ticker = \"" + ticker_ + "\" "
+      cmd_ += "AND DATE(datetime) = \"" + date_ + "\";"
       mycursor.execute(cmd_)
-
-      myresult = mycursor.fetchall()
-      record_count_ = len(myresult)
-      print(record_count_)
-      if(record_count_ > 0):
-        cmd_ = "DELETE FROM " +INTRADAY_TABLE_
-        cmd_ += " WHERE ticker = \"" + ticker_ + "\" "
-        cmd_ += "AND DATE(datetime) = \"" + date_ + "\";"
-        mycursor.execute(cmd_)
-        mydb.commit()
+      mydb.commit()
       checked_preexisting_ = True
-
-
 
     cmd_ = "INSERT INTO " + INTRADAY_TABLE_
     cmd_ += "(ticker, datetime, open, high, low, close, volume, refresh) "
