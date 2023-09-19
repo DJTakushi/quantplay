@@ -1,6 +1,8 @@
+from datetime import datetime
 import mysql.connector
 import json
 import apigetter
+import sys
 
 INTRADAY_TABLE_ = "intraday_ohlcv"
 
@@ -72,14 +74,27 @@ if __name__ == "__main__":
   print("Creating intraday table...")
   createIntradyTable()
 
-  # get data, but this takes an API call
-  # data_ = apigetter.get_TIME_SERIES_INTRADAY("IBM")
-  # f = open("output.json", "a")
-  # f.write(data_)
-  # f.close()
-  # print("data_:"+data_)
+  TICKER_PREFIX="ticker="
+  ticker_=""
+  args = sys.argv[1:]
+  for a in args:
+    if TICKER_PREFIX in a:
+      ticker_=a[len(TICKER_PREFIX):]
 
-  # file = open ("testdata/intraday_ibm.json")
-  file = open ("testdata/intraday_ibm_large.json")
-  data_ = file.read()
+  data=""
+  if ticker_ != "": # valid ticker supplied; get data
+    print("getting data for ticker: "+ticker_)
+    data_ = apigetter.get_TIME_SERIES_INTRADAY(ticker_)
+    timestamp_ = datetime.now().isoformat()[:18]
+    timestamp_ = timestamp_.replace(":","-")
+    output_filename_ = ticker_+"_"+timestamp_+".json"
+    f = open(output_filename_, "a")
+    f.write(data_)
+    f.close()
+    print("saved data to "+output_filename_)
+  else:
+    data_file_path_ = "testdata/intraday_ibm_large.json"
+    print("getting data from "+data_file_path_+"...")
+    file = open (data_file_path_)
+    data_ = file.read()
   insert_TIME_SERIES_INTRADAY(data_)
