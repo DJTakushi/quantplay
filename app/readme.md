@@ -19,6 +19,13 @@ erDiagram
     png genGraph
   }
   DB }|--|{ Algo : uses
+  Algo{
+    void getData()
+    void process()
+    void buy()
+    void sell()
+    void analyze()
+  }
   DB }|--|{ PortfolioManager : uses
   DB }|--|{ Analyzer : uses
 ```
