@@ -22,9 +22,17 @@ class Algo:
   balance_ = 0.0
   df_ = pd.DataFrame()
   datetimes_ = []
+  daily_f_ = pd.DataFrame()
   def __init__(self,ticker):
     self.ticker_=ticker
     self.shares_=0
+
+  def getEquityValue(self):
+    return self.shares_*self.value_last_
+
+  def getPortfolioValue(self):
+    return self.balance_ + self.getEquityValue()
+
   def getData(self, time_start="", time_end=""):
     # retrieve data from database to populate dataframe
     time_start_ = time_start
@@ -59,6 +67,15 @@ class Algo:
     if self.shares_== 0:
       self.buy(time_end,val_)
 
+  def new_day_routine(self):
+    # todo: compute daily metrics
+    # daily profit
+    pass
+
+  def end_of_day_routine(self):
+    # todo:
+    pass
+
   def buy(self, time, value):
     self.transactions_.append(Transaction(time, value, "buy"))
     self.shares_+=1
@@ -79,9 +96,10 @@ class Algo:
     for t in self.transactions_:
       t.print()
     print("balance: "+str(self.balance_))
-    equity_ = self.shares_*self.value_last_
-    print("equity: "+str(equity_))
-    print("total (balance + equity):"+str(self.balance_+equity_))
+    print("equity: "+str(self.getEquityValue()))
+    print("portfolio:"+str(self.balance_+self.getEquityValue()))
+
+    # calculate sharpe ratio using daily data
 
 if __name__ == "__main__":
   a_ = Algo("IBM")
