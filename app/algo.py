@@ -18,6 +18,8 @@ class Algo:
   transactions_ = []
   ticker_=""
   shares_ = 0
+  value_last_ = 0.0
+  balance_ = 0.0
   df_ = pd.DataFrame()
   datetimes_ = []
   def __init__(self,ticker):
@@ -52,6 +54,7 @@ class Algo:
     # process data and generate a position at time_end (end of data by default)
     latest_ = self.df_[(self.df_['datetime'] == time_end)]
     val_ = latest_.iloc[0]["close"] # get 0 index, "close" attribute
+    self.value_last_ = val_
 
     if self.shares_== 0:
       self.buy(time_end,val_)
@@ -59,9 +62,11 @@ class Algo:
   def buy(self, time, value):
     self.transactions_.append(Transaction(time, value, "buy"))
     self.shares_+=1
+    self.balance_-=value
 
   def sell(self, time, value):
     self.transactions_.append(Transaction(time, value, "sell"))
+    self.balance_+=value
   def simulate(self):
     l_ = self.df_['datetime'].tolist()
     for i in l_:
@@ -72,6 +77,10 @@ class Algo:
     # compute metrics (profit/loss)
     for t in self.transactions_:
       t.print()
+    print("balance: "+str(self.balance_))
+    equity_ = self.shares_*self.value_last_
+    print("equity: "+str(equity_))
+    print("total (balance + equity):"+str(self.balance_+equity_))
 
 if __name__ == "__main__":
   a_ = Algo("IBM")
