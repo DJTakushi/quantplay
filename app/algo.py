@@ -67,6 +67,7 @@ class Algo:
   def sell(self, time, value):
     self.transactions_.append(Transaction(time, value, "sell"))
     self.balance_+=value
+
   def simulate(self):
     l_ = self.df_['datetime'].tolist()
     for i in l_:
