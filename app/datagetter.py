@@ -1,23 +1,13 @@
 from datetime import datetime
-import mysql.connector
 import json
 import apigetter
+import databaseconnector
 import sys
 
-INTRADAY_TABLE_ = "intraday_ohlcv"
-
-mydb = mysql.connector.connect(
-  host="localhost",
-  port="3308",
-  user="my_user",
-  password="my_password",
-  database="quant"
-)
-
 def createIntradyTable():
-  mycursor = mydb.cursor()
+  mycursor = databaseconnector.mydb.cursor()
   cmd_  = "CREATE TABLE IF NOT EXISTS "
-  cmd_ += INTRADAY_TABLE_
+  cmd_ += databaseconnector.INTRADAY_TABLE_
   cmd_ += " ("
   cmd_ += "ticker varchar(255),"
   cmd_ += "datetime DATETIME, "
@@ -31,7 +21,7 @@ def createIntradyTable():
 
 def insert_TIME_SERIES_INTRADAY(data):
   # inserts an intraday time series into the database
-  mycursor = mydb.cursor()
+  mycursor = databaseconnector.mydb.cursor()
   j_ = json.loads(data)
   ticker_ = j_["Meta Data"]["2. Symbol"]
   refresh_ = j_["Meta Data"]["3. Last Refreshed"]
@@ -45,17 +35,17 @@ def insert_TIME_SERIES_INTRADAY(data):
   deleted_dates_ = set() #dates that have already been deleted
   entries_ = []
   for datetime_ , data in j_[time_series_key_].items():
-    mycursor = mydb.cursor()
+    mycursor = databaseconnector.mydb.cursor()
 
     # remove preexisting records that match ticker & date
     date_ = datetime_[:10]
     if date_ not in deleted_dates_:
       print("clearing "+date_+" entries for "+ticker_)
-      cmd_ = "DELETE FROM " +INTRADAY_TABLE_
+      cmd_ = "DELETE FROM " +databaseconnector.INTRADAY_TABLE_
       cmd_ += " WHERE ticker = \"" + ticker_ + "\" "
       cmd_ += "AND DATE(datetime) = \"" + date_ + "\";"
       mycursor.execute(cmd_)
-      mydb.commit()
+      databaseconnector.mydb.commit()
       deleted_dates_.add(date_) #cache cleared date
 
     # add entry from json to entries
@@ -64,11 +54,11 @@ def insert_TIME_SERIES_INTRADAY(data):
     entries_.append(entry_)
 
   # insert into table
-  cmd_ = "INSERT INTO " + INTRADAY_TABLE_
+  cmd_ = "INSERT INTO " + databaseconnector.INTRADAY_TABLE_
   cmd_ += " (ticker, datetime, open, high, low, close, volume, refresh) "
   cmd_ += "VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
   mycursor.executemany(cmd_,entries_)# executemany is MUCH faster than execute
-  mydb.commit()
+  databaseconnector.mydb.commit()
 
 if __name__ == "__main__":
   print("Creating intraday table...")
