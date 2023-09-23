@@ -49,7 +49,7 @@ class Algo:
   def process(self, time_end):
     # process data and generate a position at time_end (end of data by default)
     latest_ = self.df_[(self.df_['datetime'] == time_end)]
-    val_ = latest_.loc[0]["close"] # get 0 index, "close" attribute
+    val_ = latest_.iloc[0]["close"] # get 0 index, "close" attribute
 
     if self.shares_== 0:
       self.buy(time_end,val_)
@@ -62,7 +62,11 @@ class Algo:
   def sell(self, time, value):
     self.transactions_.append(Transaction(time, value, "sell"))
   def simulate(self):
-    self.process('2023-09-15 19:59:00') # TODO: iterate over all items in pd_
+    l_ = self.df_['datetime'].tolist()
+    for i in l_:
+      time_ = i.strftime('%Y-%m-%d %X')
+      self.process(time_)
+
   def analyze(self):
     # compute metrics (profit/loss)
     for t in self.transactions_:
