@@ -35,7 +35,9 @@ class Algo:
     cmd_ = "SELECT * FROM " + databaseconnector.INTRADAY_TABLE_
     cmd_ += " WHERE ticker=\""+self.ticker_+"\""
     cmd_ += " AND datetime >= \""+time_start_+"\""
-    cmd_ += " AND datetime <= \""+time_end_+"\";"
+    cmd_ += " AND datetime <= \""+time_end_+"\""
+    cmd_ += " ORDER BY datetime ASC"
+    cmd_ += ";"
 
     # pandas vocally prefers sqlalchemy
     db_connection_str = "mysql+pymysql://"
@@ -53,7 +55,6 @@ class Algo:
 
     if self.shares_== 0:
       self.buy(time_end,val_)
-
 
   def buy(self, time, value):
     self.transactions_.append(Transaction(time, value, "buy"))
