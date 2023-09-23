@@ -2,7 +2,10 @@ import databaseconnector
 from datetime import datetime
 import pandas as pd
 from sqlalchemy import create_engine
-
+import time
+# TODO: refactor so processing does not need parse data to find itself
+  # this should be done by someone else so processing can stick to processing 
+# TODO: move daily tracker out to another class to keep Algo single-use
 class Transaction:
   time_ = None
   value_ = 0.00
@@ -14,6 +17,16 @@ class Transaction:
     self.transaction_ = transaction
   def print(self):
     print(self.time_ +": "+self.transaction_+" at "+str(self.value_))
+
+class DayData:
+  date=""
+  open=0.0
+  high=0.0
+  low=0.0
+  close=0.0
+  def __init__(self, date_):
+    self.date = date_
+
 class Algo:
   transactions_ = []
   ticker_=""
@@ -23,9 +36,12 @@ class Algo:
   df_ = pd.DataFrame()
   datetimes_ = []
   daily_f_ = pd.DataFrame()
+  current_date_ = None
   def __init__(self,ticker):
     self.ticker_=ticker
     self.shares_=0
+    self.daily_f_ = pd.DataFrame(columns=["date","open","high","low","close",
+                                            "portfolio"])
 
   def getEquityValue(self):
     return self.shares_*self.value_last_
@@ -64,17 +80,29 @@ class Algo:
     val_ = latest_.iloc[0]["close"] # get 0 index, "close" attribute
     self.value_last_ = val_
 
+    # update date content if necessary
+    datetime_ = latest_.iloc[0]["datetime"].strftime('%Y-%m-%d')
+    precedent_date_ = ""
+    if self.current_date_:
+      precedent_date_ = self.current_date_.date
+    if datetime_ != precedent_date_:
+      self.log_day()
+      self.current_date_ = DayData(datetime_)
+      self.current_date_.open = val_
+
+    self.current_date_.close = val_
+
     if self.shares_== 0:
       self.buy(time_end,val_)
 
-  def new_day_routine(self):
-    # todo: compute daily metrics
-    # daily profit
-    pass
-
-  def end_of_day_routine(self):
-    # todo:
-    pass
+  def log_day(self):
+    if self.current_date_ != None:
+      date_ = self.current_date_.date
+      open_ = self.current_date_.open
+      high_ = self.current_date_.high
+      low_ = self.current_date_.low
+      close_ = self.current_date_.close
+      self.daily_f_.loc[len(self.daily_f_)]=[date_, open_,high_,low_,close_,self.getPortfolioValue()]
 
   def buy(self, time, value):
     self.transactions_.append(Transaction(time, value, "buy"))
@@ -90,19 +118,30 @@ class Algo:
     for i in l_:
       time_ = i.strftime('%Y-%m-%d %X')
       self.process(time_)
+    self.log_day()# log the final date
 
   def analyze(self):
     # compute metrics (profit/loss)
     for t in self.transactions_:
       t.print()
-    print("balance: "+str(self.balance_))
-    print("equity: "+str(self.getEquityValue()))
-    print("portfolio:"+str(self.balance_+self.getEquityValue()))
+    print("balance  : "+str(self.balance_))
+    print("equity   : "+str(self.getEquityValue()))
+    print("portfolio: "+f"{self.balance_+self.getEquityValue():.2f}")
 
     # calculate sharpe ratio using daily data
 
 if __name__ == "__main__":
+  start_time_ = time.time()
   a_ = Algo("IBM")
+  get_data_time_ = time.time()
   a_.getData()
+  simulate_time_ = time.time()
   a_.simulate()
+  analyze_time_ = time.time()
   a_.analyze()
+  fin_time_ = time.time()
+  print("get_data_time_ dur:"+f" {simulate_time_-get_data_time_:.3f}")
+  print("simulate_time_ dur:"+f" {analyze_time_-simulate_time_:.3f}")
+  print("analyze_time_ dur :"+f" {fin_time_-analyze_time_:.3f}")
+
+  print(a_.daily_f_)
