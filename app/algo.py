@@ -3,7 +3,6 @@ from datetime import datetime
 import pandas as pd
 from sqlalchemy import create_engine
 from transaction import Transaction
-from daydata import DayData
 # TODO: restructure Algo to receive data from manager
   # process will then be run on the top data
   # this will simplify index finding AND reduce Algo's data maintenance burden
