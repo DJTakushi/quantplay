@@ -6,29 +6,29 @@ from sqlalchemy import create_engine
 from daydata import DayData
 import time
 from algo import Algo
-# TODO: move daily tracker out to another class to keep simplify manager
+from dayrecorder import dayRecorder
 # TODO: move portolio out to another class
 # TODO: relocate time measurement into functions for better organization of main
   # class-member lists to track multiple instances
 
 class algomanager:
   algo_ = None
+  ticker_ = ""
+  df_ = pd.DataFrame() # main dataframe
+
   transactions_ = []
+  balance_ = 0.0
   shares_ = 0
   value_current_ = 0.0
-  balance_ = 0.0
-  current_date_ = None # date entry
-  df_ = pd.DataFrame() # main dataframe
-  daily_f_ = pd.DataFrame() # daily frame
-  ticker_ = ""
+
+  dayRecorder_ = dayRecorder
 
   def __init__(self, ticker):
     self.ticker_ = ticker
     self.getData()
     self.algo_ = Algo(self.ticker_)
     self.algo_.getData()
-    self.daily_f_ = pd.DataFrame(columns=["date","open","high","low","close",
-                                            "portfolio"])
+    self.dayRecorder_ = dayRecorder()
 
   def getData(self, time_start="", time_end=""):
     # retrieve data from database to populate dataframe
@@ -61,29 +61,13 @@ class algomanager:
   def getPortfolioValue(self):
     return self.balance_ + self.getEquityValue()
 
-  def log_day(self):
-    if self.current_date_ != None:
-      date_ = self.current_date_.date
-      open_ = self.current_date_.open
-      high_ = self.current_date_.high
-      low_ = self.current_date_.low
-      close_ = self.current_date_.close
-      self.daily_f_.loc[len(self.daily_f_)]=[date_, open_,high_,low_,close_,self.getPortfolioValue()]
-
   def simulate(self):
     for index, row in self.df_.iterrows():
       time_end_p_ = row['datetime'].strftime('%Y-%m-%d')
 
-      if self.current_date_:
-        if time_end_p_ != self.current_date_.date:
-          self.log_day()
-          self.current_date_ = DayData(time_end_p_)
-          self.current_date_.open = row['open']
-      else:
-        self.current_date_ = DayData(time_end_p_)
-        self.current_date_.open = row['open']
+      if time_end_p_ != self.dayRecorder_.getCurrentDate() :
+        self.dayRecorder_.startNewDay(time_end_p_,row['open'])
 
-      self.current_date_.close = row['close']
       self.value_current_ = row['close']
 
       time_ = row['datetime'].strftime('%Y-%m-%d %X')
@@ -97,7 +81,8 @@ class algomanager:
           self.shares_-=1
           self.balance_+=result_.value_
 
-    self.log_day()# log the final date
+      self.dayRecorder_.setCurrentClose=row['close']
+      self.dayRecorder_.setCurrentPortfolio(self.getPortfolioValue())
 
   def analyze(self):
     # compute metrics (profit/loss)
@@ -123,4 +108,4 @@ if __name__ == "__main__":
   print("simulate_time_ dur:"+f" {analyze_time_-simulate_time_:.3f}")
   print("analyze_time_ dur :"+f" {fin_time_-analyze_time_:.3f}")
 
-  print(manager_.daily_f_)
+  print(manager_.dayRecorder_.getDataFrame())
