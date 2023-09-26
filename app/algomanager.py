@@ -1,4 +1,3 @@
-import algo
 import databaseconnector
 from datetime import datetime
 import pandas as pd
@@ -7,7 +6,7 @@ from daydata import DayData
 import time
 from algo import Algo
 from dayrecorder import dayRecorder
-# TODO: move portolio out to another class
+from portfolio import portfolio
 # TODO: relocate time measurement into functions for better organization of main
   # class-member lists to track multiple instances
 
@@ -16,11 +15,7 @@ class algomanager:
   ticker_ = ""
   df_ = pd.DataFrame() # main dataframe
 
-  transactions_ = []
-  balance_ = 0.0
-  shares_ = 0
-  value_current_ = 0.0
-
+  portfolio_ = portfolio
   dayRecorder_ = dayRecorder
 
   def __init__(self, ticker):
@@ -29,6 +24,7 @@ class algomanager:
     self.algo_ = Algo(self.ticker_)
     self.algo_.getData()
     self.dayRecorder_ = dayRecorder()
+    self.portfolio_ = portfolio()
 
   def getData(self, time_start="", time_end=""):
     # retrieve data from database to populate dataframe
@@ -55,12 +51,6 @@ class algomanager:
 
     self.df_ = pd.read_sql(cmd_, db_connection)
 
-  def getEquityValue(self):
-    return self.shares_*self.value_current_
-
-  def getPortfolioValue(self):
-    return self.balance_ + self.getEquityValue()
-
   def simulate(self):
     for index, row in self.df_.iterrows():
       time_end_p_ = row['datetime'].strftime('%Y-%m-%d')
@@ -68,29 +58,23 @@ class algomanager:
       if time_end_p_ != self.dayRecorder_.getCurrentDate() :
         self.dayRecorder_.startNewDay(time_end_p_,row['open'])
 
-      self.value_current_ = row['close']
+      self.portfolio_.setCurrentValue(row['close'])
 
       time_ = row['datetime'].strftime('%Y-%m-%d %X')
       result_ = self.algo_.process(time_)
       if result_ != None:
-        self.transactions_.append(result_)
-        if result_.transaction_ == "buy":
-          self.shares_+=1
-          self.balance_-=result_.value_
-        elif result_.transaction_ == "sell":
-          self.shares_-=1
-          self.balance_+=result_.value_
+        self.portfolio_.addTransaction(result_)
 
       self.dayRecorder_.setCurrentClose=row['close']
-      self.dayRecorder_.setCurrentPortfolio(self.getPortfolioValue())
+      self.dayRecorder_.setCurrentPortfolio(self.portfolio_.getPortfolioValue())
 
   def analyze(self):
     # compute metrics (profit/loss)
-    for t in self.transactions_:
+    for t in self.portfolio_.transactions_:
       t.print()
-    print("balance  : "+str(self.balance_))
-    print("equity   : "+str(self.getEquityValue()))
-    print("portfolio: "+f"{self.balance_+self.getEquityValue():.2f}")
+    print("balance  : "+str(self.portfolio_.balance_))
+    print("equity   : "+str(self.portfolio_.getEquityValue()))
+    print("portfolio: "+f"{self.portfolio_.getPortfolioValue():.2f}")
 
     # TODO: calculate sharpe ratio using daily data
 
