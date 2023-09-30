@@ -53,6 +53,7 @@ INSERT INTO intraday_ohlcv_IBM (ticker, datetime, open, high, low, close, volume
 ```
 python3 -m pip install mysql-connector
 python3 -m pip install jupyter
+python3 -m pip install SQLAlchemy
 ```
 ```
 jupyter notebook
