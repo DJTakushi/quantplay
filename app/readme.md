@@ -1,33 +1,68 @@
 ```mermaid
 ---
-title: Entity Relationship Diagram
+title: class diagram
 ---
-erDiagram
-  DB }|--|{ DataGetter : uses
-  DataGetter {
-    void retrieveData
-    void commitData(json)
+classDiagram
+  class algo{
+    +addData(d)
+    +getData(time_start,time_end)
+    +process(time_end) Transaction
   }
-  DB }|--|{ DataManager : uses
-  DataManager{
-    void import_sql
-    void import_csv
-    void import_json
-    file export_sql
-    file export_csv
-    file export_json
-    png genGraph
+
+  class algomanager{
+    -ticker_
+    -df_
+    +__init__(ticker)
+    +getData(time_start,time_end)
+    +simulate()
+    +analyze()
   }
-  DB }|--|{ Algo : uses
-  Algo{
-    void getData()
-    void process()
-    void buy()
-    void sell()
-    void analyze()
+  algomanager --* algo : algo_
+  algomanager --* portfolio : portfolio_
+  algomanager --* dayRecorder : dayRecorder_
+
+  class apigetter{
+    +get_TIME_SERIES_INTRADAY()
   }
-  DB }|--|{ PortfolioManager : uses
-  DB }|--|{ Analyzer : uses
+
+  class datagetter{
+    createIntradyTable()
+    insert_TIME_SERIES_INTRADAY()
+  }
+  class DayData{
+    -date
+    -open
+    -high
+    -low
+    -close
+    -portfolio
+  }
+  class dayRecorder{
+    -days []
+    +getCurrentData()
+    +getDataFrame()
+    +startNewDay(date,open)
+    +setCurrentOpen(open)
+    +setCurrentClose(close)
+    +setCurrentPortfolio(portfolio)
+  }
+  dayRecorder --* DayData : days []
+
+  class portfolio{
+    getEquityValue()
+    getPortfolioVaue()
+    setCurrentValue(val)
+    addTransaction(t_)
+  }
+  portfolio --* Transaction : transactions_[]
+
+  class Transaction{
+    -time_
+    -value_
+    -transaction_
+    +__init__(time,value,transaction)
+    +print()
+  }
 ```
 
 ```
