@@ -4,9 +4,10 @@ import pandas as pd
 from sqlalchemy import create_engine
 from daydata import DayData
 import time
-from algo import Algo
+from algo import Algo, AlgoData
 from dayrecorder import dayRecorder
 from portfolio import portfolio
+import sys
 
 class algomanager:
   algo_ = None
@@ -17,11 +18,12 @@ class algomanager:
   dayRecorder_ = dayRecorder
   exec_time_ = {} # dictionary of execution times
 
-  def __init__(self, ticker):
+  def __init__(self, ticker, loadData = False):
     self.ticker_ = ticker
     self.getData()
     self.algo_ = Algo(self.ticker_)
-    self.algo_.getData()
+    if loadData:
+      self.algo_.loadData()
     self.dayRecorder_ = dayRecorder()
     self.portfolio_ = portfolio()
 
@@ -52,7 +54,7 @@ class algomanager:
     self.df_ = pd.read_sql(cmd_, db_connection)
     self.exec_time_["getData"] = time.time()-getData_time_
 
-  def simulate(self):
+  def simulate(self, add_data = False):
     simulate_time_ = time.time()
     for index, row in self.df_.iterrows():
       time_end_p_ = row['datetime'].strftime('%Y-%m-%d')
@@ -61,6 +63,9 @@ class algomanager:
         self.dayRecorder_.startNewDay(time_end_p_,row['open'])
 
       self.portfolio_.setCurrentValue(row['close'])
+
+      if add_data:
+        self.algo_.addData(AlgoData(row))
 
       result_ = self.algo_.process(row['datetime'])
       if result_ != None:
@@ -83,12 +88,18 @@ class algomanager:
     self.exec_time_["analyze"] = time.time()-analyze_time_
 
 if __name__ == "__main__":
+  preload_data_ = False
+  for i, arg in enumerate(sys.argv):
+    if arg == "preload":
+      preload_data_ = True
   manager_ = algomanager("IBM")
-  manager_.algo_.getData()
-  manager_.simulate()
+  if preload_data_:
+    manager_.algo_.loadData()
+  manager_.simulate(not preload_data_)
   manager_.analyze()
+
   for key, val in manager_.exec_time_.items():
     print(key + ": "+ "{:.{}f}".format(val, 3) + " (s)")
 
   print(manager_.dayRecorder_.getDataFrame())
-  # print(manager_.algo_.df_.columns)
+  print("data rows:"+str(len(manager_.algo_.df_.index)))
