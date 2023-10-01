@@ -62,8 +62,7 @@ class algomanager:
 
       self.portfolio_.setCurrentValue(row['close'])
 
-      time_ = row['datetime'].strftime('%Y-%m-%d %X')
-      result_ = self.algo_.process(time_)
+      result_ = self.algo_.process(row['datetime'])
       if result_ != None:
         self.portfolio_.addTransaction(result_)
 

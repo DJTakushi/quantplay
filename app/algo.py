@@ -1,5 +1,5 @@
 import databaseconnector
-from datetime import datetime
+from datetime import datetime, timedelta
 import pandas as pd
 from sqlalchemy import create_engine
 from transaction import Transaction
@@ -46,14 +46,22 @@ class Algo:
       pd.concat([t_,self.df_], axis=1, ignore_index=True)
     # self.df_.loc[-1] = [d.datetime_,d.open_,d.close_,d.volume_]
 
-  def getData(self, time_start="", time_end=""):
+  def getData(self, time_start=None, time_end=None):
     # retrieve data from database to populate dataframe
-    time_start_ = time_start
-    time_end_ = time_end
-    if time_start_ == "":
-      time_start_ = "0001-01-01 00:00:00" #min datetime
-    if time_end_ == "":
+    time_start_ = ""
+    time_end_ = ""
+    if time_end == None:
       time_end_ = datetime.now().isoformat()[:18]
+    else:
+      time_end_ = time_end.strftime('%Y-%m-%d %X')
+    if time_start == None:
+      if time_end == None: # get full dataset
+        time_start_ = "0001-01-01 00:00:00" #min datetime
+      else: #get last day
+        time_start_calc_ = time_end - timedelta(seconds=60)
+        time_start_ =time_start_calc_.strftime('%Y-%m-%d %X')
+    else:
+      time_start_ = time_start.strftime('%Y-%m-%d %X')
 
     cmd_ = "SELECT * FROM " + databaseconnector.INTRADAY_TABLE_
     cmd_ += " WHERE ticker=\""+self.ticker_+"\""
@@ -74,14 +82,15 @@ class Algo:
   def process(self, time_end):
     # process data and generate a position at time_end (end of data by default)
 
-    latest_ = self.df_[(self.df_['datetime'] == time_end)]
+    time_end_ = time_end.strftime('%Y-%m-%d %X')
+    latest_ = self.df_[(self.df_['datetime'] == time_end_)]
     val_ = latest_.iloc[0]["close"] # get 0 index, "close" attribute
     self.value_last_ = val_
 
     ret_ = None
     # for now, only return a single buy at the first instance
     if self.process_count_== 0:
-      ret_ = Transaction(time_end, val_, "buy")
+      ret_ = Transaction(time_end_, val_, "buy")
     self.process_count_+=1
     return ret_
 
