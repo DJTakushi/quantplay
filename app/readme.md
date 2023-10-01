@@ -1,6 +1,21 @@
 ```mermaid
 ---
-title: class diagram
+title: algomamanger class diagram
+---
+classDiagram
+  class apigetter{
+    +get_TIME_SERIES_INTRADAY()
+  }
+
+  class datagetter{
+    createIntradyTable()
+    insert_TIME_SERIES_INTRADAY()
+  }
+```
+
+```mermaid
+---
+title: algomamanger class diagram
 ---
 classDiagram
   class algo{
@@ -21,14 +36,6 @@ classDiagram
   algomanager --* portfolio : portfolio_
   algomanager --* dayRecorder : dayRecorder_
 
-  class apigetter{
-    +get_TIME_SERIES_INTRADAY()
-  }
-
-  class datagetter{
-    createIntradyTable()
-    insert_TIME_SERIES_INTRADAY()
-  }
   class DayData{
     -date
     -open
