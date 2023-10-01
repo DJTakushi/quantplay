@@ -7,8 +7,6 @@ import time
 from algo import Algo
 from dayrecorder import dayRecorder
 from portfolio import portfolio
-# TODO: relocate time measurement into functions for better organization of main
-  # class-member lists to track multiple instances
 
 class algomanager:
   algo_ = None
@@ -17,6 +15,7 @@ class algomanager:
 
   portfolio_ = portfolio
   dayRecorder_ = dayRecorder
+  exec_time_ = {} # dictionary of execution times
 
   def __init__(self, ticker):
     self.ticker_ = ticker
@@ -28,6 +27,7 @@ class algomanager:
 
   def getData(self, time_start="", time_end=""):
     # retrieve data from database to populate dataframe
+    getData_time_ = time.time()
     time_start_ = time_start
     time_end_ = time_end
     if time_start_ == "":
@@ -50,8 +50,10 @@ class algomanager:
     db_connection = create_engine(db_connection_str)
 
     self.df_ = pd.read_sql(cmd_, db_connection)
+    self.exec_time_["getData"] = time.time()-getData_time_
 
   def simulate(self):
+    simulate_time_ = time.time()
     for index, row in self.df_.iterrows():
       time_end_p_ = row['datetime'].strftime('%Y-%m-%d')
 
@@ -67,9 +69,11 @@ class algomanager:
 
       self.dayRecorder_.setCurrentClose=row['close']
       self.dayRecorder_.setCurrentPortfolio(self.portfolio_.getPortfolioValue())
+    self.exec_time_["simulate"] = time.time()-simulate_time_
 
   def analyze(self):
     # compute metrics (profit/loss)
+    analyze_time_ = time.time()
     for t in self.portfolio_.transactions_:
       t.print()
     print("balance  : "+str(self.portfolio_.balance_))
@@ -77,20 +81,15 @@ class algomanager:
     print("portfolio: "+f"{self.portfolio_.getPortfolioValue():.2f}")
 
     # TODO: calculate sharpe ratio using daily data
+    self.exec_time_["analyze"] = time.time()-analyze_time_
 
 if __name__ == "__main__":
-  start_time_ = time.time()
   manager_ = algomanager("IBM")
-  get_data_time_ = time.time()
   manager_.algo_.getData()
-  simulate_time_ = time.time()
   manager_.simulate()
-  analyze_time_ = time.time()
   manager_.analyze()
-  fin_time_ = time.time()
-  print("get_data_time_ dur:"+f" {simulate_time_-get_data_time_:.3f}")
-  print("simulate_time_ dur:"+f" {analyze_time_-simulate_time_:.3f}")
-  print("analyze_time_ dur :"+f" {fin_time_-analyze_time_:.3f}")
+  for key, val in manager_.exec_time_.items():
+    print(key + ": "+ "{:.{}f}".format(val, 3) + " (s)")
 
   print(manager_.dayRecorder_.getDataFrame())
-  print(manager_.algo_.df_.columns)
+  # print(manager_.algo_.df_.columns)
