@@ -93,3 +93,4 @@ if __name__ == "__main__":
   print("analyze_time_ dur :"+f" {fin_time_-analyze_time_:.3f}")
 
   print(manager_.dayRecorder_.getDataFrame())
+  print(manager_.algo_.df_.columns)

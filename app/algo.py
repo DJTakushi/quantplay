@@ -6,12 +6,45 @@ from transaction import Transaction
 # TODO: restructure Algo to receive data from manager
   # process will then be run on the top data
   # this will simplify index finding AND reduce Algo's data maintenance burden
+SUPPORT_INCREMENTAL_DATA = False
+if SUPPORT_INCREMENTAL_DATA:
+  class AlgoData:
+    datetime_ = ""
+    open_ = 0.0
+    close_ = 0.0
+    volume_ = 0
+    def __init__(self, datetime, open, close, volume):
+      self.datetime_ = datetime
+      self.open_ = open
+      self.close_ = close
+      self.volume_ = volume
+    def getAttributes():
+      return ["datetime","open","close","volume"]
+    def getData(self):
+      return[[self.datetime_,self.open_,self.close_,self.volume_]]
 class Algo:
   ticker_=""
   df_ = pd.DataFrame()
   process_count_ = 0
   def __init__(self,ticker):
     self.ticker_=ticker
+    if SUPPORT_INCREMENTAL_DATA:
+      # initialize empty dataframe
+      self.df_ = pd.DataFrame(columns=AlgoData.getAttributes())
+
+  def addData(self, d): # DOES NOT WORK
+    # add data to dataframe
+    t_ = pd.DataFrame(d.getData(), columns = AlgoData.getAttributes())
+    print("t:")
+    print(t_)
+    if self.df_.empty:
+      t_ = pd.DataFrame(d.getData(), columns = AlgoData.getAttributes())
+      self.df_ = t_
+    else:
+      # TODO: fix this; it's not working.  Reconsider this though; it's slow
+      print("concatting...")
+      pd.concat([t_,self.df_], axis=1, ignore_index=True)
+    # self.df_.loc[-1] = [d.datetime_,d.open_,d.close_,d.volume_]
 
   def getData(self, time_start="", time_end=""):
     # retrieve data from database to populate dataframe
@@ -51,3 +84,11 @@ class Algo:
       ret_ = Transaction(time_end, val_, "buy")
     self.process_count_+=1
     return ret_
+
+
+if __name__=="__main__":
+  a_ = Algo("dummy")
+  if SUPPORT_INCREMENTAL_DATA:
+    a_.addData(AlgoData("0001-01-01 00:00:00",10.00,11.11,10))
+    a_.addData(AlgoData("0001-11-11 11:11:11",10.00,11.11,10))
+  print(a_.df_)
