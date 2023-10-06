@@ -7,8 +7,10 @@ import time
 from algo import Algo, AlgoData
 from dayrecorder import dayRecorder
 from portfolio import portfolio
+import numpy as np
 import sys
 
+NO_RISK_RATE=0.04
 class algomanager:
   algo_ = None
   ticker_ = ""
@@ -17,6 +19,7 @@ class algomanager:
   portfolio_ = portfolio
   dayRecorder_ = dayRecorder
   exec_time_ = {} # dictionary of execution times
+  sharpe_ = None
 
   def __init__(self, ticker, loadData = False):
     self.ticker_ = ticker
@@ -84,7 +87,13 @@ class algomanager:
     print("equity   : "+str(self.portfolio_.getEquityValue()))
     print("portfolio: "+f"{self.portfolio_.getPortfolioValue():.2f}")
 
-    # TODO: calculate sharpe ratio using daily data
+    df_=self.dayRecorder_.getDataFrame()
+    df_["prev_portfolio"] = df_["portfolio"].shift(1)
+    df_["daily_ret"]=(df_["portfolio"]-df_["prev_portfolio"])/df_["prev_portfolio"]
+    df_["excess_daily_ret"]=df_["daily_ret"]-(NO_RISK_RATE/252)
+    avg_ = df_["excess_daily_ret"].mean()
+    std_ = df_["excess_daily_ret"].std()
+    self.sharpe_ = np.sqrt(252) * avg_ / std_
     self.exec_time_["analyze"] = time.time()-analyze_time_
 
 if __name__ == "__main__":
@@ -103,3 +112,4 @@ if __name__ == "__main__":
 
   print(manager_.dayRecorder_.getDataFrame())
   print("data rows:"+str(len(manager_.algo_.df_.index)))
+  print("sharpe ratio:{:.{}f}".format(manager_.sharpe_, 3))
