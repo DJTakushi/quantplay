@@ -89,7 +89,8 @@ class algomanager:
 
     df_=self.dayRecorder_.getDataFrame()
     df_["prev_portfolio"] = df_["portfolio"].shift(1)
-    df_["daily_ret"]=(df_["portfolio"]-df_["prev_portfolio"])/df_["prev_portfolio"]
+    df_["daily_ret"]=(df_["portfolio"]-df_["prev_portfolio"]) \
+                      /df_["prev_portfolio"]
     df_["excess_daily_ret"]=df_["daily_ret"]-(NO_RISK_RATE/252)
     avg_ = df_["excess_daily_ret"].mean()
     std_ = df_["excess_daily_ret"].std()
