@@ -65,14 +65,31 @@ if __name__ == "__main__":
   createIntradyTable()
 
   TICKER_PREFIX="ticker="
+  FILE_PREFIX="file="
+  JSON_SUFFIX=".json"
+  CSV_SUFFIX=".csv"
+  DEFAULT_="DEFAULT"
   ticker_=""
+  filepath_=""
+  mode_=DEFAULT_
   args = sys.argv[1:]
   for a in args:
     if TICKER_PREFIX in a:
+      mode_=TICKER_PREFIX
       ticker_=a[len(TICKER_PREFIX):]
+    elif FILE_PREFIX in a:
+      mode_=FILE_PREFIX
+      filepath_=a.replace(FILE_PREFIX,"")
+      if JSON_SUFFIX in filepath_:
+        mode_=JSON_SUFFIX
+      elif CSV_SUFFIX in filepath_:
+        mode_=CSV_SUFFIX
+
+  if mode_==DEFAULT_:
+    mode_=JSON_SUFFIX
 
   data=""
-  if ticker_ != "": # valid ticker supplied; get data
+  if mode_==TICKER_PREFIX:
     print("getting data for ticker: "+ticker_)
     data_ = apigetter.get_TIME_SERIES_INTRADAY(ticker_)
     timestamp_ = datetime.now().isoformat()[:18]
@@ -82,9 +99,12 @@ if __name__ == "__main__":
     f.write(data_)
     f.close()
     print("saved data to "+output_filename_)
-  else:
-    data_file_path_ = "testdata/intraday_ibm_large.json"
-    print("getting data from "+data_file_path_+"...")
-    file = open (data_file_path_)
+  elif mode_==JSON_SUFFIX:
+    if filepath_ == "":
+      filepath_="testdata/intraday_ibm_large.json"
+    print("getting json data from "+filepath_+"...")
+    file = open (filepath_)
     data_ = file.read()
+  elif mode_==CSV_SUFFIX:
+    pass
   insert_TIME_SERIES_INTRADAY(data_)
