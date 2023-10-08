@@ -28,7 +28,7 @@ class algomanager:
     if loadData:
       self.algo_.loadData()
     self.dayRecorder_ = dayRecorder()
-    self.portfolio_ = portfolio()
+    self.portfolio_ = portfolio(5000)
 
   def getData(self, time_start="", time_end=""):
     # retrieve data from database to populate dataframe
