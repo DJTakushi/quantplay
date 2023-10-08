@@ -4,8 +4,8 @@ class portfolio:
   balance_ = 0.0
   shares_ = 0
   value_current_ = 0.0
-  def __init__(self):
-    pass
+  def __init__(self, balance):
+    self.balance_ = balance
 
   def getEquityValue(self):
     return self.shares_*self.value_current_
