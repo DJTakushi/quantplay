@@ -1,8 +1,9 @@
 from datetime import datetime
 import json
 import apigetter
+import csvconverter
 import databaseconnector
-import sys
+import csv, sys
 
 def createIntradyTable():
   mycursor = databaseconnector.mydb.cursor()
@@ -40,7 +41,6 @@ def insert_TIME_SERIES_INTRADAY(data):
     # remove preexisting records that match ticker & date
     date_ = datetime_[:10]
     if date_ not in deleted_dates_:
-      print("clearing "+date_+" entries for "+ticker_)
       cmd_ = "DELETE FROM " +databaseconnector.INTRADAY_TABLE_
       cmd_ += " WHERE ticker = \"" + ticker_ + "\" "
       cmd_ += "AND DATE(datetime) = \"" + date_ + "\";"
@@ -75,8 +75,8 @@ if __name__ == "__main__":
   args = sys.argv[1:]
   for a in args:
     if TICKER_PREFIX in a:
+      ticker_=a.replace(TICKER_PREFIX,"")
       mode_=TICKER_PREFIX
-      ticker_=a[len(TICKER_PREFIX):]
     elif FILE_PREFIX in a:
       mode_=FILE_PREFIX
       filepath_=a.replace(FILE_PREFIX,"")
@@ -106,5 +106,5 @@ if __name__ == "__main__":
     file = open (filepath_)
     data_ = file.read()
   elif mode_==CSV_SUFFIX:
-    pass
+    data_ = csvconverter.CsvConverter.toAlphaVantageJson(filepath_,"IBM")
   insert_TIME_SERIES_INTRADAY(data_)
