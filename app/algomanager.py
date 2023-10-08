@@ -74,7 +74,7 @@ class algomanager:
       if result_ != None:
         self.portfolio_.addTransaction(result_)
 
-      self.dayRecorder_.setCurrentClose=row['close']
+      self.dayRecorder_.setCurrentClose(row['close'])
       self.dayRecorder_.setCurrentPortfolio(self.portfolio_.getPortfolioValue())
     self.exec_time_["simulate"] = time.time()-simulate_time_
 
