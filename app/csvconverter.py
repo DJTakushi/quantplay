@@ -47,7 +47,7 @@ class CsvConverter:
           entry_["1. open"]=r_[1]
           entry_["2. high"]=r_[2]
           entry_["3. low"]=r_[3]
-          entry_["4. close"]=r_[4]
+          entry_["4. close"]=r_[6]
           entry_["5. volume"]=r_[5]
 
           ts_[datetime_]=entry_
