@@ -28,7 +28,7 @@ class algomanager:
     if loadData:
       self.algo_.loadData()
     self.dayRecorder_ = dayRecorder()
-    self.portfolio_ = portfolio(5000)
+    self.portfolio_ = portfolio(42.09)
 
   def getData(self, time_start="", time_end=""):
     # retrieve data from database to populate dataframe
@@ -113,4 +113,4 @@ if __name__ == "__main__":
 
   print(manager_.dayRecorder_.getDataFrame())
   print("data rows:"+str(len(manager_.algo_.df_.index)))
-  print("sharpe ratio:{:.{}f}".format(manager_.sharpe_, 3))
+  print("sharpe ratio:{:.{}f}".format(manager_.sharpe_, 6))
