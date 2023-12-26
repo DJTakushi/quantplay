@@ -13,3 +13,7 @@ void transaction::print(){
   std::cout << transaction_;
   std::cout <<" at " << std::setprecision(3)<<value_<<std::endl;
 }
+
+std::time_t transaction::get_time(){return time_;}
+double transaction::get_value(){return value_;}
+std::string transaction::get_transaction(){return transaction_;}
