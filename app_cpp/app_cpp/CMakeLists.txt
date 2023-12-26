@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.27.4)
 project(app_cpp VERSION 0.0.0)
 
 add_executable(${PROJECT_NAME}
+  main.cpp
   transaction.cpp
   transaction.h
 )
