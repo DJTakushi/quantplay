@@ -6,6 +6,8 @@ project(app_cpp VERSION 0.0.0)
 add_library(${PROJECT_NAME}
   transaction.cpp
   transaction.h
+  portfolio.h
+  portfolio.cpp
 )
 target_include_directories(${PROJECT_NAME}
   PRIVATE
@@ -34,6 +36,7 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 add_executable(${PROJECT_NAME}_tests
+  portfolio.test.cpp
   transaction.test.cpp
 )
 target_link_libraries(${PROJECT_NAME}_tests
