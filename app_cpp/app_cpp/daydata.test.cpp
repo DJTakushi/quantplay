@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 TEST(daydataTest,daydata_constructor) {
-  std::chrono::year_month_day ymd{std::chrono::July/1/2021};
+  ymd_date ymd{std::chrono::July/1/2021};
   daydata* dd = new daydata(ymd);
   EXPECT_EQ(std::chrono::year(2021),dd->get_date().year());
   EXPECT_EQ(std::chrono::month(7),dd->get_date().month());

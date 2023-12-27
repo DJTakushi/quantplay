@@ -1,7 +1,7 @@
 #include <chrono>
-
+typedef std::chrono::year_month_day ymd_date;
 class daydata{
-  std::chrono::year_month_day date_;
+  ymd_date date_;
   double open_ = 0;
   double high_ = 0;
   double low_ = 0;
@@ -9,9 +9,9 @@ class daydata{
   double portfolio_ = 0;
 
 public:
-  daydata(std::chrono::year_month_day date);
+  daydata(ymd_date date);
 
-  std::chrono::year_month_day get_date();
+  ymd_date get_date();
 
   void set_open(double open);
   double get_open();

@@ -1,8 +1,8 @@
 #include "daydata.h"
 
-daydata::daydata(std::chrono::year_month_day date) : date_(date){}
+daydata::daydata(ymd_date date) : date_(date){}
 
-std::chrono::year_month_day daydata::get_date(){return date_;}
+ymd_date daydata::get_date(){return date_;}
 
 void daydata::set_open(double open){open_=open;}
 double daydata::get_open(){return open_;}
