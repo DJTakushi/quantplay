@@ -40,10 +40,10 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 add_executable(${PROJECT_NAME}_tests
-  daydata.test.cpp
-  dayrecorder.test.cpp
-  portfolio.test.cpp
-  transaction.test.cpp
+  tests/daydata.test.cpp
+  tests/dayrecorder.test.cpp
+  tests/portfolio.test.cpp
+  tests/transaction.test.cpp
 )
 set_property(TARGET ${PROJECT_NAME}_tests PROPERTY CXX_STANDARD 20)
 
