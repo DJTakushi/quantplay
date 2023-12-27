@@ -4,6 +4,8 @@ project(app_cpp VERSION 0.0.0)
 
 # library creation
 add_library(${PROJECT_NAME}
+  daydata.h
+  daydata.cpp
   transaction.cpp
   transaction.h
   portfolio.h
@@ -36,9 +38,12 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 add_executable(${PROJECT_NAME}_tests
+  daydata.test.cpp
   portfolio.test.cpp
   transaction.test.cpp
 )
+set_property(TARGET ${PROJECT_NAME}_tests PROPERTY CXX_STANDARD 20)
+
 target_link_libraries(${PROJECT_NAME}_tests
   GTest::gtest_main
   ${PROJECT_NAME}
