@@ -6,6 +6,8 @@ project(app_cpp VERSION 0.0.0)
 add_library(${PROJECT_NAME}
   daydata.h
   daydata.cpp
+  dayrecorder.h
+  dayrecorder.cpp
   transaction.cpp
   transaction.h
   portfolio.h
@@ -39,6 +41,7 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 add_executable(${PROJECT_NAME}_tests
   daydata.test.cpp
+  dayrecorder.test.cpp
   portfolio.test.cpp
   transaction.test.cpp
 )
