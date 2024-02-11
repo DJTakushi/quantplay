@@ -12,6 +12,8 @@ add_library(${PROJECT_NAME}
   transaction.h
   portfolio.h
   portfolio.cpp
+  algo.h
+  algo.cpp
 )
 target_include_directories(${PROJECT_NAME}
   PRIVATE
