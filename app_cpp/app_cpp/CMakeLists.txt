@@ -7,13 +7,14 @@ add_library(${PROJECT_NAME}
   recorder/daydata.cpp
   recorder/dayrecorder.cpp
   common/transaction.cpp
-  portfolio.cpp
+  portfolio/portfolio.cpp
   algo.cpp
 )
 target_include_directories(${PROJECT_NAME}
   PRIVATE
   "${PROJECT_SOURCE_DIR}"
   "${PROJECT_SOURCE_DIR}/common"
+  "${PROJECT_SOURCE_DIR}/portfolio"
   "${PROJECT_SOURCE_DIR}/recorder"
 )
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
@@ -26,6 +27,7 @@ target_include_directories(main
   PRIVATE
   "${PROJECT_SOURCE_DIR}"
   "${PROJECT_SOURCE_DIR}/common"
+  "${PROJECT_SOURCE_DIR}/portfolio"
   "${PROJECT_SOURCE_DIR}/recorder"
 )
 target_link_libraries(main
@@ -56,6 +58,7 @@ target_include_directories(tests
   PRIVATE
   "${PROJECT_SOURCE_DIR}"
   "${PROJECT_SOURCE_DIR}/common"
+  "${PROJECT_SOURCE_DIR}/portfolio"
   "${PROJECT_SOURCE_DIR}/recorder"
   )
 target_link_libraries(tests
