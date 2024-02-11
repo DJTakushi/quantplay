@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 class dayrecorder{
+  /** logs daily metrics for display later **/
 protected:
   std::shared_ptr<std::vector<std::shared_ptr<daydata>>> days_;
 public:
