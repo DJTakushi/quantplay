@@ -39,18 +39,21 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
-add_executable(${PROJECT_NAME}_tests
+add_executable(tests
   tests/daydata.test.cpp
   tests/dayrecorder.test.cpp
   tests/portfolio.test.cpp
   tests/transaction.test.cpp
 )
-set_property(TARGET ${PROJECT_NAME}_tests PROPERTY CXX_STANDARD 20)
-
-target_link_libraries(${PROJECT_NAME}_tests
+set_property(TARGET tests PROPERTY CXX_STANDARD 20)
+target_include_directories(tests
+  PRIVATE
+  "${PROJECT_SOURCE_DIR}"
+)
+target_link_libraries(tests
   GTest::gtest_main
   ${PROJECT_NAME}
 )
 
 include(GoogleTest)
-gtest_discover_tests(${PROJECT_NAME}_tests)
+gtest_discover_tests(tests)
