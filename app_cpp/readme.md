@@ -3,12 +3,12 @@
 
 ## convert
 - [ ] algo.py
-  - [ ] algo
-    - [ ] AlgoData struct ("snapshot")
+  - [x] algo
+    - [x] AlgoData struct ("snapshot")
       - algo will handle its own internal data
-    - [ ] addData
-    - [ ] loadData [TODO]
-    - [ ] process (verdict)
+    - [x] addData
+    - [x] loadData [no, manager will load data.  algo has 1 responsibility]
+    - [x] process (verdict)
 - [ ] algomanager.py
   - [ ] init
   - [ ] getData
