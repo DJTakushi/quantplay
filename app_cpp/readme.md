@@ -29,3 +29,10 @@
 - real control
 
 ## doxygen demo
+
+## restructure
+- common (orders, daydata)
+- algoX
+- algoManager
+  - algoManager
+  - portfolio
