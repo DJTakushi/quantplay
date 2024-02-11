@@ -8,11 +8,12 @@ add_library(${PROJECT_NAME}
   recorder/dayrecorder.cpp
   common/transaction.cpp
   portfolio/portfolio.cpp
-  algo.cpp
+  algo/algo1/algo.cpp
 )
 target_include_directories(${PROJECT_NAME}
   PRIVATE
   "${PROJECT_SOURCE_DIR}"
+  "${PROJECT_SOURCE_DIR}/algo/algo1"
   "${PROJECT_SOURCE_DIR}/common"
   "${PROJECT_SOURCE_DIR}/portfolio"
   "${PROJECT_SOURCE_DIR}/recorder"
@@ -26,6 +27,7 @@ add_executable(main
 target_include_directories(main
   PRIVATE
   "${PROJECT_SOURCE_DIR}"
+  "${PROJECT_SOURCE_DIR}/algo/algo1"
   "${PROJECT_SOURCE_DIR}/common"
   "${PROJECT_SOURCE_DIR}/portfolio"
   "${PROJECT_SOURCE_DIR}/recorder"
@@ -57,6 +59,7 @@ set_property(TARGET tests PROPERTY CXX_STANDARD 20)
 target_include_directories(tests
   PRIVATE
   "${PROJECT_SOURCE_DIR}"
+  "${PROJECT_SOURCE_DIR}/algo/algo1"
   "${PROJECT_SOURCE_DIR}/common"
   "${PROJECT_SOURCE_DIR}/portfolio"
   "${PROJECT_SOURCE_DIR}/recorder"
