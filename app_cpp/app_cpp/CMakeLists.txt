@@ -4,20 +4,16 @@ project(app_cpp VERSION 0.0.0)
 
 # library creation
 add_library(${PROJECT_NAME}
-  daydata.h
-  daydata.cpp
-  dayrecorder.h
-  dayrecorder.cpp
+  recorder/daydata.cpp
+  recorder/dayrecorder.cpp
   transaction.cpp
-  transaction.h
-  portfolio.h
   portfolio.cpp
-  algo.h
   algo.cpp
 )
 target_include_directories(${PROJECT_NAME}
   PRIVATE
   "${PROJECT_SOURCE_DIR}"
+  "${PROJECT_SOURCE_DIR}/recorder"
 )
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 
@@ -52,7 +48,8 @@ set_property(TARGET tests PROPERTY CXX_STANDARD 20)
 target_include_directories(tests
   PRIVATE
   "${PROJECT_SOURCE_DIR}"
-)
+  "${PROJECT_SOURCE_DIR}/recorder"
+  )
 target_link_libraries(tests
   GTest::gtest_main
   ${PROJECT_NAME}
