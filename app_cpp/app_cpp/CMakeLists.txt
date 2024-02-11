@@ -46,6 +46,7 @@ add_executable(tests
   tests/dayrecorder.test.cpp
   tests/portfolio.test.cpp
   tests/transaction.test.cpp
+  tests/algo.test.cpp
 )
 set_property(TARGET tests PROPERTY CXX_STANDARD 20)
 target_include_directories(tests
