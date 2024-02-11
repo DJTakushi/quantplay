@@ -1,5 +1,7 @@
 
 # todo
+- [ ] algocontroller
+  - [ ] dataretriever
 
 ## convert
 - [ ] algo.py
