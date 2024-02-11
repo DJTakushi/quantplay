@@ -3,16 +3,16 @@
 
 class algoTest : public ::testing::Test, public algo{};
 TEST_F(algoTest,no_data){
-  order* output = process();
+  transaction* output = process();
   EXPECT_EQ(nullptr,output);
 }
 
 TEST_F(algoTest,buy_once_nothing_afterwards){
   addData(0.0,0,0.0);
-  order* output = process();
+  transaction* output = process();
   EXPECT_NE(nullptr,output);
-  EXPECT_EQ(buy,output->cmd_);
-  EXPECT_EQ(0.0,output->val_);
+  EXPECT_EQ(kBuy,output->get_type());
+  EXPECT_EQ(0.0,output->get_value());
 
   // get second order; should be null
   output = process();

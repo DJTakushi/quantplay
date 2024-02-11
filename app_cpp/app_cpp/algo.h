@@ -1,5 +1,5 @@
 #include <list>
-#include "order.h"
+#include "transaction.h"
 class algo{
   struct algo_data{
     /** data for algo **/
@@ -14,5 +14,5 @@ class algo{
 
   public:
   void addData(double open, double close, int volume);
-  order* process();
+  transaction* process();
 };

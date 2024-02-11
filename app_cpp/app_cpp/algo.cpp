@@ -6,15 +6,15 @@ void algo::addData(double open, double close, int volume){
   data_.push_back(tmp);
 }
 
-order* algo::process(){
+transaction* algo::process(){
   /** buy and hold; buy at first available instance and do nothing after**/
   static bool bought = false;
-  order* output = NULL;
+  transaction* output = NULL;
 
   if(!bought){
     if(data_.size() > 0){
       /** create order! **/
-      output = new order(buy,data_.back().close_);
+      output = new transaction(std::time(nullptr),data_.back().close_, kBuy);
       bought = true;
     }
   }

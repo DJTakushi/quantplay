@@ -45,7 +45,7 @@
 ## doxygen demo
 
 ## restructure
-- common (orders, daydata)
+- common (transactions, daydata)
 - algoX
 - algoManager
   - algoManager
