@@ -8,7 +8,7 @@ add_library(${PROJECT_NAME}
   recorder/dayrecorder.cpp
   common/transaction.cpp
   portfolio/portfolio.cpp
-  algo/algo1/algo.cpp
+  algo/algo1/algo1.cpp
 )
 target_include_directories(${PROJECT_NAME}
   PRIVATE
@@ -55,7 +55,7 @@ add_executable(tests
   tests/dayrecorder.test.cpp
   tests/portfolio.test.cpp
   tests/transaction.test.cpp
-  tests/algo.test.cpp
+  tests/algo1.test.cpp
 )
 set_property(TARGET tests PROPERTY CXX_STANDARD 20)
 target_include_directories(tests

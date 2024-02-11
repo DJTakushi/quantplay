@@ -1,4 +1,4 @@
-#include "algo.h"
+#include "algo1.h"
 
 void algo1::addData(double open, double close, int volume){
   /** data will be added in chronological order */

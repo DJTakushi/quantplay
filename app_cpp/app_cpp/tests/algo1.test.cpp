@@ -1,4 +1,4 @@
-#include "algo.h"
+#include "algo1.h"
 #include <gtest/gtest.h>
 
 class algo1Test : public ::testing::Test, public algo1{};
