@@ -45,8 +45,8 @@
 ## doxygen demo
 
 ## restructure
-- common (transactions, daydata)
-- algoX
+- [x] common (transactions, daydata)
+- [x] algoX
 - algoManager
   - algoManager
   - portfolio
