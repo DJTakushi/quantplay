@@ -1,6 +1,6 @@
 #include <ctime>
 #include <string>
-enum class transactionType{
+enum transactionType{
   kBuy = 0,
   kSell,
 };
