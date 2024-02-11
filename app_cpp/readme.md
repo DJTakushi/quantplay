@@ -22,3 +22,10 @@
 - [x] dayrecorder.py
 - [x] portfolio.py
 - [x] transaction.py
+
+## docekrize
+- set up database
+- populate database
+- real control
+
+## doxygen demo
