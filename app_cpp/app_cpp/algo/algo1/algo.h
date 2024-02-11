@@ -1,6 +1,7 @@
 #include <list>
 #include "transaction.h"
-class algo{
+#include "algo_i.h"
+class algo : public algo_i{
   struct algo_data{
     /** data for algo **/
     double open_= 0.0;

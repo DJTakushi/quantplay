@@ -13,6 +13,7 @@ add_library(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
   PRIVATE
   "${PROJECT_SOURCE_DIR}"
+  "${PROJECT_SOURCE_DIR}/algo"
   "${PROJECT_SOURCE_DIR}/algo/algo1"
   "${PROJECT_SOURCE_DIR}/common"
   "${PROJECT_SOURCE_DIR}/portfolio"
@@ -27,6 +28,7 @@ add_executable(main
 target_include_directories(main
   PRIVATE
   "${PROJECT_SOURCE_DIR}"
+  "${PROJECT_SOURCE_DIR}/algo"
   "${PROJECT_SOURCE_DIR}/algo/algo1"
   "${PROJECT_SOURCE_DIR}/common"
   "${PROJECT_SOURCE_DIR}/portfolio"
@@ -59,6 +61,7 @@ set_property(TARGET tests PROPERTY CXX_STANDARD 20)
 target_include_directories(tests
   PRIVATE
   "${PROJECT_SOURCE_DIR}"
+  "${PROJECT_SOURCE_DIR}/algo"
   "${PROJECT_SOURCE_DIR}/algo/algo1"
   "${PROJECT_SOURCE_DIR}/common"
   "${PROJECT_SOURCE_DIR}/portfolio"
