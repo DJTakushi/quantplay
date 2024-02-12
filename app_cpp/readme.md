@@ -35,9 +35,9 @@
     - list<*algoData> get_data() (gets data from database)
       - algoData is a derived struct unique to each algo
       - list<*algoData> get_dataSingle() (gets ONE data from database)
-   - (+) updateData() gets list from dataRetriever and updates data in algo
-    - (+) updateDataSingle() gets ONE from dataRetriever
-  - (+) getTransaction()
+   - [x] (+) updateData() gets list from dataRetriever and updates data in algo
+    - [x] (+) updateDataSingle() gets ONE from dataRetriever
+  - [x] (+) getTransaction()
 
 ## docekrize
 - set up database
