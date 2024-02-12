@@ -9,6 +9,7 @@ add_library(${PROJECT_NAME}
   common/transaction.cpp
   portfolio/portfolio.cpp
   algo/algo1/algo1.cpp
+  algo/algo1/algo1_data_retriever.cpp
 )
 target_include_directories(${PROJECT_NAME}
   PRIVATE
