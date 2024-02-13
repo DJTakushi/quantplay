@@ -5,6 +5,9 @@
             "includePath": [
                 "${workspaceFolder}/**"
                 "${workspaceFolder}/app_cpp/app_cpp/common"
+                "${workspaceFolder}/app_cpp/app_cpp/portfolio"
+                "${workspaceFolder}/app_cpp/app_cpp/recorder"
+                "${workspaceFolder}/app_cpp/app_cpp/algo/algo1"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
