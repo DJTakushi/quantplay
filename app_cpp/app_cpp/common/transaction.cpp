@@ -26,3 +26,5 @@ void transaction::print(){
 std::time_t transaction::get_time(){return time_;}
 double transaction::get_value(){return value_;}
 transactionType transaction::get_type(){return type_;}
+transactionStatus transaction::get_status(){return status_;};
+void transaction::set_status(transactionStatus s){status_=s;};
