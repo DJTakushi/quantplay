@@ -10,7 +10,9 @@ add_library(${PROJECT_NAME}
   portfolio/portfolio.cpp
   algo/algo1/algo1.cpp
   algo/algo1/algo1_data_retriever.cpp
-)
+  algo/algo1/algo1_controller.cpp
+  algo_manager.cpp
+  )
 target_include_directories(${PROJECT_NAME}
   PRIVATE
   "${PROJECT_SOURCE_DIR}"
