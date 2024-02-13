@@ -4,6 +4,7 @@ project(app_cpp VERSION 0.0.0)
 
 # library creation
 add_library(${PROJECT_NAME}
+  trader/trader.cpp
   recorder/daydata.cpp
   recorder/dayrecorder.cpp
   common/transaction.cpp
@@ -21,6 +22,7 @@ target_include_directories(${PROJECT_NAME}
   "${PROJECT_SOURCE_DIR}/common"
   "${PROJECT_SOURCE_DIR}/portfolio"
   "${PROJECT_SOURCE_DIR}/recorder"
+  "${PROJECT_SOURCE_DIR}/trader"
 )
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 
@@ -36,6 +38,7 @@ target_include_directories(main
   "${PROJECT_SOURCE_DIR}/common"
   "${PROJECT_SOURCE_DIR}/portfolio"
   "${PROJECT_SOURCE_DIR}/recorder"
+  "${PROJECT_SOURCE_DIR}/trader"
 )
 target_link_libraries(main
   ${PROJECT_NAME}
@@ -69,7 +72,8 @@ target_include_directories(tests
   "${PROJECT_SOURCE_DIR}/common"
   "${PROJECT_SOURCE_DIR}/portfolio"
   "${PROJECT_SOURCE_DIR}/recorder"
-  )
+  "${PROJECT_SOURCE_DIR}/trader"
+)
 target_link_libraries(tests
   GTest::gtest_main
   ${PROJECT_NAME}
