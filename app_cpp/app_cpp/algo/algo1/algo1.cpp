@@ -1,9 +1,8 @@
 #include "algo1.h"
 
-void algo1::addData(double open, double close, int volume){
+void algo1::addData(std::list<algo1_data> data_list){
   /** data will be added in chronological order */
-  algo_data tmp(open,close,volume);
-  data_.push_back(tmp);
+  for(auto data : data_list) data_.push_back(data);
 }
 
 transaction* algo1::process(){

@@ -8,7 +8,8 @@ TEST_F(algo1Test,no_data){
 }
 
 TEST_F(algo1Test,buy_once_nothing_afterwards){
-  addData(0.0,0,0.0);
+  std::list<algo1_data> data;
+  addData(data);
   transaction* output = process();
   EXPECT_NE(nullptr,output);
   EXPECT_EQ(kBuy,output->get_type());
