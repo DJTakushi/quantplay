@@ -5,7 +5,7 @@
 class dayrecorder{
   /** logs daily metrics for display later **/
 protected:
-  std::shared_ptr<std::vector<std::shared_ptr<daydata>>> days_;
+  std::vector<daydata*> days_;
 public:
   dayrecorder();
   ymd_date get_current_date();
