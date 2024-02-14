@@ -12,7 +12,7 @@ add_library(${PROJECT_NAME}
   algo/algo1/algo1.cpp
   algo/algo1/algo1_data_retriever.cpp
   algo/algo1/algo1_controller.cpp
-  algo_manager.cpp
+  algo_manager/algo_manager.cpp
   )
 target_include_directories(${PROJECT_NAME}
   PRIVATE
@@ -23,7 +23,10 @@ target_include_directories(${PROJECT_NAME}
   "${PROJECT_SOURCE_DIR}/portfolio"
   "${PROJECT_SOURCE_DIR}/recorder"
   "${PROJECT_SOURCE_DIR}/trader"
+  "/usr/local/mysql/connector-c++-8.0.33/include/"
 )
+find_library(sqlcppconn libmysqlcppconn8.so REQUIRED)
+target_link_libraries(${PROJECT_NAME} PUBLIC ${sqlcppconn})
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 
 # main executable
