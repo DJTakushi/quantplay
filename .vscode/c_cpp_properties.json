@@ -3,12 +3,13 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
-                "${workspaceFolder}/app_cpp/app_cpp/common"
-                "${workspaceFolder}/app_cpp/app_cpp/portfolio"
-                "${workspaceFolder}/app_cpp/app_cpp/recorder"
-                "${workspaceFolder}/app_cpp/app_cpp/algo/algo1"
-            ],
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/app_cpp/app_cpp/common",
+                "${workspaceFolder}/app_cpp/app_cpp/portfolio",
+                "${workspaceFolder}/app_cpp/app_cpp/recorder",
+                "${workspaceFolder}/app_cpp/app_cpp/algo/algo1",
+                "/usr/local/mysql/connector-c++-8.0.33/include/"
+              ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "c17",

@@ -2,6 +2,8 @@
 #include "trader.h"
 #include "portfolio.h"
 #include "dayrecorder.h"
+#include <mysqlx/xdevapi.h>
+
 class algo_manager{
   algo1_controller* algo1_controller_;
   trader* trader_;
