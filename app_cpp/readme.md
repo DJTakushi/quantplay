@@ -86,4 +86,17 @@ cd mysql-connector-cpp/
 git checkout 8.0
 mkdir build && cd build
 cmake .. && sudo make install
+sudo ldconfig
 ```
+```
+g++ -std=c++17 -I/home/danny/Downloads/mysql-connector-c++-8.3.0-linux-glibc2.28-x86-64bit/include/ -L/usr/local/mysql/connector-c++-8.0.33/lib64/debug/ ../app_cpp/main.cpp -lmysqlcppconn8 -o app
+```
+- https://dev.mysql.com/doc/connector-cpp/1.1/en/connector-cpp-examples-connecting.html
+- connection problems 
+  - 8.0 fails to detect connection
+    ```
+    terminate called after throwing an instance of 'mysqlx::abi2::r0::Error'
+    what():  CDK Error: unexpected message
+    Aborted (core dumped)
+    ```
+  - 5.x complains my sqlx connection is out of order 
