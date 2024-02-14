@@ -57,11 +57,11 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 add_executable(tests
-  tests/daydata.test.cpp
-  tests/dayrecorder.test.cpp
-  tests/portfolio.test.cpp
-  tests/transaction.test.cpp
-  tests/algo1.test.cpp
+  recorder/tests/daydata.test.cpp
+  recorder/tests/dayrecorder.test.cpp
+  portfolio/tests/portfolio.test.cpp
+  common/tests/transaction.test.cpp
+  algo/algo1/tests/algo1.test.cpp
 )
 set_property(TARGET tests PROPERTY CXX_STANDARD 20)
 target_include_directories(tests
