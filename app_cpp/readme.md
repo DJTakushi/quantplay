@@ -1,9 +1,17 @@
 # todo
 - [x] algocontroller
-  - [ ] dataretriever
-
+- [ ] dataretriever
+  - [ ] create data table (with override option)
+  - [ ] get_data() from table
+    - [ ] override option to get data from test table
+  - [ ] unittest loads data into table
+- [ ] api fetcher
+  - take in struct
+    - target table
+    - mysql query(?)
+  - [ ] override in unittests to populate from csv
 ## convert
-- [ ] algo.py
+- [x] algo.py
   - [x] algo
     - [x] AlgoData struct ("snapshot")
       - algo will handle its own internal data
