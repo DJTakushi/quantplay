@@ -1,4 +1,5 @@
 app/envsetup.sh
+thirdparty/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
