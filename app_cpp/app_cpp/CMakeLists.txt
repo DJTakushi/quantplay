@@ -24,10 +24,9 @@ target_include_directories(${PROJECT_NAME}
   "${PROJECT_SOURCE_DIR}/portfolio"
   "${PROJECT_SOURCE_DIR}/recorder"
   "${PROJECT_SOURCE_DIR}/trader"
-  "/usr/local/mysql/connector-c++-8.0.33/include/"
 )
-find_library(sqlcppconn mysqlcppconn8 REQUIRED)
-target_link_libraries(${PROJECT_NAME} PUBLIC ${sqlcppconn})
+find_library(mariadb mariadbcpp REQUIRED)
+target_link_libraries(${PROJECT_NAME} PUBLIC ${mariadb})
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 
 # main executable
@@ -44,7 +43,6 @@ target_include_directories(main
   "${PROJECT_SOURCE_DIR}/portfolio"
   "${PROJECT_SOURCE_DIR}/recorder"
   "${PROJECT_SOURCE_DIR}/trader"
-  "/usr/local/mysql/connector-c++-8.0.33/include/"
 )
 target_link_libraries(main
   ${PROJECT_NAME}

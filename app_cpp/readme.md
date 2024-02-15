@@ -99,4 +99,37 @@ g++ -std=c++17 -I/home/danny/Downloads/mysql-connector-c++-8.3.0-linux-glibc2.28
     what():  CDK Error: unexpected message
     Aborted (core dumped)
     ```
-  - 5.x complains my sqlx connection is out of order 
+  - 5.x complains my sqlx connection is out of order
+
+## mariadb notes
+My attempts to connect to a mysql container using the mysql-connector-cpp were unsuccessful, so I switched to mariadb.  The documentation seems clearer (mysql's docker image documentation is regrettably unclear to me), and I appreciate the ethos of the MariaDB fork.
+
+### container
+- https://hub.docker.com/_/mariadb
+### mardiaDB Connector/C++
+- https://mariadb.com/docs/server/connect/programming-languages/cpp/install/
+- download C++ connector for Ubuntu (I used version for 23.04 AMD64)
+- installation instructions (I believe):
+```
+sudo apt install libmariadb3 libmariadb-dev
+cd ~/Downloads
+
+tar -xvzf mariadb-connector-cpp-*.tar.gz
+
+cd mariadb-connector-cpp-*/
+
+sudo install -d /usr/include/mariadb/conncpp
+sudo install -d /usr/include/mariadb/conncpp/compat
+
+sudo install include/mariadb/* /usr/include/mariadb/
+sudo install include/mariadb/conncpp/* /usr/include/mariadb/conncpp
+sudo install include/mariadb/conncpp/compat/* /usr/include/mariadb/conncpp/compat
+
+sudo install -d /usr/lib/mariadb
+sudo install -d /usr/lib/mariadb/plugin
+
+sudo install lib/mariadb/libmariadbcpp.so /usr/lib
+sudo install lib/mariadb/plugin/* /usr/lib/mariadb/plugin
+```
+#### useful links
+- https://mariadb.com/docs/server/connect/programming-languages/cpp/connect/

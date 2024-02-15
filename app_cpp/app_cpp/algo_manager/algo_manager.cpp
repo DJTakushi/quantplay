@@ -1,11 +1,16 @@
 #include "algo_manager.h"
-
-algo_manager::algo_manager(){
+#include <iostream>
+algo_manager::algo_manager(sql::Connection* connection) :
+    sql_connection_(connection){
   algo1_controller_ = new algo1_controller();
   trader_ = new trader();
   portfolio_ = new portfolio(10000.0);
   recorder_ = new dayrecorder();
-  session_ = new mysqlx::Session("mysqlx://root@127.0.0.1");
+
+  if (!sql_connection_) {
+    std::cerr << "Invalid database connection" << std::endl;
+    exit (EXIT_FAILURE);
+  }
 };
 void algo_manager::process(){
   /** 1. data udpated */
