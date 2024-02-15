@@ -16,5 +16,6 @@ int main(int argc, char** argv){
 
   algo_manager* manager_ = new algo_manager(sql_connection_);
 
+  sql_connection_->close();
   std::cout << "done." <<std::endl;
 }
