@@ -141,3 +141,9 @@ sudo install lib/mariadb/plugin/* /usr/lib/mariadb/plugin
 ```
 #### useful links
 - https://mariadb.com/docs/server/connect/programming-languages/cpp/connect/
+
+## nlohmann json installation
+```
+git clone git@github.com:nlohmann/json.git
+sudo cp -r json/include/nlohmann /usr/local/include/
+```

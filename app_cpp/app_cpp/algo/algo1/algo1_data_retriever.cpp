@@ -1,5 +1,6 @@
 #include "algo1_data_retriever.h"
 #include <iostream>
+#include <nlohmann/json.hpp>
 algo1_data_retriever::algo1_data_retriever(sql::Connection* connection)
     : connection_(connection){
   create_database();
