@@ -15,6 +15,7 @@ int main(int argc, char** argv){
   sql::Connection* sql_connection_ = driver->connect(url, properties);
 
   algo_manager* manager_ = new algo_manager(sql_connection_);
+  manager_->process();
 
   sql_connection_->close();
   std::cout << "done." <<std::endl;
