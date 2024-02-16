@@ -26,7 +26,7 @@ void algo_manager::process(){
   t = trader_->process_transaction(t);
 
   /** 5. transction logged in portfolio (if complete )*/
-  if(t->get_status() == kComplete)
+  if(t != NULL && t->get_status() == kComplete)
     portfolio_->addTransaction(*t);
 
   /** 6. portfolio value recorded */
