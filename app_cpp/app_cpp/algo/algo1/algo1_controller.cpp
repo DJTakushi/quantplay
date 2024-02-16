@@ -1,8 +1,8 @@
 #include "algo1_controller.h"
 
-algo1_controller::algo1_controller(){
+algo1_controller::algo1_controller(sql::Connection* connection){
   algo = new algo1();
-  retriever = new algo1_data_retriever();
+  retriever = new algo1_data_retriever(connection);
 }
 
 void algo1_controller::update_data(){
