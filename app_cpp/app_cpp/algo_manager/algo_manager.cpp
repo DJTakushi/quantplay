@@ -13,20 +13,23 @@ algo_manager::algo_manager(sql::Connection* connection) :
   }
 };
 void algo_manager::process(){
-  /** 1. data udpated */
+  /** 1. update database **/
+  algo1_controller_->update_database();
+
+  /** 2. data udpated */
   algo1_controller_->update_data();
 
-  /** 2. transaction generation from algo */
+  /** 3. transaction generation from algo */
   transaction* t = algo1_controller_->get_transaction();
 
-  /** 3.  transaction processed by trader */
+  /** 4.  transaction processed by trader */
   t = trader_->process_transaction(t);
 
-  /** 4. transction logged in portfolio (if complete )*/
+  /** 5. transction logged in portfolio (if complete )*/
   if(t->get_status() == kComplete)
     portfolio_->addTransaction(*t);
 
-  /** 5. portfolio value recorded */
+  /** 6. portfolio value recorded */
   double val = portfolio_->get_portfolio_value();
   recorder_->set_current_portfolio_value(val);
 };
