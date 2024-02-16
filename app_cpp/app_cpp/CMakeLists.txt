@@ -85,3 +85,4 @@ target_link_libraries(tests
 
 include(GoogleTest)
 gtest_discover_tests(tests)
+configure_file(../../app/testdata/intraday_ibm.json app_cpp COPYONLY)
