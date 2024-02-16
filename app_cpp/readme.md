@@ -2,7 +2,7 @@
 - [x] algocontroller
 - [ ] dataretriever
   - [ ] create data table (with override option)
-  - [ ] get_data() from table
+  - [x] get_data() from table
     - [ ] override option to get data from test table
   - [ ] unittest loads data into table
 - [ ] api fetcher
