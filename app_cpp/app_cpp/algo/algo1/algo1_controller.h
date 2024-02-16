@@ -7,6 +7,7 @@ class algo1_controller : public algo_controller_i{
   algo1* algo;
 public:
   algo1_controller(sql::Connection* connection);
+  void update_database();
   void update_data();
   void update_data_single();
   transaction* get_transaction();

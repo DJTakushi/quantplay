@@ -5,6 +5,10 @@ algo1_controller::algo1_controller(sql::Connection* connection){
   retriever = new algo1_data_retriever(connection);
 }
 
+void algo1_controller::update_database(){
+  retriever->update_database();
+}
+
 void algo1_controller::update_data(){
   algo->addData(retriever->get_data());
 }
