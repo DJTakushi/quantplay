@@ -1,5 +1,6 @@
 #include "algo1_data_retriever.h"
 #include <iostream>
+#include <fstream>
 #include <nlohmann/json.hpp>
 algo1_data_retriever::algo1_data_retriever(sql::Connection* connection)
     : connection_(connection){
@@ -20,7 +21,7 @@ void algo1_data_retriever::create_database(){
     stmnt->executeUpdate(cmd);
   }
   catch (sql::SQLException& e) {
-    std::cerr << "Error altering table: " << e.what() << std::endl;
+    std::cerr << "Error creating table: " << e.what() << std::endl;
   }
 }
 
@@ -30,4 +31,24 @@ std::list<algo1_data> algo1_data_retriever::get_data(){
   return output;
 }
 void algo1_data_retriever::update_database(){
+  std::ifstream f("app_cpp/intraday_ibm.json");
+  nlohmann::json data = nlohmann::json::parse(f);
+  data = data["Time Series (5min)"];
+  sql::Statement* stmnt =connection_->createStatement();
+  for(auto i : data.items()){
+    std::string cmd = "INSERT INTO algo1 (";
+    cmd+="datetime, open, high, low, close, volume) VALUES (";
+    cmd+="\""+i.key()+"\",";
+    cmd+=std::string(i.value()["1. open"]) +",";
+    cmd+=std::string(i.value()["2. high"]) +",";
+    cmd+=std::string(i.value()["3. low"]) +",";
+    cmd+=std::string(i.value()["4. close"]) +",";
+    cmd+=std::string(i.value()["5. volume"]) +")";
+
+    try{ stmnt->executeUpdate(cmd); }
+    catch (sql::SQLException& e) {
+      std::cerr << "Error altering table: " << e.what() << std::endl;
+    }
+  }
+  delete stmnt;
 }
