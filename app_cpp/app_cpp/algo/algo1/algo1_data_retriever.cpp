@@ -54,17 +54,14 @@ std::list<algo1_data> algo1_data_retriever::get_data(){
   sql::Statement* stmnt =connection_->createStatement();
   try{
     std::unique_ptr<sql::ResultSet> res(stmnt->executeQuery(cmd));
-    // Loop over Result-set
     while (res->next()){
-      // Retrieve Values and Print Contacts
-      std::cout << "- "
-        << res->getString("datetime")
-        << " "
-        << res->getString("open")
-        << " <"
-        << res->getString("high")
-        << ">"
-        << std::endl;
+      std::tm tm{};
+      strptime(res->getString("datetime"), "%Y-%m-%d %H:%M:%S", &tm);
+      double open = res->getDouble("open");
+      double close = res->getDouble("close");
+      int volume = res->getInt("volume");
+      algo1_data tmp(mktime(&tm),open,close,volume);
+      output.push_back(algo1_data(mktime(&tm),open,close,volume));
     }
   }
   catch (sql::SQLException& e) {
