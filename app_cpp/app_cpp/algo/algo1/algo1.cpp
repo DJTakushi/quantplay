@@ -13,7 +13,8 @@ transaction* algo1::process(){
   if(!bought){
     if(data_.size() > 0){
       /** create order! **/
-      output = new transaction(std::time(nullptr),data_.back().close_, kBuy);
+      std::time_t tm = data_.back().time_;
+      output = new transaction(tm,data_.back().close_, kBuy);
       bought = true;
     }
   }
