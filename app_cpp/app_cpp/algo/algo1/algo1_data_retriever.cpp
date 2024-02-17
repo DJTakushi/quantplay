@@ -56,11 +56,13 @@ std::list<algo1_data> algo1_data_retriever::get_data(){
   try{
     std::unique_ptr<sql::ResultSet> res(stmnt->executeQuery(cmd));
     while (res->next()){
-      std::tm tm{};
-      strptime(res->getString("datetime"), "%Y-%m-%d %H:%M:%S", &tm);
       double open = res->getDouble("open");
       double close = res->getDouble("close");
       int volume = res->getInt("volume");
+
+      std::tm tm{};
+      tm.tm_isdst =1;
+      strptime(res->getString("datetime"), "%Y-%m-%d %H:%M:%S", &tm);
       algo1_data tmp(mktime(&tm),open,close,volume);
 
       std::cout << res->getString("datetime");
