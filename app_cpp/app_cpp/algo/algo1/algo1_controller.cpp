@@ -20,7 +20,7 @@ void algo1_controller::update_data_single(){
 }
 
 transaction* algo1_controller::get_transaction(){
-  transaction* out = NULL;
+  transaction* out = algo->process();
 
   return out; 
 }
