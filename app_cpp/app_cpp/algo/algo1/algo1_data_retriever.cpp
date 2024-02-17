@@ -29,7 +29,7 @@ void algo1_data_retriever::drop_datatable(){
 void algo1_data_retriever::create_datatable(){
   sql::Statement* stmnt =connection_->createStatement();
   std::string cmd = "CREATE TABLE IF NOT EXISTS algo1 (";
-  cmd+="datetime DATETIME, ";
+  cmd+="timestamp TIMESTAMP, ";
   cmd+="open float(2), ";
   cmd+="high float(2), ";
   cmd+="low float(2), ";
@@ -46,12 +46,12 @@ void algo1_data_retriever::create_datatable(){
 
 std::list<algo1_data> algo1_data_retriever::get_data(){
   std::list<algo1_data> output;
-  std::string cmd = "SELECT datetime, open, high, low, close, volume ";
+  std::string cmd = "SELECT timestamp, open, high, low, close, volume ";
   std::stringstream ss;
   ss << std::put_time(std::gmtime(&latest_datapoint_),"%Y-%M-%d %H:%M:%S");
   std::string tim = ss.str();
-  cmd+="FROM algo1 WHERE datetime > \""+tim+"\" ";
-  cmd+= "ORDER BY datetime;";
+  cmd+="FROM algo1 WHERE timestamp > \""+tim+"\" ";
+  cmd+= "ORDER BY timestamp;";
   sql::Statement* stmnt =connection_->createStatement();
   try{
     std::unique_ptr<sql::ResultSet> res(stmnt->executeQuery(cmd));
@@ -62,10 +62,10 @@ std::list<algo1_data> algo1_data_retriever::get_data(){
 
       std::tm tm{};
       tm.tm_isdst =1;
-      strptime(res->getString("datetime"), "%Y-%m-%d %H:%M:%S", &tm);
+      strptime(res->getString("timestamp"), "%Y-%m-%d %H:%M:%S", &tm);
       algo1_data tmp(mktime(&tm),open,close,volume);
 
-      std::cout << res->getString("datetime");
+      std::cout << res->getString("timestamp");
       std::cout << " : hour="<<tm.tm_hour;
       std::cout << " : " << std::put_time(&tm, "%c %Z")<<std::endl;
 
@@ -85,8 +85,8 @@ void algo1_data_retriever::update_database(){
   sql::Statement* stmnt =connection_->createStatement();
   for(auto i : data.items()){
     std::string cmd = "INSERT INTO algo1 (";
-    cmd+="datetime, open, high, low, close, volume) VALUES (";
-    cmd+="\""+i.key()+"\",";
+    cmd+="timestamp, open, high, low, close, volume) VALUES (";
+    cmd+="CONVERT_TZ(\""+i.key()+"\",'America/New_York','UTC'),";
     cmd+=std::string(i.value()["1. open"]) +",";
     cmd+=std::string(i.value()["2. high"]) +",";
     cmd+=std::string(i.value()["3. low"]) +",";
