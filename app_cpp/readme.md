@@ -1,4 +1,5 @@
 # todo
+- [ ] accept/record times in UTC, only print in local
 - [x] algocontroller
 - [ ] dataretriever
   - [ ] create data table (with override option)
