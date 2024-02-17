@@ -20,7 +20,7 @@ void transaction::print(){
     default:
       std::cout << "unknown(?)";
   }
-  std::cout <<" at " << std::setprecision(3)<<value_<<std::endl;
+  std::cout <<" at " << std::fixed << std::setprecision(3)<<value_<<std::endl;
 }
 
 std::time_t transaction::get_time(){return time_;}
