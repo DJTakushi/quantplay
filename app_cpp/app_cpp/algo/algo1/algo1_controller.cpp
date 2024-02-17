@@ -4,6 +4,9 @@ algo1_controller::algo1_controller(sql::Connection* connection){
   algo = new algo1();
   retriever = new algo1_data_retriever(connection);
 }
+void algo1_controller::drop_datatable(){
+  retriever->drop_datatable();
+}
 
 void algo1_controller::update_database(){
   retriever->update_database();

@@ -4,10 +4,29 @@
 #include <nlohmann/json.hpp>
 algo1_data_retriever::algo1_data_retriever(sql::Connection* connection)
     : connection_(connection){
-  create_database();
+  drop_datatable();
+  create_datatable();
+  std::tm tm{};
+  tm.tm_year = 2020-1900;//2020
+  tm.tm_mon = 1; //jan
+  tm.tm_mday = 1;
+  tm.tm_hour = 1;
+  tm.tm_min = 1;
+  tm.tm_sec = 1;
+  latest_datapoint_ = std::mktime(&tm);
 }
 
-void algo1_data_retriever::create_database(){
+void algo1_data_retriever::drop_datatable(){
+  sql::Statement* stmnt =connection_->createStatement();
+  std::string cmd = "DROP TABLE algo1;";
+  try{
+    stmnt->executeUpdate(cmd);
+  }
+  catch (sql::SQLException& e) {
+    std::cerr << "Error dropping table: " << e.what() << std::endl;
+  }
+}
+void algo1_data_retriever::create_datatable(){
   sql::Statement* stmnt =connection_->createStatement();
   std::string cmd = "CREATE TABLE IF NOT EXISTS algo1 (";
   cmd+="datetime DATETIME, ";
@@ -27,6 +46,30 @@ void algo1_data_retriever::create_database(){
 
 std::list<algo1_data> algo1_data_retriever::get_data(){
   std::list<algo1_data> output;
+  std::string cmd = "SELECT datetime, open, high, low, close, volume ";
+  std::stringstream ss;
+  ss << std::put_time(std::gmtime(&latest_datapoint_),"%Y-%M-%d %H:%M:%S");
+  std::string tim = ss.str();
+  cmd+="FROM algo1 WHERE datetime > \""+tim+"\";";
+  sql::Statement* stmnt =connection_->createStatement();
+  try{
+    std::unique_ptr<sql::ResultSet> res(stmnt->executeQuery(cmd));
+    // Loop over Result-set
+    while (res->next()){
+      // Retrieve Values and Print Contacts
+      std::cout << "- "
+        << res->getString("datetime")
+        << " "
+        << res->getString("open")
+        << " <"
+        << res->getString("high")
+        << ">"
+        << std::endl;
+    }
+  }
+  catch (sql::SQLException& e) {
+    std::cerr << "Error querying table: " << e.what() << std::endl;
+  }
 
   return output;
 }
