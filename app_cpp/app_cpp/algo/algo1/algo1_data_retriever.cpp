@@ -50,7 +50,8 @@ std::list<algo1_data> algo1_data_retriever::get_data(){
   std::stringstream ss;
   ss << std::put_time(std::gmtime(&latest_datapoint_),"%Y-%M-%d %H:%M:%S");
   std::string tim = ss.str();
-  cmd+="FROM algo1 WHERE datetime > \""+tim+"\";";
+  cmd+="FROM algo1 WHERE datetime > \""+tim+"\" ";
+  cmd+= "ORDER BY datetime;";
   sql::Statement* stmnt =connection_->createStatement();
   try{
     std::unique_ptr<sql::ResultSet> res(stmnt->executeQuery(cmd));
@@ -61,7 +62,12 @@ std::list<algo1_data> algo1_data_retriever::get_data(){
       double close = res->getDouble("close");
       int volume = res->getInt("volume");
       algo1_data tmp(mktime(&tm),open,close,volume);
-      output.push_back(algo1_data(mktime(&tm),open,close,volume));
+
+      std::cout << res->getString("datetime");
+      std::cout << " : hour="<<tm.tm_hour;
+      std::cout << " : " << std::put_time(&tm, "%c %Z")<<std::endl;
+
+      output.push_back(tmp);
     }
   }
   catch (sql::SQLException& e) {
