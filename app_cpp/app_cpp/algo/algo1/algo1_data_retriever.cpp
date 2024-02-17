@@ -61,14 +61,8 @@ std::list<algo1_data> algo1_data_retriever::get_data(){
       int volume = res->getInt("volume");
 
       std::tm tm{};
-      tm.tm_isdst =1;
       strptime(res->getString("timestamp"), "%Y-%m-%d %H:%M:%S", &tm);
-      algo1_data tmp(mktime(&tm),open,close,volume);
-
-      std::cout << res->getString("timestamp");
-      std::cout << " : hour="<<tm.tm_hour;
-      std::cout << " : " << std::put_time(&tm, "%c %Z")<<std::endl;
-
+      algo1_data tmp(timegm(&tm),open,close,volume);
       output.push_back(tmp);
     }
   }
