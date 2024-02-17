@@ -21,6 +21,7 @@ void algo_manager::process(){
 
   /** 3. transaction generation from algo */
   transaction* t = algo1_controller_->get_transaction();
+  t->print();
 
   /** 4.  transaction processed by trader */
   t = trader_->process_transaction(t);
