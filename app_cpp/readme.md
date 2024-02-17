@@ -1,5 +1,8 @@
 # todo
 - [ ] accept/record times in UTC, only print in local
+  - [ ] convert input times to UTC
+  - [ ] put values into table in UTC using timestamp (https://planetscale.com/blog/datetimes-vs-timestamps-in-mysql)
+  - [ ] switch c++ code to use better class that can easily display converted time
 - [x] algocontroller
 - [ ] dataretriever
   - [ ] create data table (with override option)
