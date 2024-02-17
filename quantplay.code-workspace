@@ -79,7 +79,15 @@
       "set": "cpp",
       "ranges": "cpp",
       "typeindex": "cpp",
-      "valarray": "cpp"
+      "valarray": "cpp",
+      "*.ipp": "cpp",
+      "*.inc": "cpp",
+      "csignal": "cpp",
+      "coroutine": "cpp",
+      "regex": "cpp",
+      "source_location": "cpp",
+      "future": "cpp",
+      "cfenv": "cpp"
     }
   }
 }
