@@ -9,7 +9,7 @@ transaction::transaction(std::time_t time, double value,
 }
 
 void transaction::print(){
-  std::cout << std::asctime(std::localtime(&time_)) << " : ";
+  std::cout << std::put_time(std::localtime(&time_),"%c %Z") << " : ";
   switch(type_){
     case transactionType::kBuy:
       std::cout << "buy";
