@@ -20,3 +20,13 @@ transaction* algo1::process(){
   }
   return output;
 }
+daydata algo1::get_latest_day_data(){
+  time_t t = data_.back().time_;
+  tm tm = *localtime(&t);
+  std::chrono::year::year y(tm.tm_year);
+
+  ymd_date date(tm.tm_year,tm.tm_month,tm.tm_day);
+  daydata out;
+  out.set_open()
+  return data_.back();
+}
