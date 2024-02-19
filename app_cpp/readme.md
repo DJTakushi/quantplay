@@ -1,12 +1,16 @@
 # todo
-- [ ] accept/record times in UTC, only print in local
+- refactor algo1_data_retriever::update_database to have options
+  - [ ] update with whole json
+  - [ ] update with single row from json (will need to reorder json)
+  - [ ] update with data from API
+- [x] accept/record times in UTC, only print in local
   - [x] convert input times to UTC
   - [x] put values into table in UTC using timestamp (https://planetscale.com/blog/datetimes-vs-timestamps-in-mysql)
   - [x] switch c++ code to use better class that can easily display converted time[not necessary]
 - [x] algocontroller
 - [ ] dataretriever
-  - [ ] create data table (with override option)
-  - [x] get_data() from table
+  - [x] create data table (with override option)
+  - [x] get_data() from  table
     - [ ] override option to get data from test table
   - [ ] unittest loads data into table
 - [ ] api fetcher
@@ -23,14 +27,14 @@
     - [x] loadData [no, manager will load data.  algo has 1 responsibility]
     - [x] process (verdict)
 - [ ] algomanager.py
-  - [ ] init
+  - [x] init
   - [ ] getData
   - [ ] simulate
   - [ ] analyze
 - [ ] apigetter.py
-- [ ] csvconverter.py
-- [ ] databaseconnector.py
-- [ ] datagetter.py
+- [x] csvconverter.py
+- [x] databaseconnector.py
+- [x] datagetter.py
 - [x] daydata.py
 - [x] dayrecorder.py
 - [x] portfolio.py

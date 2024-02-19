@@ -13,4 +13,11 @@ class algo_manager{
   public:
   algo_manager(sql::Connection* connection);
   void process();
+  void update_database();
+  void update_data();
+  void generate_transaction();
+  transaction* get_transaction();
+  transaction* process_transaction(transaction* t);
+  void log_transaction(transaction* t);
+  double get_portfolio_value();
 };
