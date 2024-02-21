@@ -4,9 +4,12 @@
   - [x] update with single row from json (will need to reorder json) (step)
   - [ ] update with data from API
 - [ ] ohlcv_data base class
-  - [ ] algo1_data
-  - [ ] daydata
+  - [x] algo1_data
+  - [x] daydata
   - [ ] snapshot (for tracking portfolio over time)
+    - [ ] update snapshot in process
+    - [ ] append updated snapshot to list
+    - [ ] print snapshot list
 - [ ] remove data table from algo; algo should have the single responsibility of processing data, not managing it
 - [ ] refactor portfolio to include balance and current value
 - [x] accept/record times in UTC, only print in local
