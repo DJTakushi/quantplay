@@ -40,3 +40,8 @@ void dayrecorder::add_data(daydata d){
   set_current_close(d.get_high());
   set_current_portfolio_value(d.get_portfolio());
 }
+void dayrecorder::print(){
+  for(auto day : days_){
+    day->print();
+  }
+}
