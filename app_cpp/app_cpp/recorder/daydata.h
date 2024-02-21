@@ -1,3 +1,4 @@
+#pragma once
 #include <chrono>
 typedef std::chrono::year_month_day ymd_date;
 class daydata{
@@ -27,4 +28,5 @@ public:
 
   void set_portfolio(double portfolio_val);
   double get_portfolio();
+  void print();
 };
