@@ -12,8 +12,10 @@ void algo1_controller::update_database(){
   retriever->update_database();
 }
 
-void algo1_controller::update_data(){
-  algo->addData(retriever->get_data());
+int algo1_controller::update_data(int num){
+  std::list<algo1_data> data = retriever->get_data(num);
+  algo->addData(data);
+  return data.size();
 }
 
 void algo1_controller::update_data_single(){

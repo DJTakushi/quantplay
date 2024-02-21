@@ -9,7 +9,7 @@ public:
   algo1_controller(sql::Connection* connection);
   void drop_datatable();
   void update_database();
-  void update_data();
+  int update_data(int num = -1);
   void update_data_single();
   transaction* get_transaction();
   daydata get_latest_day_data();
