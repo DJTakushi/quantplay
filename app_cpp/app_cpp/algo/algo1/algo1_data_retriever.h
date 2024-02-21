@@ -9,6 +9,6 @@ class algo1_data_retriever{
   algo1_data_retriever(sql::Connection* connection);
   void drop_datatable();
   void create_datatable();
-  std::list<algo1_data> get_data();
+  std::list<algo1_data> get_data(int num = -1);
   void update_database();
 };

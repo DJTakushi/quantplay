@@ -44,14 +44,19 @@ void algo1_data_retriever::create_datatable(){
   }
 }
 
-std::list<algo1_data> algo1_data_retriever::get_data(){
+std::list<algo1_data> algo1_data_retriever::get_data(int num){
   std::list<algo1_data> output;
-  std::string cmd = "SELECT timestamp, open, high, low, close, volume ";
+  std::string cmd = "SELECT ";
+  cmd += " timestamp, open, high, low, close, volume ";
   std::stringstream ss;
-  ss << std::put_time(std::gmtime(&latest_datapoint_),"%Y-%M-%d %H:%M:%S");
+  ss << std::put_time(std::gmtime(&latest_datapoint_),"%Y-%m-%d %H:%M:%S");
   std::string tim = ss.str();
   cmd+="FROM algo1 WHERE timestamp > \""+tim+"\" ";
-  cmd+= "ORDER BY timestamp;";
+  cmd+= "ORDER BY timestamp";
+  if(num > 0){
+    cmd+=" LIMIT "+std::to_string(num);
+  }
+  cmd+=";";
   sql::Statement* stmnt =connection_->createStatement();
   try{
     std::unique_ptr<sql::ResultSet> res(stmnt->executeQuery(cmd));
@@ -62,7 +67,8 @@ std::list<algo1_data> algo1_data_retriever::get_data(){
 
       std::tm tm{};
       strptime(res->getString("timestamp"), "%Y-%m-%d %H:%M:%S", &tm);
-      algo1_data tmp(timegm(&tm),open,close,volume);
+      latest_datapoint_ = timegm(&tm);
+      algo1_data tmp(latest_datapoint_,open,close,volume);
       output.push_back(tmp);
     }
   }
