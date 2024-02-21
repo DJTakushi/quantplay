@@ -1,12 +1,14 @@
 # todo
 - refactor algo1_data_retriever::update_database to have options
-  - [ ] update with whole json
-  - [ ] update with single row from json (will need to reorder json)
+  - [x] update with whole json (-1)
+  - [x] update with single row from json (will need to reorder json) (step)
   - [ ] update with data from API
 - [ ] ohlcv_data base class
   - [ ] algo1_data
   - [ ] daydata
+  - [ ] snapshot (for tracking portfolio over time)
 - [ ] remove data table from algo; algo should have the single responsibility of processing data, not managing it
+- [ ] refactor portfolio to include balance and current value
 - [x] accept/record times in UTC, only print in local
   - [x] convert input times to UTC
   - [x] put values into table in UTC using timestamp (https://planetscale.com/blog/datetimes-vs-timestamps-in-mysql)
