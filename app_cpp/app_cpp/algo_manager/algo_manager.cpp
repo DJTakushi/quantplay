@@ -29,8 +29,11 @@ void algo_manager::process(){
   log_transaction(t);
 
   /** 6. portfolio value recorded */
+  daydata d = algo1_controller_->get_latest_day_data();
+  portfolio_->set_current_value(d.get_close());
   double val = get_portfolio_value();
-  recorder_->set_current_portfolio_value(val);
+  d.set_portfolio(val);
+  recorder_->add_data(d);
 };
 void algo_manager::update_database(){
   algo1_controller_->update_database();
@@ -50,4 +53,7 @@ void algo_manager::log_transaction(transaction* t){
 }
 double algo_manager::get_portfolio_value(){
   return portfolio_->get_portfolio_value();
+}
+void algo_manager::print_days(){
+  recorder_->print();
 }
