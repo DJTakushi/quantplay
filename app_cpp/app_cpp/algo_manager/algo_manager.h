@@ -12,9 +12,9 @@ class algo_manager{
   sql::Connection* sql_connection_;
   public:
   algo_manager(sql::Connection* connection);
-  void process();
+  void process(int step = -1);
   void update_database();
-  void update_data();
+  int update_data(int num = -1);
   void generate_transaction();
   transaction* get_transaction();
   transaction* process_transaction(transaction* t);

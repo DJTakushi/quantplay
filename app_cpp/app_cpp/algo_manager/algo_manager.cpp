@@ -12,34 +12,34 @@ algo_manager::algo_manager(sql::Connection* connection) :
     exit (EXIT_FAILURE);
   }
 };
-void algo_manager::process(){
+void algo_manager::process(int step){
   /** 1. update database **/
   update_database();
 
   /** 2. data udpated */
-  update_data();
+  while(update_data(step)>0){
+    /** 3. transaction generation from algo */
+    transaction* t = get_transaction();
 
-  /** 3. transaction generation from algo */
-  transaction* t = get_transaction();
+    /** 4.  transaction processed by trader */
+    t = process_transaction(t);
 
-  /** 4.  transaction processed by trader */
-  t = process_transaction(t);
+    /** 5. transction logged in portfolio (if complete )*/
+    log_transaction(t);
 
-  /** 5. transction logged in portfolio (if complete )*/
-  log_transaction(t);
-
-  /** 6. portfolio value recorded */
-  daydata d = algo1_controller_->get_latest_day_data();
-  portfolio_->set_current_value(d.get_close());
-  double val = get_portfolio_value();
-  d.set_portfolio(val);
-  recorder_->add_data(d);
+    /** 6. portfolio value recorded */
+    daydata d = algo1_controller_->get_latest_day_data();
+    portfolio_->set_current_value(d.get_close());
+    double val = get_portfolio_value();
+    d.set_portfolio(val);
+    recorder_->add_data(d);
+  }
 };
 void algo_manager::update_database(){
   algo1_controller_->update_database();
 }
-void algo_manager::update_data(){
-  algo1_controller_->update_data();
+int algo_manager::update_data(int num){
+  return algo1_controller_->update_data(num);
 }
 transaction* algo_manager::get_transaction(){
   return algo1_controller_->get_transaction();
