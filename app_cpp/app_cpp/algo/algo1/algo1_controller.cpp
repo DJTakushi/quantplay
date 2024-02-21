@@ -24,3 +24,6 @@ transaction* algo1_controller::get_transaction(){
 
   return out; 
 }
+daydata algo1_controller::get_latest_day_data(){
+  return algo->get_latest_day_data();
+}
