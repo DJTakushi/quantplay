@@ -3,6 +3,10 @@
   - [ ] update with whole json
   - [ ] update with single row from json (will need to reorder json)
   - [ ] update with data from API
+- [ ] ohlcv_data base class
+  - [ ] algo1_data
+  - [ ] daydata
+- [ ] remove data table from algo; algo should have the single responsibility of processing data, not managing it
 - [x] accept/record times in UTC, only print in local
   - [x] convert input times to UTC
   - [x] put values into table in UTC using timestamp (https://planetscale.com/blog/datetimes-vs-timestamps-in-mysql)
