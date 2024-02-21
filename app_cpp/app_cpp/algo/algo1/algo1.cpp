@@ -21,12 +21,14 @@ transaction* algo1::process(){
   return output;
 }
 daydata algo1::get_latest_day_data(){
-  time_t t = data_.back().time_;
-  tm tm = *localtime(&t);
-  std::chrono::year::year y(tm.tm_year);
+  algo1_data last_data = data_.back();
+  time_t t = last_data.time_;
+  std::chrono::time_point tp = std::chrono::system_clock::from_time_t(t);
+  ymd_date date(std::chrono::floor<std::chrono::days>(tp));
 
-  ymd_date date(tm.tm_year,tm.tm_month,tm.tm_day);
-  daydata out;
-  out.set_open()
-  return data_.back();
+  daydata out(date);
+  out.set_open(last_data.open_);
+  out.set_close(last_data.close_);
+
+  return out;
 }
