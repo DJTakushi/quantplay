@@ -62,13 +62,15 @@ std::list<algo1_data> algo1_data_retriever::get_data(int num){
     std::unique_ptr<sql::ResultSet> res(stmnt->executeQuery(cmd));
     while (res->next()){
       double open = res->getDouble("open");
+      double high = res->getDouble("high");
+      double low = res->getDouble("low");
       double close = res->getDouble("close");
       int volume = res->getInt("volume");
 
       std::tm tm{};
       strptime(res->getString("timestamp"), "%Y-%m-%d %H:%M:%S", &tm);
       latest_datapoint_ = timegm(&tm);
-      algo1_data tmp(latest_datapoint_,open,close,volume);
+      algo1_data tmp(latest_datapoint_,open,high,low,close,volume);
       output.push_back(tmp);
     }
   }

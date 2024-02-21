@@ -8,6 +8,7 @@ add_library(${PROJECT_NAME}
   recorder/daydata.cpp
   recorder/dayrecorder.cpp
   common/transaction.cpp
+  common/ohlcv.cpp
   portfolio/portfolio.cpp
   algo/algo1/algo1.cpp
   algo/algo1/algo1_data_retriever.cpp
