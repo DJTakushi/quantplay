@@ -2,6 +2,7 @@
 #include "trader.h"
 #include "portfolio.h"
 #include "dayrecorder.h"
+#include "snapshot.h"
 #include <mariadb/conncpp.hpp>
 
 class algo_manager{
@@ -10,6 +11,7 @@ class algo_manager{
   portfolio* portfolio_;
   dayrecorder* recorder_;
   sql::Connection* sql_connection_;
+  std::list<snapshot> snapshots_;
   public:
   algo_manager(sql::Connection* connection);
   void process(int step = -1);
@@ -21,4 +23,5 @@ class algo_manager{
   void log_transaction(transaction* t);
   double get_portfolio_value();
   void print_days();
+  void print_snapshots();
 };
