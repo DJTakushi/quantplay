@@ -9,5 +9,5 @@ class algo1 : public algo_i{
   public:
   void addData(std::list<algo1_data> data_list);
   transaction* process();
-  daydata get_latest_day_data();
+  algo1_data* get_latest_data();
 };
