@@ -32,13 +32,13 @@ void dayrecorder::set_current_portfolio_value(double portfolio_value){
     days_.back()->set_portfolio(portfolio_value);
   }
 }
-void dayrecorder::add_data(daydata d){
-  if(get_current_date() != d.get_date()){
-    start_new_day(d.get_date());
+void dayrecorder::add_data(daydata* d){
+  if(get_current_date() != d->get_date()){
+    start_new_day(d->get_date());
   }
-  set_current_open(d.get_open());
-  set_current_close(d.get_high());
-  set_current_portfolio_value(d.get_portfolio());
+  set_current_open(d->get_open());
+  set_current_close(d->get_high());
+  set_current_portfolio_value(d->get_portfolio());
 }
 void dayrecorder::print(){
   for(auto day : days_){

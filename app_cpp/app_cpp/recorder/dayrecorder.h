@@ -13,6 +13,6 @@ public:
   void set_current_open(double open);
   void set_current_close(double close);
   void set_current_portfolio_value(double portfolio_value);
-  void add_data(daydata d);
+  void add_data(daydata* d);
   void print();
 };
