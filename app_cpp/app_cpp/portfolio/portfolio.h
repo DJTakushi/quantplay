@@ -1,3 +1,4 @@
+#pragma once
 #include "transaction.h"
 #include <vector>
 class portfolio{
@@ -8,6 +9,7 @@ class portfolio{
 
 public:
   portfolio(double starting_balance);
+  portfolio(portfolio* p);
   double get_balance();
   double get_equity_value();
   double get_portfolio_value();
