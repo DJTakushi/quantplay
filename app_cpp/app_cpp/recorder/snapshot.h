@@ -1,5 +1,7 @@
+#pragma once
 #include "ohlcv.h"
 #include "portfolio.h"
-class snapshot : public ohlcv, public portfolio{
-
+struct snapshot : public ohlcv, public portfolio{
+  snapshot(ohlcv * o, portfolio *p);
+  void print();
 };

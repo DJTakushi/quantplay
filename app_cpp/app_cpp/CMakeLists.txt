@@ -7,6 +7,7 @@ add_library(${PROJECT_NAME}
   trader/trader.cpp
   recorder/daydata.cpp
   recorder/dayrecorder.cpp
+  recorder/snapshot.cpp
   common/transaction.cpp
   common/ohlcv.cpp
   portfolio/portfolio.cpp
