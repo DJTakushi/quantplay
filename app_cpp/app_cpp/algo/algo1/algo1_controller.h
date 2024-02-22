@@ -12,5 +12,5 @@ public:
   int update_data(int num = -1);
   void update_data_single();
   transaction* get_transaction();
-  daydata get_latest_day_data();
+  ohlcv* get_latest_data();
 };
