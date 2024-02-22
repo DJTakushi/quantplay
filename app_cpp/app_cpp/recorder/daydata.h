@@ -8,6 +8,7 @@ class daydata : public ohlcv{
 
 public:
   daydata(ymd_date date);
+  daydata(ohlcv* o);
 
   ymd_date get_date();
 
