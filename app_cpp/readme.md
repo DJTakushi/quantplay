@@ -1,4 +1,11 @@
 # todo
+- [ ] metric calculations
+  - [ ] sharpe ratio
+  - [ ] max drawdown
+  - [ ] max drawdown duration
+- [ ] unit-test new content
+  - [ ] quantitative trading content
+- [ ] update_database takes filestring argument; gets data from api otherwise
 - refactor algo1_data_retriever::update_database to have options
   - [x] update with whole json (-1)
   - [x] update with single row from json (will need to reorder json) (step)
