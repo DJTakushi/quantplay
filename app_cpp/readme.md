@@ -10,7 +10,7 @@
     - [x] update snapshot in process
     - [x] append updated snapshot to list
     - [x] print snapshot list
-- [ ] remove data table from algo; algo should have the single responsibility of processing data, not managing it
+- [x] remove data table from algo; algo should have the single responsibility of processing data, not managing it [eh, data scoping and management is part of the algo]
 - [x] daydata replaced with latest day snapshots
 - [x] refactor portfolio to include balance and current value
 - [x] accept/record times in UTC, only print in local
