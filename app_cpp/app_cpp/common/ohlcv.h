@@ -1,4 +1,5 @@
 #pragma once
+#include "typedefs.h"
 #include <ctime>
 struct ohlcv{
   std::time_t time_;
@@ -24,4 +25,6 @@ struct ohlcv{
 
   void set_time(time_t t);
   time_t get_time();
+
+  ymd_date get_date();
 };

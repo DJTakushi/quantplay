@@ -11,8 +11,7 @@
     - [x] append updated snapshot to list
     - [x] print snapshot list
 - [ ] remove data table from algo; algo should have the single responsibility of processing data, not managing it
-- [ ] daydata replaced with latest day snapshots
-- [ ] 
+- [x] daydata replaced with latest day snapshots
 - [x] refactor portfolio to include balance and current value
 - [x] accept/record times in UTC, only print in local
   - [x] convert input times to UTC

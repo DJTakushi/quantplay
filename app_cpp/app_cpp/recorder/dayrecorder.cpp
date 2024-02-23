@@ -5,43 +5,29 @@ dayrecorder::dayrecorder(){}
 ymd_date dayrecorder::get_current_date(){
   /** returns 1900-01-01 if no date initialized**/
   ymd_date out{std::chrono::January/1/1900};
-  if(days_.size()>0){
-    out = days_.back()->get_date();
+  if(snapshots_.size()>0){
+    out = snapshots_.back()->get_date();
   }
   return out;
 }
 
-void dayrecorder::start_new_day(ymd_date date){
-  days_.push_back(new daydata(date));
+void dayrecorder::add_data(snapshot* d){
+  snapshots_.push_back(d);
 }
-
-void dayrecorder::set_current_open(double open){
-  if(days_.size()>0){
-    days_.back()->set_open(open);
+void dayrecorder::print_snapshots(){
+  for(auto s : snapshots_){
+    s->print();
   }
 }
-
-void dayrecorder::set_current_close(double close){
-  if(days_.size()>0){
-    days_.back()->set_close(close);
-  }
-}
-
-void dayrecorder::set_current_portfolio_value(double portfolio_value){
-  if(days_.size()>0){
-    days_.back()->set_portfolio(portfolio_value);
-  }
-}
-void dayrecorder::add_data(daydata* d){
-  if(get_current_date() != d->get_date()){
-    start_new_day(d->get_date());
-  }
-  set_current_open(d->get_open());
-  set_current_close(d->get_high());
-  set_current_portfolio_value(d->get_portfolio());
-}
-void dayrecorder::print(){
-  for(auto day : days_){
-    day->print();
+void dayrecorder::print_days(){
+  if(snapshots_.size()>0){
+    ymd_date ymd = snapshots_.front()->get_date();
+    for(auto s : snapshots_){
+      if(ymd!=s->get_date()){
+        s->print();
+        ymd=s->get_date();
+      }
+    }
+    snapshots_.back()->print();
   }
 }

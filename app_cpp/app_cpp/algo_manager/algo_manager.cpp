@@ -28,13 +28,9 @@ void algo_manager::process(int step){
     log_transaction(t);
 
     /** 6. portfolio value recorded */
-    daydata* d = new daydata(algo1_controller_->get_latest_data());
+    ohlcv* d = new ohlcv(algo1_controller_->get_latest_data());
     portfolio_->set_current_value(d->get_close());
-    double val = get_portfolio_value();
-    d->set_portfolio(val);
-
-    snapshots_.push_back(snapshot(d,portfolio_));
-    recorder_->add_data(d);
+    recorder_->add_data(new snapshot(d,portfolio_));
   }
 };
 void algo_manager::update_database(){
@@ -57,10 +53,8 @@ double algo_manager::get_portfolio_value(){
   return portfolio_->get_portfolio_value();
 }
 void algo_manager::print_days(){
-  recorder_->print();
+  recorder_->print_days();
 }
 void algo_manager::print_snapshots(){
-  for(auto s : snapshots_){
-    s.print();
-  }
+  recorder_->print_snapshots();
 }

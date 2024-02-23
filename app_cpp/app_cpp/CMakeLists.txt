@@ -5,7 +5,6 @@ project(app_cpp VERSION 0.0.0)
 # library creation
 add_library(${PROJECT_NAME}
   trader/trader.cpp
-  recorder/daydata.cpp
   recorder/dayrecorder.cpp
   recorder/snapshot.cpp
   common/transaction.cpp
@@ -63,8 +62,6 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 add_executable(tests
-  recorder/tests/daydata.test.cpp
-  recorder/tests/dayrecorder.test.cpp
   portfolio/tests/portfolio.test.cpp
   common/tests/transaction.test.cpp
   algo/algo1/tests/algo1.test.cpp

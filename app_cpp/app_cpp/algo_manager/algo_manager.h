@@ -11,7 +11,6 @@ class algo_manager{
   portfolio* portfolio_;
   dayrecorder* recorder_;
   sql::Connection* sql_connection_;
-  std::list<snapshot> snapshots_;
   public:
   algo_manager(sql::Connection* connection);
   void process(int step = -1);

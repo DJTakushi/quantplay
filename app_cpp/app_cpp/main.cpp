@@ -16,9 +16,12 @@ int main(int argc, char** argv){
 
   algo_manager* manager_ = new algo_manager(sql_connection_);
   manager_->process(1);
-  manager_->print_days();
+
+  std::cout << "Snapshots :" << std::endl;
   manager_->print_snapshots();
 
+  std::cout << "Days :" << std::endl;
+  manager_->print_days();
+
   sql_connection_->close();
-  std::cout << "done." <<std::endl;
 }

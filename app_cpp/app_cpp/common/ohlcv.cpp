@@ -24,3 +24,8 @@ double ohlcv::get_close(){return close_;}
 
 void ohlcv::set_time(std::time_t t){time_=t;}
 std::time_t ohlcv::get_time(){return time_;}
+
+ymd_date ohlcv::get_date(){
+  std::chrono::time_point tp = std::chrono::system_clock::from_time_t(time_);
+  return std::chrono::floor<std::chrono::days>(tp);
+}
