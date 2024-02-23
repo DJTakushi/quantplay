@@ -3,15 +3,17 @@
   - [x] update with whole json (-1)
   - [x] update with single row from json (will need to reorder json) (step)
   - [ ] update with data from API
-- [ ] ohlcv_data base class
+- [x] ohlcv_data base class
   - [x] algo1_data
   - [x] daydata
-  - [ ] snapshot (for tracking portfolio over time)
-    - [ ] update snapshot in process
-    - [ ] append updated snapshot to list
-    - [ ] print snapshot list
+  - [x] snapshot (for tracking portfolio over time)
+    - [x] update snapshot in process
+    - [x] append updated snapshot to list
+    - [x] print snapshot list
 - [ ] remove data table from algo; algo should have the single responsibility of processing data, not managing it
-- [ ] refactor portfolio to include balance and current value
+- [ ] daydata replaced with latest day snapshots
+- [ ] 
+- [x] refactor portfolio to include balance and current value
 - [x] accept/record times in UTC, only print in local
   - [x] convert input times to UTC
   - [x] put values into table in UTC using timestamp (https://planetscale.com/blog/datetimes-vs-timestamps-in-mysql)
@@ -19,7 +21,7 @@
 - [x] algocontroller
 - [ ] dataretriever
   - [x] create data table (with override option)
-  - [x] get_data() from  table
+  - [x] get_data() from table
     - [ ] override option to get data from test table
   - [ ] unittest loads data into table
 - [ ] api fetcher
@@ -37,7 +39,7 @@
     - [x] process (verdict)
 - [ ] algomanager.py
   - [x] init
-  - [ ] getData
+  - [x] getData
   - [ ] simulate
   - [ ] analyze
 - [ ] apigetter.py
