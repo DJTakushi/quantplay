@@ -1,13 +1,13 @@
-#include "dayrecorder.h"
+#include "recorder.h"
 #include <gtest/gtest.h>
-class dayrecorder_wrapper : public dayrecorder{
+class recorder_wrapper : public recorder{
 public:
   std::vector<daydata*> get_days_vector(){
     return days_;
   }
 };
 TEST(datarecorderTest,datarecorder_constructor) {
-  dayrecorder_wrapper dc;
+  recorder_wrapper dc;
   // no-dates default confirmatino
   EXPECT_EQ(std::chrono::year(1900),dc.get_current_date().year());
   EXPECT_EQ(std::chrono::month(1),dc.get_current_date().month());

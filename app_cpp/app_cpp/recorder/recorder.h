@@ -1,12 +1,12 @@
 #include "snapshot.h"
 #include "typedefs.h"
 #include <vector>
-class dayrecorder{
+class recorder{
   /** logs records for display later **/
 protected:
   std::vector<snapshot*> snapshots_;
 public:
-  dayrecorder();
+  recorder();
   ymd_date get_current_date();
   void add_data(snapshot* d);
   void print_snapshots();

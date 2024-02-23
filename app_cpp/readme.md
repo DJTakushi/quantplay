@@ -46,7 +46,7 @@
 - [x] databaseconnector.py
 - [x] datagetter.py
 - [x] daydata.py
-- [x] dayrecorder.py
+- [x] recorder.py
 - [x] portfolio.py
 - [x] transaction.py
 

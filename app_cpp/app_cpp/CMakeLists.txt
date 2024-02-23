@@ -5,7 +5,7 @@ project(app_cpp VERSION 0.0.0)
 # library creation
 add_library(${PROJECT_NAME}
   trader/trader.cpp
-  recorder/dayrecorder.cpp
+  recorder/recorder.cpp
   recorder/snapshot.cpp
   common/transaction.cpp
   common/ohlcv.cpp
