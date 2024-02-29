@@ -23,6 +23,9 @@ struct ohlcv{
   void set_close(double close);
   double get_close();
 
+  void set_volume(int vol);
+  int get_volume(); 
+
   void set_time(time_t t);
   time_t get_time();
 

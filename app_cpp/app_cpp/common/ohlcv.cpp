@@ -22,6 +22,9 @@ double ohlcv::get_low(){return low_;}
 void ohlcv::set_close(double close){close_=close;}
 double ohlcv::get_close(){return close_;}
 
+void ohlcv::set_volume(int vol){volume_=vol;}
+int ohlcv::get_volume(){return volume_;}; 
+
 void ohlcv::set_time(std::time_t t){time_=t;}
 std::time_t ohlcv::get_time(){return time_;}
 
