@@ -55,6 +55,10 @@ double algo_manager::get_portfolio_value(){
 void algo_manager::print_days(){
   recorder_->print_days();
 }
+void algo_manager::print_ohlcv_days(){
+  recorder_->print_ohlcv_days();
+}
+
 void algo_manager::print_snapshots(){
   recorder_->print_snapshots();
 }

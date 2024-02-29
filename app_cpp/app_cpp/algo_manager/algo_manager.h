@@ -22,5 +22,6 @@ class algo_manager{
   void log_transaction(transaction* t);
   double get_portfolio_value();
   void print_days();
+  void print_ohlcv_days();
   void print_snapshots();
 };
