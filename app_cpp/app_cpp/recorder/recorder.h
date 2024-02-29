@@ -11,4 +11,6 @@ public:
   void add_data(snapshot* d);
   void print_snapshots();
   void print_days();
+  void print_ohlcv_days();
+  std::vector<snapshot> get_day_snapshots();
 };

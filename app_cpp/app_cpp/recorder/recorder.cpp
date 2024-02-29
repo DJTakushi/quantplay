@@ -31,3 +31,31 @@ void recorder::print_days(){
     snapshots_.back()->print();
   }
 }
+
+void recorder::print_ohlcv_days(){
+  std::vector<snapshot> v = get_day_snapshots();
+  for(auto i : v){
+    i.print_ohlcv();
+  }
+}
+std::vector<snapshot> recorder::get_day_snapshots(){
+  std::vector<snapshot> out;
+  if(snapshots_.size()>0){
+    snapshot t(snapshots_.front());
+    for(auto i : snapshots_){
+      if(t.get_date() != i->get_date()){
+        out.push_back(t);
+        t = snapshot(i);
+      }
+      else{
+        t.set_high(std::max(t.get_high(),i->get_high()));
+        t.set_low(std::min(t.get_low(),i->get_low()));
+        t.set_close(i->get_close());
+        t.set_volume(t.get_volume()+i->get_volume());
+        t.set_time(i->get_time());
+      }
+    }
+    out.push_back(t);
+  }
+  return out;
+}
