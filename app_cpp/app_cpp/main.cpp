@@ -23,5 +23,9 @@ int main(int argc, char** argv){
   std::cout << "Days :" << std::endl;
   manager_->print_days();
 
+
+  std::cout << "OHLCV Days :" << std::endl;
+  manager_->print_ohlcv_days();
+
   sql_connection_->close();
 }
