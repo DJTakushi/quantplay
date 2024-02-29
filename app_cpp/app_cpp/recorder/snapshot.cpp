@@ -3,7 +3,7 @@
 #include <iomanip>
 
 snapshot::snapshot(ohlcv * o, portfolio* p): ohlcv(o), portfolio(p){}
-
+snapshot::snapshot(snapshot* s) : ohlcv(s), portfolio(s){}
 void snapshot::print(){
   std::cout << std::put_time(std::localtime(&time_),"%c %Z") << " : ";
   std::cout << "balance : "<<std::to_string(get_balance())<<",";
