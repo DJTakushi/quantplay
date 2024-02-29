@@ -30,4 +30,6 @@ struct ohlcv{
   time_t get_time();
 
   ymd_date get_date();
+
+  void print_ohlcv();
 };
