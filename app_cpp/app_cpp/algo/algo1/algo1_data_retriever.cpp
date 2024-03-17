@@ -124,3 +124,6 @@ void algo1_data_retriever::update_database(){
     add_data_to_database(d);
   }
 }
+void algo1_data_retriever::update_database_from_json(std::string j){
+
+}
