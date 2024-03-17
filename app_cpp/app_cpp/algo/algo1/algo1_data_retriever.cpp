@@ -84,6 +84,12 @@ void algo1_data_retriever::add_data_to_database(algo1_data data){
   std::string time_str;
   char time_char[100];
   const time_t time_ = data.get_time();
+  /** TODO : initialize this to a proper time_t in UTC format
+   * option1: std::chrono::zoned_time in c++20, but GCC doesn't support it yet
+   * option2: 3rdparty library : https://howardhinnant.github.io/date/tz.html
+   * option3: diy parser (YUCK)
+   * option4: capture timezone from json; send it to this function so sql can convert it
+  **/
   std::strftime(time_char,sizeof(time_char),"%Y-%m-%d %H:%M:%S",std::localtime(&time_));
 
   sql:: Statement* stmnt =connection_->createStatement();
