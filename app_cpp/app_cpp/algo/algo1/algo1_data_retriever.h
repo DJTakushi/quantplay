@@ -13,6 +13,7 @@ class algo1_data_retriever{
   void drop_datatable();
   void create_datatable();
   std::list<algo1_data> get_data(int num = -1);
-  void update_database();
+  // void update_database();//TODO
+  void update_database_from_file(std::string filepath);
   void update_database_from_json(std::string j);
 };

@@ -8,8 +8,8 @@ void algo1_controller::drop_datatable(){
   retriever->drop_datatable();
 }
 
-void algo1_controller::update_database(){
-  retriever->update_database();
+void algo1_controller::update_database_from_file(std::string filepath){
+  retriever->update_database_from_file(filepath);
 }
 
 int algo1_controller::update_data(int num){

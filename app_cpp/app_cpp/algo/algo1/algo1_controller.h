@@ -8,7 +8,8 @@ class algo1_controller : public algo_controller_i{
 public:
   algo1_controller(sql::Connection* connection);
   void drop_datatable();
-  void update_database();
+  // void update_database();
+  void update_database_from_file(std::string filepath);
   int update_data(int num = -1);
   void update_data_single();
   transaction* get_transaction();

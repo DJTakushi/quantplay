@@ -15,6 +15,7 @@ int main(int argc, char** argv){
   sql::Connection* sql_connection_ = driver->connect(url, properties);
 
   algo_manager* manager_ = new algo_manager(sql_connection_);
+  manager_->update_database_from_file("app_cpp/intraday_ibm.json");
   manager_->process(1);
 
   std::cout << "Snapshots :" << std::endl;

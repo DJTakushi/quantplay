@@ -13,8 +13,8 @@ algo_manager::algo_manager(sql::Connection* connection) :
   }
 };
 void algo_manager::process(int step){
-  /** 1. update database **/
-  update_database();
+  /** 1. update database (maybe) **/
+  // update_database_from();//todo (maybe?)
 
   /** 2. data udpated */
   while(update_data(step)>0){
@@ -33,8 +33,8 @@ void algo_manager::process(int step){
     recorder_->add_data(new snapshot(d,portfolio_));
   }
 };
-void algo_manager::update_database(){
-  algo1_controller_->update_database();
+void algo_manager::update_database_from_file(std::string filepath){
+  algo1_controller_->update_database_from_file(filepath);
 }
 int algo_manager::update_data(int num){
   return algo1_controller_->update_data(num);

@@ -105,9 +105,18 @@ void algo1_data_retriever::add_data_to_database(algo1_data data,
   delete stmnt;
 }
 
-void algo1_data_retriever::update_database(){
-  std::ifstream f("app_cpp/intraday_ibm.json");
-  nlohmann::json data = nlohmann::json::parse(f);
+void algo1_data_retriever::update_database_from_file(std::string filepath){
+  std::ifstream inFile;
+  inFile.open(filepath); //open the input file
+
+  std::stringstream strStream;
+  strStream << inFile.rdbuf(); //read the file
+  std::string str = strStream.str(); //str holds the content of the file
+  update_database_from_json(str);
+}
+void algo1_data_retriever::update_database_from_json(std::string j){
+  nlohmann::json data = nlohmann::json::parse(j);
+
   std::string timezone_s = data["Meta Data"]["6. Time Zone"];
 
   data = data["Time Series (5min)"];
@@ -127,7 +136,4 @@ void algo1_data_retriever::update_database(){
     d.set_volume(std::stoi(std::string(i.value()["5. volume"])));
     add_data_to_database(d,timezone_s);
   }
-}
-void algo1_data_retriever::update_database_from_json(std::string j){
-
 }
