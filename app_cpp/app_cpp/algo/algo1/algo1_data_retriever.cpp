@@ -49,7 +49,7 @@ std::list<algo1_data> algo1_data_retriever::get_data(int num){
   std::string cmd = "SELECT ";
   cmd += " timestamp, open, high, low, close, volume ";
   std::stringstream ss;
-  ss << std::put_time(std::gmtime(&latest_datapoint_),"%Y-%m-%d %H:%M:%S");
+  ss << std::put_time(std::gmtime(&latest_datapoint_),TD_FORMAT);
   std::string tim = ss.str();
   cmd+="FROM algo1 WHERE timestamp > \""+tim+"\" ";
   cmd+= "ORDER BY timestamp";
@@ -68,7 +68,7 @@ std::list<algo1_data> algo1_data_retriever::get_data(int num){
       int volume = res->getInt("volume");
 
       std::tm tm{};
-      strptime(res->getString("timestamp"), "%Y-%m-%d %H:%M:%S", &tm);
+      strptime(res->getString("timestamp"), TD_FORMAT, &tm);
       latest_datapoint_ = timegm(&tm);
       algo1_data tmp(latest_datapoint_,open,high,low,close,volume);
       output.push_back(tmp);
@@ -80,22 +80,18 @@ std::list<algo1_data> algo1_data_retriever::get_data(int num){
 
   return output;
 }
-void algo1_data_retriever::add_data_to_database(algo1_data data){
+void algo1_data_retriever::add_data_to_database(algo1_data data,
+      std::string timezone_s){
+      /** TODO : correct time_t usage to ALWAYS use correct UTC timezone **/
   std::string time_str;
   char time_char[100];
   const time_t time_ = data.get_time();
-  /** TODO : initialize this to a proper time_t in UTC format
-   * option1: std::chrono::zoned_time in c++20, but GCC doesn't support it yet
-   * option2: 3rdparty library : https://howardhinnant.github.io/date/tz.html
-   * option3: diy parser (YUCK)
-   * option4: capture timezone from json; send it to this function so sql can convert it
-  **/
-  std::strftime(time_char,sizeof(time_char),"%Y-%m-%d %H:%M:%S",std::localtime(&time_));
+  std::strftime(time_char,sizeof(time_char),TD_FORMAT,std::localtime(&time_));
 
   sql:: Statement* stmnt =connection_->createStatement();
   std::string cmd = "INSERT INTO algo1 (";
   cmd+="timestamp, open, high, low, close, volume) VALUES (";
-  cmd+="CONVERT_TZ(\""+std::string(time_char)+"\",'America/New_York','UTC'),";
+  cmd+="CONVERT_TZ(\""+std::string(time_char)+"\",'"+timezone_s+"','UTC'),";
   cmd+=std::to_string(data.get_open()) +",";
   cmd+=std::to_string(data.get_high()) +",";
   cmd+=std::to_string(data.get_low()) +",";
@@ -112,13 +108,15 @@ void algo1_data_retriever::add_data_to_database(algo1_data data){
 void algo1_data_retriever::update_database(){
   std::ifstream f("app_cpp/intraday_ibm.json");
   nlohmann::json data = nlohmann::json::parse(f);
+  std::string timezone_s = data["Meta Data"]["6. Time Zone"];
+
   data = data["Time Series (5min)"];
   for(auto i : data.items()){
     algo1_data d;
 
     const char *time_details = i.key().c_str();
     struct tm tm;
-    strptime(time_details, "%Y-%m-%d %H:%M:%S", &tm);
+    strptime(time_details, TD_FORMAT, &tm);
     time_t t = mktime(&tm);  // t is now your desired time_t
     d.set_time(t);
 
@@ -127,7 +125,7 @@ void algo1_data_retriever::update_database(){
     d.set_low(std::stod(std::string(i.value()["3. low"])));
     d.set_close(std::stod(std::string(i.value()["4. close"])));
     d.set_volume(std::stoi(std::string(i.value()["5. volume"])));
-    add_data_to_database(d);
+    add_data_to_database(d,timezone_s);
   }
 }
 void algo1_data_retriever::update_database_from_json(std::string j){
