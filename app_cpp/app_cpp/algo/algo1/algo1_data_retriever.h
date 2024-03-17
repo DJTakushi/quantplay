@@ -5,6 +5,7 @@
 class algo1_data_retriever{
   sql::Connection* connection_;
   std::time_t latest_datapoint_;
+  void add_data_to_database(algo1_data data);
   public:
   algo1_data_retriever(sql::Connection* connection);
   void drop_datatable();

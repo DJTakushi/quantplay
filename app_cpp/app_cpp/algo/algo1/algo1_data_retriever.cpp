@@ -80,25 +80,47 @@ std::list<algo1_data> algo1_data_retriever::get_data(int num){
 
   return output;
 }
+void algo1_data_retriever::add_data_to_database(algo1_data data){
+  std::string time_str;
+  char time_char[100];
+  const time_t time_ = data.get_time();
+  std::strftime(time_char,sizeof(time_char),"%Y-%m-%d %H:%M:%S",std::localtime(&time_));
+
+  sql:: Statement* stmnt =connection_->createStatement();
+  std::string cmd = "INSERT INTO algo1 (";
+  cmd+="timestamp, open, high, low, close, volume) VALUES (";
+  cmd+="CONVERT_TZ(\""+std::string(time_char)+"\",'America/New_York','UTC'),";
+  cmd+=std::to_string(data.get_open()) +",";
+  cmd+=std::to_string(data.get_high()) +",";
+  cmd+=std::to_string(data.get_low()) +",";
+  cmd+=std::to_string(data.get_close()) +",";
+  cmd+=std::to_string(data.get_volume()) +")";
+
+  try{ stmnt->executeUpdate(cmd); }
+  catch (sql::SQLException& e) {
+    std::cerr << "Error altering table: " << e.what() << std::endl;
+  }
+  delete stmnt;
+}
+
 void algo1_data_retriever::update_database(){
   std::ifstream f("app_cpp/intraday_ibm.json");
   nlohmann::json data = nlohmann::json::parse(f);
   data = data["Time Series (5min)"];
-  sql::Statement* stmnt =connection_->createStatement();
   for(auto i : data.items()){
-    std::string cmd = "INSERT INTO algo1 (";
-    cmd+="timestamp, open, high, low, close, volume) VALUES (";
-    cmd+="CONVERT_TZ(\""+i.key()+"\",'America/New_York','UTC'),";
-    cmd+=std::string(i.value()["1. open"]) +",";
-    cmd+=std::string(i.value()["2. high"]) +",";
-    cmd+=std::string(i.value()["3. low"]) +",";
-    cmd+=std::string(i.value()["4. close"]) +",";
-    cmd+=std::string(i.value()["5. volume"]) +")";
+    algo1_data d;
 
-    try{ stmnt->executeUpdate(cmd); }
-    catch (sql::SQLException& e) {
-      std::cerr << "Error altering table: " << e.what() << std::endl;
-    }
+    const char *time_details = i.key().c_str();
+    struct tm tm;
+    strptime(time_details, "%Y-%m-%d %H:%M:%S", &tm);
+    time_t t = mktime(&tm);  // t is now your desired time_t
+    d.set_time(t);
+
+    d.set_open(std::stod(std::string(i.value()["1. open"])));
+    d.set_high(std::stod(std::string(i.value()["2. high"])));
+    d.set_low(std::stod(std::string(i.value()["3. low"])));
+    d.set_close(std::stod(std::string(i.value()["4. close"])));
+    d.set_volume(std::stoi(std::string(i.value()["5. volume"])));
+    add_data_to_database(d);
   }
-  delete stmnt;
 }
