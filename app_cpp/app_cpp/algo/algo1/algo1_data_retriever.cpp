@@ -112,7 +112,9 @@ void algo1_data_retriever::update_database_from_file(fs::path filepath){
   std::stringstream strStream;
   strStream << inFile.rdbuf(); //read the file
   std::string str = strStream.str(); //str holds the content of the file
-  update_database_from_json(str);
+  if(filepath.extension() == ".json"){
+    update_database_from_json(str);
+  }
 }
 void algo1_data_retriever::update_database_from_json(std::string j){
   nlohmann::json data = nlohmann::json::parse(j);
