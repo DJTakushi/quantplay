@@ -33,7 +33,7 @@ void algo_manager::process(int step){
     recorder_->add_data(new snapshot(d,portfolio_));
   }
 };
-void algo_manager::update_database_from_file(std::string filepath){
+void algo_manager::update_database_from_file(fs::path filepath){
   algo1_controller_->update_database_from_file(filepath);
 }
 int algo_manager::update_data(int num){

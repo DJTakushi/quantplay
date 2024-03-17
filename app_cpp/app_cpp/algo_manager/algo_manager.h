@@ -15,7 +15,7 @@ class algo_manager{
   algo_manager(sql::Connection* connection);
   void process(int step = -1);
   // void update_database(); //todo
-  void update_database_from_file(std::string filepath);
+  void update_database_from_file(fs::path filepath);
   int update_data(int num = -1);
   void generate_transaction();
   transaction* get_transaction();

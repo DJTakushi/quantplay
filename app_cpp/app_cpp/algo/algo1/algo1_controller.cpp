@@ -8,7 +8,7 @@ void algo1_controller::drop_datatable(){
   retriever->drop_datatable();
 }
 
-void algo1_controller::update_database_from_file(std::string filepath){
+void algo1_controller::update_database_from_file(fs::path filepath){
   retriever->update_database_from_file(filepath);
 }
 

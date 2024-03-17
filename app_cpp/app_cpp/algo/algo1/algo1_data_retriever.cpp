@@ -105,9 +105,9 @@ void algo1_data_retriever::add_data_to_database(algo1_data data,
   delete stmnt;
 }
 
-void algo1_data_retriever::update_database_from_file(std::string filepath){
+void algo1_data_retriever::update_database_from_file(fs::path filepath){
   std::ifstream inFile;
-  inFile.open(filepath); //open the input file
+  inFile.open(filepath.string()); //open the input file
 
   std::stringstream strStream;
   strStream << inFile.rdbuf(); //read the file
