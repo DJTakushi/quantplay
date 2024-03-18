@@ -112,8 +112,12 @@ void algo1_data_retriever::update_database_from_file(fs::path filepath){
   std::stringstream strStream;
   strStream << inFile.rdbuf(); //read the file
   std::string str = strStream.str(); //str holds the content of the file
+
   if(filepath.extension() == ".json"){
     update_database_from_json(str);
+  }
+  else if(filepath.extension() == ".csv"){
+    update_database_from_csv(str);
   }
 }
 void algo1_data_retriever::update_database_from_json(std::string j){
@@ -138,4 +142,44 @@ void algo1_data_retriever::update_database_from_json(std::string j){
     d.set_volume(std::stoi(std::string(i.value()["5. volume"])));
     add_data_to_database(d,timezone_s);
   }
+}
+void algo1_data_retriever::update_database_from_csv(std::string s){
+  std::istringstream iss(s);
+  for (std::string line; std::getline(iss, line); ){
+    std::vector<std::string> items;
+    while(true){
+      std::string::size_type idx = line.find(",");
+      if(idx != std::string::npos){
+        items.push_back(line.substr(0,idx));
+        line = line.substr(idx+1);
+      }
+      else{ // delimeter not found; push remainder 
+        items.push_back(line);
+        break;
+      }
+    }
+    // std::cout << "values : ";
+    // for(auto i : items){
+    //   std::cout << i <<",";
+    // }
+    // std::cout<<std::endl;
+    try{
+      struct tm tm;
+      strptime(items[0].c_str(), "%m/%d/%Y", &tm);
+      time_t t = mktime(&tm);  // t is now your desired time_t
+
+      double open = std::stod(items[1]);
+      double high = std::stod(items[2]);
+      double
+    }
+    catch (const std::exception &exc){
+        // catch anything thrown within try block that derives from std::exception
+        std::cout << exc.what();
+    }
+
+  }
+  // for(auto i : data.items()){
+  //   algo1_data d;
+
+  //   add_data_to_database(d);
 }

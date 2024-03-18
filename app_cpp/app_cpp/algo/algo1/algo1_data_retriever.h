@@ -19,4 +19,5 @@ class algo1_data_retriever{
   // void update_database();//TODO
   void update_database_from_file(fs::path filepath);
   void update_database_from_json(std::string j);
+  void update_database_from_csv(std::string s);
 };
