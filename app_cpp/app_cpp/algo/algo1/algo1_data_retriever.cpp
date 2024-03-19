@@ -158,11 +158,6 @@ void algo1_data_retriever::update_database_from_csv(std::string s){
         break;
       }
     }
-    // std::cout << "values : ";
-    // for(auto i : items){
-    //   std::cout << i <<",";
-    // }
-    // std::cout<<std::endl;
     try{
       struct tm tm;
       strptime(items[0].c_str(), "%m/%d/%Y", &tm);
@@ -170,7 +165,10 @@ void algo1_data_retriever::update_database_from_csv(std::string s){
 
       double open = std::stod(items[1]);
       double high = std::stod(items[2]);
-      double
+      double low = std::stod(items[3]);
+      double close = std::stod(items[4]);
+      int volume = std::stoi(items[5]);
+      add_data_to_database({t,open,high,low,close,volume});
     }
     catch (const std::exception &exc){
         // catch anything thrown within try block that derives from std::exception
@@ -178,8 +176,4 @@ void algo1_data_retriever::update_database_from_csv(std::string s){
     }
 
   }
-  // for(auto i : data.items()){
-  //   algo1_data d;
-
-  //   add_data_to_database(d);
 }
