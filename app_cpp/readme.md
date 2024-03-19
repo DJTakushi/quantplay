@@ -1,4 +1,6 @@
 # todo
+- [ ] optimize for performance
+  - [ ] don't handle so little data in each sql commant
 - [ ] metric calculations
   - [ ] sharpe ratio
   - [ ] max drawdown
