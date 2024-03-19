@@ -7,7 +7,7 @@ algo1_data_retriever::algo1_data_retriever(sql::Connection* connection)
   drop_datatable();
   create_datatable();
   std::tm tm{};
-  tm.tm_year = 2020-1900;//2020
+  tm.tm_year = 2000-1900;//2000
   tm.tm_mon = 1; //jan
   tm.tm_mday = 1;
   tm.tm_hour = 1;
@@ -172,7 +172,7 @@ void algo1_data_retriever::update_database_from_csv(std::string s){
     }
     catch (const std::exception &exc){
         // catch anything thrown within try block that derives from std::exception
-        std::cout << exc.what();
+        std::cout << "exception : " << exc.what() <<std::endl;
     }
 
   }
