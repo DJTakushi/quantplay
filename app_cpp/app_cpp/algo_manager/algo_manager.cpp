@@ -58,6 +58,9 @@ void algo_manager::print_days(){
 void algo_manager::print_ohlcv_days(){
   recorder_->print_ohlcv_days();
 }
+std::vector<snapshot> algo_manager::get_day_snapshots(){
+  return recorder_->get_day_snapshots();
+}
 
 void algo_manager::print_snapshots(){
   recorder_->print_snapshots();

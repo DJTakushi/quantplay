@@ -3,9 +3,10 @@
 #include "portfolio.h"
 #include "recorder.h"
 #include "snapshot.h"
+#include "analyzer.h"
 #include <mariadb/conncpp.hpp>
 
-class algo_manager{
+class algo_manager : public analyzer{
   algo1_controller* algo1_controller_;
   trader* trader_;
   portfolio* portfolio_;
@@ -25,4 +26,5 @@ class algo_manager{
   void print_days();
   void print_ohlcv_days();
   void print_snapshots();
+  std::vector<snapshot> get_day_snapshots();
 };

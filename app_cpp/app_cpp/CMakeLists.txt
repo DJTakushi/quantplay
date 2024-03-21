@@ -4,6 +4,7 @@ project(app_cpp VERSION 0.0.0)
 
 # library creation
 add_library(${PROJECT_NAME}
+  analyzer/analyzer.cpp
   trader/trader.cpp
   recorder/recorder.cpp
   recorder/snapshot.cpp
@@ -21,6 +22,7 @@ target_include_directories(${PROJECT_NAME}
   "${PROJECT_SOURCE_DIR}/algo_manager"
   "${PROJECT_SOURCE_DIR}/algo"
   "${PROJECT_SOURCE_DIR}/algo/algo1"
+  "${PROJECT_SOURCE_DIR}/analyzer"
   "${PROJECT_SOURCE_DIR}/common"
   "${PROJECT_SOURCE_DIR}/portfolio"
   "${PROJECT_SOURCE_DIR}/recorder"
@@ -40,6 +42,7 @@ target_include_directories(main
   "${PROJECT_SOURCE_DIR}/algo_manager"
   "${PROJECT_SOURCE_DIR}/algo"
   "${PROJECT_SOURCE_DIR}/algo/algo1"
+  "${PROJECT_SOURCE_DIR}/analyzer"
   "${PROJECT_SOURCE_DIR}/common"
   "${PROJECT_SOURCE_DIR}/portfolio"
   "${PROJECT_SOURCE_DIR}/recorder"
@@ -72,6 +75,7 @@ target_include_directories(tests
   "${PROJECT_SOURCE_DIR}"
   "${PROJECT_SOURCE_DIR}/algo"
   "${PROJECT_SOURCE_DIR}/algo/algo1"
+  "${PROJECT_SOURCE_DIR}/analyzer"
   "${PROJECT_SOURCE_DIR}/common"
   "${PROJECT_SOURCE_DIR}/portfolio"
   "${PROJECT_SOURCE_DIR}/recorder"
