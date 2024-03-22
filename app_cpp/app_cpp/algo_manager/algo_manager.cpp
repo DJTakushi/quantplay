@@ -4,7 +4,7 @@ algo_manager::algo_manager(sql::Connection* connection) :
     sql_connection_(connection){
   algo1_controller_ = new algo1_controller(connection);
   trader_ = new trader();
-  portfolio_ = new portfolio(10000.0);
+  portfolio_ = new portfolio(42.09);
   recorder_ = new recorder();
 
   if (!sql_connection_) {
