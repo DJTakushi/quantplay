@@ -173,7 +173,7 @@ void algo1_data_retriever::update_database_from_csv(std::string s){
       double open = std::stod(items[1]);
       double high = std::stod(items[2]);
       double low = std::stod(items[3]);
-      double close = std::stod(items[4]);
+      double close = std::stod(items[6]);
       int volume = std::stoi(items[5]);
       data_list.push_back({t,open,high,low,close,volume});
     }
