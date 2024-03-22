@@ -2,7 +2,9 @@
 - [x] optimize for performance
   - [x] don't handle so little data in each sql commant
 - [ ] metric calculations
-  - [ ] sharpe ratio
+  - [x] sharpe ratio
+    - [ ] fix intermittent failures
+      - [ ] try clearing database at startup in this version of main
   - [ ] max drawdown
   - [ ] max drawdown duration
 - [ ] unit-test new content
