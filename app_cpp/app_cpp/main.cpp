@@ -29,7 +29,8 @@ int main(int argc, char** argv){
   // std::cout << "OHLCV Days :" << std::endl;
   // manager_->print_ohlcv_days();
 
-  std::cout << "Sharpe Ratio : " <<std::to_string(manager_->compute_sharpe_ratio())<<std::endl;
+  double sharpe_ratio = manager_->compute_sharpe_ratio();
+  std::cout << "Sharpe Ratio : " <<std::to_string(sharpe_ratio)<<std::endl;
 
   sql_connection_->close();
 }
