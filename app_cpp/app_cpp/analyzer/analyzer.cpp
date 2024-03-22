@@ -14,7 +14,6 @@ double analyzer::compute_sharpe_ratio(){
       excess_daily_return.push_back(excess_return);
     }
   }
-  // std::cout<<std::endl;
   double summation = std::reduce(excess_daily_return.begin(),
                                 excess_daily_return.end());
   double mean = summation/excess_daily_return.size();
