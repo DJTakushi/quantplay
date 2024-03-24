@@ -3,12 +3,13 @@
   - [x] don't handle so little data in each sql commant
 - [ ] metric calculations
   - [x] sharpe ratio
-    - [ ] fix intermittent failures
-      - [ ] try clearing database at startup in this version of main
+    - [x] fix intermittent failures (unsteady hours from csv)
+      - [x] try clearing database at startup in this version of main (no)
   - [ ] max drawdown
   - [ ] max drawdown duration
 - [ ] unit-test new content
   - [ ] quantitative trading content
+  - [ ] database creation
 - [ ] update_database takes filestring argument; gets data from api otherwise
 - refactor algo1_data_retriever::update_database to have options
   - [x] update with whole json (-1)
