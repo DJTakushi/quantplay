@@ -167,7 +167,12 @@ void algo1_data_retriever::update_database_from_csv(std::string s){
     }
     try{
       struct tm tm;
-      strptime(items[0].c_str(), "%m/%d/%Y", &tm);
+      std::string tm_str = items[0];
+
+      //time is set to closing time; otherwise inonsistent hour will
+      // produce inconsistent results
+      tm_str += +" 17:00:00";
+      strptime(tm_str.c_str(), "%m/%d/%Y %H:%M:%S", &tm);
       time_t t = mktime(&tm);  // t is now your desired time_t
 
       double open = std::stod(items[1]);
