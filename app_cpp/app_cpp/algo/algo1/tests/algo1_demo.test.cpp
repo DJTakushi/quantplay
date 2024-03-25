@@ -28,5 +28,7 @@ TEST_F(algo1Test_demo, algo1_test_real){
   double sharpe_ratio = manager_->compute_sharpe_ratio();
   EXPECT_DOUBLE_EQ(0.78931753834485100000,sharpe_ratio);
 
+  double max_drawdown = manager_->compute_max_drawdown();
+  EXPECT_DOUBLE_EQ(-0.5419994846689000,max_drawdown);
   sql_connection_->close();
 }
