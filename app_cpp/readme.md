@@ -7,9 +7,9 @@
       - [x] try clearing database at startup in this version of main (no)
   - [ ] max drawdown
   - [ ] max drawdown duration
-- [ ] unit-test new content
-  - [ ] quantitative trading content
-  - [ ] database creation
+- [x] unit-test new content
+  - [x] quantitative trading content
+  - [x] database creation (completed implicitly in test)
 - [ ] update_database takes filestring argument; gets data from api otherwise
 - refactor algo1_data_retriever::update_database to have options
   - [x] update with whole json (-1)
@@ -48,11 +48,11 @@
     - [x] addData
     - [x] loadData [no, manager will load data.  algo has 1 responsibility]
     - [x] process (verdict)
-- [ ] algomanager.py
+- [x] algomanager.py
   - [x] init
   - [x] getData
-  - [ ] simulate
-  - [ ] analyze
+  - [x] simulate (process with data in unit-tests)
+  - [x] analyze
 - [ ] apigetter.py
 - [x] csvconverter.py
 - [x] databaseconnector.py
