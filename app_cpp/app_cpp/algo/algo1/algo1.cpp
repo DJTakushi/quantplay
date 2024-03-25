@@ -7,7 +7,6 @@ void algo1::addData(std::list<algo1_data> data_list){
 
 transaction* algo1::process(){
   /** buy and hold; buy at first available instance and do nothing after**/
-  static bool bought = false;
   transaction* output = NULL;
 
   if(!bought){
