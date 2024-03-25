@@ -21,11 +21,12 @@ TEST_F(algo1Test_demo, algo1_test_real){
   manager_->update_database_from_file(fs::path("app_cpp/3_4_ige.csv"));
   manager_->process(1);
 
+  // confirm number of data loaded
   std::vector<snapshot> snapshots = manager_->get_day_snapshots();
   EXPECT_EQ(1504,snapshots.size());
 
   double sharpe_ratio = manager_->compute_sharpe_ratio();
-  std::cout << "Sharpe Ratio : " <<std::to_string(sharpe_ratio)<<std::endl;
+  EXPECT_DOUBLE_EQ(0.78931753834485100000,sharpe_ratio);
 
   sql_connection_->close();
 }
