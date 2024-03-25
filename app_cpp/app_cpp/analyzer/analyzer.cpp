@@ -28,3 +28,23 @@ double analyzer::compute_sharpe_ratio(){
 
   return double(sqrt(252))*mean/sd;
 }
+double analyzer::compute_max_drawdown(){
+  double output = 0.0;
+  std::vector<snapshot*> snapshots = get_snapshots();
+  if(snapshots.size()>0){
+    snapshot* low_snapshot = snapshots.front();
+    snapshot* high_snapshot = snapshots.front();
+    for(auto i : snapshots){
+      if(i->get_low() < low_snapshot->get_low()){
+        low_snapshot = i;
+      }
+      if(i->get_high() > high_snapshot->get_high()){
+        high_snapshot = i;
+      }
+    }
+    double max = high_snapshot->get_high();
+    double min = low_snapshot->get_low();
+    output = (min-max)/max;
+  }
+  return output;
+}

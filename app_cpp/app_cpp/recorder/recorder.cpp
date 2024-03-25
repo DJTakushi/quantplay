@@ -38,6 +38,9 @@ void recorder::print_ohlcv_days(){
     i.print_ohlcv();
   }
 }
+std::vector<snapshot*> recorder::get_snapshots(){
+  return snapshots_;
+}
 std::vector<snapshot> recorder::get_day_snapshots(){
   std::vector<snapshot> out;
   if(snapshots_.size()>0){
