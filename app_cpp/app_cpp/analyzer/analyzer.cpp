@@ -29,6 +29,8 @@ double analyzer::compute_sharpe_ratio(){
   return double(sqrt(252))*mean/sd;
 }
 double analyzer::compute_max_drawdown(){
+  // TODO : correct; it is not just (min-max)/max; time matters
+  // https://www.investopedia.com/terms/m/maximum-drawdown-mdd.asp#:~:text=Key%20Takeaways,down%20movements%20could%20be%20volatile.
   double output = 0.0;
   std::vector<snapshot*> snapshots = get_snapshots();
   if(snapshots.size()>0){
