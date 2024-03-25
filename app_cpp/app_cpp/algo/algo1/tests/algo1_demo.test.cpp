@@ -1,0 +1,31 @@
+#include "algo_manager.h"
+#include <gtest/gtest.h>
+
+class algo1Test_demo : public ::testing::Test{};
+
+TEST_F(algo1Test_demo, algo1_test_real){
+  sql::Driver* driver = sql::mariadb::get_driver_instance();
+
+  sql::SQLString url("jdbc:mariadb://127.0.0.1:3306/quant");
+
+  // Use a properties map for the other connection options
+  sql::Properties properties({
+        {"user", "root"},
+        {"password", "example"},
+    });
+
+  // Establish Connection
+  sql::Connection* sql_connection_ = driver->connect(url, properties);
+
+  algo_manager* manager_ = new algo_manager(sql_connection_);
+  manager_->update_database_from_file(fs::path("app_cpp/3_4_ige.csv"));
+  manager_->process(1);
+
+  std::vector<snapshot> snapshots = manager_->get_day_snapshots();
+  EXPECT_EQ(1504,snapshots.size());
+
+  double sharpe_ratio = manager_->compute_sharpe_ratio();
+  std::cout << "Sharpe Ratio : " <<std::to_string(sharpe_ratio)<<std::endl;
+
+  sql_connection_->close();
+}

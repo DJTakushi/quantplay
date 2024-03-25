@@ -68,6 +68,7 @@ add_executable(tests
   portfolio/tests/portfolio.test.cpp
   common/tests/transaction.test.cpp
   algo/algo1/tests/algo1.test.cpp
+  algo/algo1/tests/algo1_demo.test.cpp
 )
 set_property(TARGET tests PROPERTY CXX_STANDARD 20)
 target_include_directories(tests
@@ -75,6 +76,7 @@ target_include_directories(tests
   "${PROJECT_SOURCE_DIR}"
   "${PROJECT_SOURCE_DIR}/algo"
   "${PROJECT_SOURCE_DIR}/algo/algo1"
+  "${PROJECT_SOURCE_DIR}/algo_manager"
   "${PROJECT_SOURCE_DIR}/analyzer"
   "${PROJECT_SOURCE_DIR}/common"
   "${PROJECT_SOURCE_DIR}/portfolio"
