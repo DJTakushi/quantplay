@@ -30,7 +30,7 @@ void algo_manager::process(int step){
     /** 6. portfolio value recorded */
     ohlcv* d = new ohlcv(algo1_controller_->get_latest_data());
     portfolio_->set_current_value(d->get_close());
-    recorder_->add_data(new snapshot(d,portfolio_));
+    recorder_->add_data({d,portfolio_});
   }
 };
 void algo_manager::update_database_from_file(fs::path filepath){
@@ -58,7 +58,7 @@ void algo_manager::print_days(){
 void algo_manager::print_ohlcv_days(){
   recorder_->print_ohlcv_days();
 }
-std::vector<snapshot*> algo_manager::get_snapshots(){
+std::vector<snapshot> algo_manager::get_snapshots(){
  return recorder_->get_snapshots();
 }
 
