@@ -9,6 +9,7 @@ class portfolio{
 
 public:
   portfolio(double starting_balance);
+  portfolio(double bal, int shares, double val);
   portfolio(portfolio* p);
   double get_balance();
   double get_equity_value();

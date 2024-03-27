@@ -4,6 +4,9 @@
 portfolio::portfolio(double starting_balance){
   balance_ = starting_balance;
 }
+portfolio::portfolio(double bal, int shares, double val) :
+    balance_(bal), shares_(shares), value_current_(val){}
+
 portfolio::portfolio(portfolio* p){
   balance_=p->get_balance();
   shares_=p->get_shares();
