@@ -65,6 +65,7 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 add_executable(tests
+  analyzer/tests/analyzer.test.cpp
   portfolio/tests/portfolio.test.cpp
   common/tests/transaction.test.cpp
   algo/algo1/tests/algo1.test.cpp
