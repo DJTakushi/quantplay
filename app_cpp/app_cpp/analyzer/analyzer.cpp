@@ -29,29 +29,25 @@ double analyzer::compute_sharpe_ratio(){
   return double(sqrt(252))*mean/sd;
 }
 double analyzer::compute_max_drawdown(){
-  // TODO : correct; it is not just (min-max)/max; time matters
-  // https://www.investopedia.com/terms/m/maximum-drawdown-mdd.asp#:~:text=Key%20Takeaways,down%20movements%20could%20be%20volatile.
   double output = 0.0;
   std::vector<snapshot> snapshots = get_snapshots();
   if(snapshots.size()>0){
     snapshot low_snapshot = snapshots.front();
     snapshot high_snapshot = snapshots.front();
     for(auto i : snapshots){
-      if(i.get_low() < low_snapshot.get_low()){
+      if(i.get_portfolio_value() < low_snapshot.get_portfolio_value()){
         low_snapshot = i;
-        double max = high_snapshot.get_high();
-        double min = low_snapshot.get_low();
+        // TODO : try reogranizing var instantiations to optimize performance
+        double max = high_snapshot.get_portfolio_value();
+        double min = low_snapshot.get_portfolio_value();
         double drawdown = (min-max)/max;
         output = std::min(output,drawdown);
       }
-      if(i.get_high() > high_snapshot.get_high()){
+      if(i.get_portfolio_value() > high_snapshot.get_portfolio_value()){
         high_snapshot = i;
         low_snapshot = i;
       }
     }
-    double max = high_snapshot.get_high();
-    double min = low_snapshot.get_low();
-    output = (min-max)/max;
   }
   return output;
 }
