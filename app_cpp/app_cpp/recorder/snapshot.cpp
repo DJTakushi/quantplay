@@ -1,7 +1,17 @@
 #include "snapshot.h"
 #include <iostream>
 #include <iomanip>
-
+snapshot::snapshot(std::string tm,
+                  double open,
+                  double high,
+                  double low,
+                  double close,
+                  int volume,
+                  double balance,
+                  int shares,
+                  double value) :
+                  ohlcv(tm,open,high,low,close,volume),
+                  portfolio(balance,shares,value) {}
 snapshot::snapshot(ohlcv * o, portfolio* p): ohlcv(o), portfolio(p){}
 snapshot::snapshot(snapshot* s) : ohlcv(s), portfolio(s){}
 void snapshot::print(){
