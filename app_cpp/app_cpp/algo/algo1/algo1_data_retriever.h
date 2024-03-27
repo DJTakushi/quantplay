@@ -1,10 +1,10 @@
 #include <list>
+#include "helpers.h"
 #include "algo1_data.h"
 #include <mariadb/conncpp.hpp>
 #include <ctime>
 #include <filesystem>
 
-#define TD_FORMAT "%Y-%m-%d %H:%M:%S"
 namespace fs = std::filesystem;
 class algo1_data_retriever{
   sql::Connection* connection_;

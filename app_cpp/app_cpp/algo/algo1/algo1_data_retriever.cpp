@@ -1,4 +1,5 @@
 #include "algo1_data_retriever.h"
+#include "helpers.h"
 #include <iostream>
 #include <fstream>
 #include <nlohmann/json.hpp>
@@ -67,9 +68,8 @@ std::list<algo1_data> algo1_data_retriever::get_data(int num){
       double close = res->getDouble("close");
       int volume = res->getInt("volume");
 
-      std::tm tm{};
-      strptime(res->getString("timestamp"), TD_FORMAT, &tm);
-      latest_datapoint_ = timegm(&tm);
+      std::string time_stamp_str = res->getString("timestamp").c_str();
+      latest_datapoint_ = datetime_to_time_t(time_stamp_str);
       algo1_data tmp(latest_datapoint_,open,high,low,close,volume);
       output.push_back(tmp);
     }
@@ -134,10 +134,7 @@ void algo1_data_retriever::update_database_from_json(std::string j){
   for(auto i : data.items()){
     algo1_data d;
 
-    const char *time_details = i.key().c_str();
-    struct tm tm;
-    strptime(time_details, TD_FORMAT, &tm);
-    time_t t = mktime(&tm);  // t is now your desired time_t
+    time_t t = datetime_to_time_t(i.key());
     d.set_time(t);
 
     d.set_open(std::stod(std::string(i.value()["1. open"])));
