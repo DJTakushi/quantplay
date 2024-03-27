@@ -1,7 +1,13 @@
 #include "ohlcv.h"
+#include "helpers.h"
 #include <iostream>
 ohlcv::ohlcv(std::time_t t, double o, double h, double l, double c, int v)
     :time_(t),open_(o),high_(h),low_(l),close_(c),volume_(v){};
+
+ohlcv::ohlcv(std::string t, double o, double h, double l, double c, int v) :
+    open_(o),high_(h),low_(l),close_(c),volume_(v){
+  time_ = datetime_to_time_t(t);
+}
 
 ohlcv::ohlcv(ohlcv* o){
   set_time(o->get_time());

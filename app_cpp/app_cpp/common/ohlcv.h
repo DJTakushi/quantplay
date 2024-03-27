@@ -10,6 +10,7 @@ struct ohlcv{
   int volume_ = 0;
   ohlcv(){};
   ohlcv(std::time_t t, double o, double h, double l, double c, int v);
+  ohlcv(std::string t, double o, double h, double l, double c, int v);
   ohlcv(ohlcv* o);
   void set_open(double open);
   double get_open();
