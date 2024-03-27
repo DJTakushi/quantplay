@@ -5,8 +5,10 @@
   - [x] sharpe ratio
     - [x] fix intermittent failures (unsteady hours from csv)
       - [x] try clearing database at startup in this version of main (no)
-  - [ ] max drawdown
+  - [x] max drawdown
   - [ ] max drawdown duration
+  - [ ] return over maximum drawdown
+  - [ ] Calmar Ratio
 - [x] unit-test new content
   - [x] quantitative trading content
   - [x] database creation (completed implicitly in test)
