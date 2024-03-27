@@ -12,7 +12,7 @@
 - [x] unit-test new content
   - [x] quantitative trading content
   - [x] database creation (completed implicitly in test)
-- [ ] update_database takes filestring argument; gets data from api otherwise
+- [x] update_database takes filestring argument; gets data from api otherwise
 - refactor algo1_data_retriever::update_database to have options
   - [x] update with whole json (-1)
   - [x] update with single row from json (will need to reorder json) (step)
@@ -35,13 +35,13 @@
 - [ ] dataretriever
   - [x] create data table (with override option)
   - [x] get_data() from table
-    - [ ] override option to get data from test table
-  - [ ] unittest loads data into table
+    - [x] override option to get data from test table (no, populate table)
+  - [x] unittest loads data into table
 - [ ] api fetcher
   - take in struct
     - target table
     - mysql query(?)
-  - [ ] override in unittests to populate from csv
+  - [x] override in unittests to populate from csv
 ## convert
 - [x] algo.py
   - [x] algo
