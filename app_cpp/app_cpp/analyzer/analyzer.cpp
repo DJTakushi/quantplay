@@ -39,9 +39,14 @@ double analyzer::compute_max_drawdown(){
     for(auto i : snapshots){
       if(i->get_low() < low_snapshot->get_low()){
         low_snapshot = i;
+        double max = high_snapshot->get_high();
+        double min = low_snapshot->get_low();
+        double drawdown = (min-max)/max;
+        output = std::min(output,drawdown);
       }
       if(i->get_high() > high_snapshot->get_high()){
         high_snapshot = i;
+        low_snapshot = i;
       }
     }
     double max = high_snapshot->get_high();
