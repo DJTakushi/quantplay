@@ -8,6 +8,7 @@
     - [ ] refactor to return timestamps
   - [ ] return over maximum drawdown
   - [ ] Calmar Ratio
+  - [ ] print function from analzyer to print all relevant metrics (neatly) for comparison
 - [ ] try different algos
 - [ ] live usage
 - [ ] plot portfolio value
