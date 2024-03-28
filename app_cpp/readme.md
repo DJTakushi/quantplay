@@ -3,7 +3,7 @@
   - [x] sharpe ratio
     - [ ] programatic zero-risk rate
   - [x] max drawdown
-    - [ ] refactor to return timestamps
+    - [x] refactor to return timestamps
   - [x] max drawdown duration
     - [ ] refactor to return timestamps
   - [ ] return over maximum drawdown
