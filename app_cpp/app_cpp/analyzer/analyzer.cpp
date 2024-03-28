@@ -51,3 +51,19 @@ double analyzer::compute_max_drawdown(){
   }
   return output;
 }
+double analyzer::compute_max_drawdown_duration() {
+  /** returns max-drawdown-duration in seconds **/
+  double max_drawdown_dur = 0.0;
+  std::vector<snapshot> snapshots = get_snapshots();
+  if(snapshots.size()>0){
+    snapshot max_snapshot = snapshots.front();
+    for(auto i : snapshots){
+      double this_dur = difftime(i.get_time(),max_snapshot.get_time());
+      max_drawdown_dur = std::max(max_drawdown_dur,this_dur);
+      if(i.get_portfolio_value() >= max_snapshot.get_portfolio_value()){
+        max_snapshot = i;
+      }
+    }
+  }
+  return max_drawdown_dur;
+}

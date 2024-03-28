@@ -7,4 +7,5 @@ class analyzer{
   public:
   double compute_sharpe_ratio();
   double compute_max_drawdown();
+  double compute_max_drawdown_duration();
 };

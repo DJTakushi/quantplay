@@ -24,4 +24,5 @@ TEST_F(analyzerTest,investopedia_example){
   snapshots_.push_back({"2000-01-05 00:00:00",0,0,0,0,0,0,1,350000});
   snapshots_.push_back({"2000-01-06 00:00:00",0,0,0,0,0,0,1,800000});
   EXPECT_DOUBLE_EQ(-0.53333333333333333,compute_max_drawdown());
+  EXPECT_DOUBLE_EQ(345600,compute_max_drawdown_duration());
 }
