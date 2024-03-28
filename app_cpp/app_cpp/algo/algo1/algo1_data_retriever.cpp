@@ -45,7 +45,8 @@ void algo1_data_retriever::create_datatable(){
   }
 }
 
-std::list<algo1_data> algo1_data_retriever::get_data(int num){
+std::list<algo1_data> algo1_data_retriever::get_next_data_from_database(
+    int num) {
   std::list<algo1_data> output;
   std::string cmd = "SELECT ";
   cmd += " timestamp, open, high, low, close, volume ";

@@ -13,7 +13,7 @@ void algo1_controller::update_database_from_file(fs::path filepath){
 }
 
 int algo1_controller::update_data(int num){
-  std::list<algo1_data> data = retriever->get_data(num);
+  std::list<algo1_data> data = retriever->get_next_data_from_database(num);
   algo->addData(data);
   return data.size();
 }
