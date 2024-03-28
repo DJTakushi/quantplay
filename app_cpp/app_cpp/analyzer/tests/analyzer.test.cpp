@@ -31,4 +31,8 @@ TEST_F(analyzerTest,investopedia_example){
   snapshot high = mdd_high_low[0];
   EXPECT_DOUBLE_EQ(750000,high.get_portfolio_value());
   EXPECT_EQ("2000-01-02 00:00:00",time_t_to_local_str(high.get_time()));
+
+  snapshot low = mdd_high_low[1];
+  EXPECT_DOUBLE_EQ(350000,low.get_portfolio_value());
+  EXPECT_EQ("2000-01-05 00:00:00",time_t_to_local_str(low.get_time()));
 }
