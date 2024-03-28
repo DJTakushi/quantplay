@@ -1,13 +1,16 @@
 # todo
 - [ ] metric calculations
   - [x] sharpe ratio
-    - [x] fix intermittent failures (unsteady hours from csv)
-      - [x] try clearing database at startup in this version of main (no)
+    - [ ] programatic zero-risk rate
   - [x] max drawdown
-  - [ ] max drawdown duration
+    - [ ] refactor to return timestamps
+  - [x] max drawdown duration
+    - [ ] refactor to return timestamps
   - [ ] return over maximum drawdown
   - [ ] Calmar Ratio
+- [ ] try different algos
 - [ ] live usage
+- [ ] plot portfolio value
 
 ## docekrize
 - set up database
