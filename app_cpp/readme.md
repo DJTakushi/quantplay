@@ -12,6 +12,7 @@
 - [ ] try different algos
 - [ ] live usage
 - [ ] plot portfolio value
+- [ ] timestamps entered into database for grafana usage
 
 ## docekrize
 - set up database
