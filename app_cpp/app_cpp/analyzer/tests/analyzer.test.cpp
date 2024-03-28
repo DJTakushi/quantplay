@@ -1,4 +1,5 @@
 #include "analyzer.h"
+#include "helpers.h"
 #include <gtest/gtest.h>
 
 class analyzer_dummy : public analyzer {
@@ -23,6 +24,11 @@ TEST_F(analyzerTest,investopedia_example){
   snapshots_.push_back({"2000-01-04 00:00:00",0,0,0,0,0,0,1,600000});
   snapshots_.push_back({"2000-01-05 00:00:00",0,0,0,0,0,0,1,350000});
   snapshots_.push_back({"2000-01-06 00:00:00",0,0,0,0,0,0,1,800000});
-  EXPECT_DOUBLE_EQ(-0.53333333333333333,compute_max_drawdown());
-  EXPECT_DOUBLE_EQ(345600,compute_max_drawdown_duration());
+  EXPECT_DOUBLE_EQ(-0.53333333333333333,get_max_drawdown());
+  EXPECT_DOUBLE_EQ(345600,get_max_drawdown_duration());
+
+  std::vector<snapshot> mdd_high_low = get_max_drawdown_snapshots();
+  snapshot high = mdd_high_low[0];
+  EXPECT_DOUBLE_EQ(750000,high.get_portfolio_value());
+  EXPECT_EQ("2000-01-02 00:00:00",time_t_to_local_str(high.get_time()));
 }

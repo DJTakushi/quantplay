@@ -6,6 +6,9 @@ class analyzer{
   virtual std::vector<snapshot> get_snapshots() = 0;
   public:
   double compute_sharpe_ratio();
-  double compute_max_drawdown();
-  double compute_max_drawdown_duration();
+  std::vector<snapshot> get_max_drawdown_snapshots();
+  double get_max_drawdown();
+  double get_max_drawdown_duration();
+  private:
+  double calculate_max_drawdown(std::vector<snapshot> high_low);
 };

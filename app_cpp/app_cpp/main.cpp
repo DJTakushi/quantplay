@@ -30,8 +30,8 @@ int main(int argc, char** argv){
   // manager_->print_ohlcv_days();
 
   double sharpe_ratio = manager_->compute_sharpe_ratio();
-  double max_drawdown = manager_->compute_max_drawdown()*100.0;
-  double max_drawdown_duration = manager_->compute_max_drawdown_duration();
+  double max_drawdown = manager_->get_max_drawdown()*100.0;
+  double max_drawdown_duration = manager_->get_max_drawdown_duration();
   max_drawdown_duration /=(60*60*24);
   std::cout << "Sharpe Ratio : " <<std::to_string(sharpe_ratio)<<std::endl;
   std::cout << "max drawdown : %" <<std::to_string(max_drawdown)<<std::endl;
