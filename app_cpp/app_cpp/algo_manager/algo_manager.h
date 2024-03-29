@@ -18,7 +18,6 @@ class algo_manager : public analyzer{
   // void update_database(); //todo
   void update_database_from_file(fs::path filepath);
   int update_data(int num = -1);
-  void generate_transaction();
   transaction* get_transaction();
   transaction* process_transaction(transaction* t);
   void log_transaction(transaction* t);
@@ -28,4 +27,5 @@ class algo_manager : public analyzer{
   void print_snapshots();
   std::vector<snapshot> get_snapshots();
   std::vector<snapshot> get_day_snapshots();
+  // void save_data(fs::path filepath); //todo
 };
