@@ -1,10 +1,9 @@
 #pragma once
-#include "ohlcv.h"
+#include "time_base.h"
 #include "portfolio.h"
-struct snapshot : public ohlcv, public portfolio{
-  snapshot(std::string tm, double open, double high, double low, double close,
-      int volume, double balance, int shares, double value);
-  snapshot(ohlcv * o, portfolio *p);
+struct snapshot : public time_base, public portfolio{
+  snapshot(std::string tm, double balance, int shares, double value);
+  snapshot(time_base * tb, portfolio *p);
   snapshot(snapshot* s);
   void print();
 };

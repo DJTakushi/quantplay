@@ -11,6 +11,7 @@ add_library(${PROJECT_NAME}
   common/helpers.cpp
   common/transaction.cpp
   common/ohlcv.cpp
+  common/time_base.cpp
   portfolio/portfolio.cpp
   algo/algo1/algo1.cpp
   algo/algo1/algo1_data_retriever.cpp

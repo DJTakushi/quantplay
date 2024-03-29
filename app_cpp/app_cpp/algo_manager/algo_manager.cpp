@@ -55,9 +55,6 @@ double algo_manager::get_portfolio_value(){
 void algo_manager::print_days(){
   recorder_->print_days();
 }
-void algo_manager::print_ohlcv_days(){
-  recorder_->print_ohlcv_days();
-}
 std::vector<snapshot> algo_manager::get_snapshots(){
  return recorder_->get_snapshots();
 }

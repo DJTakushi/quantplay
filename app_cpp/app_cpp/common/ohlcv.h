@@ -1,8 +1,6 @@
 #pragma once
-#include "typedefs.h"
-#include <ctime>
-struct ohlcv{
-  std::time_t time_;
+#include "time_base.h"
+struct ohlcv : public time_base {
   double open_ = 0;
   double high_ = 0;
   double low_ = 0;
@@ -25,12 +23,7 @@ struct ohlcv{
   double get_close();
 
   void set_volume(int vol);
-  int get_volume(); 
-
-  void set_time(time_t t);
-  time_t get_time();
-
-  ymd_date get_date();
+  int get_volume();
 
   void print_ohlcv();
 };

@@ -2,18 +2,13 @@
 #include <iostream>
 #include <iomanip>
 snapshot::snapshot(std::string tm,
-                  double open,
-                  double high,
-                  double low,
-                  double close,
-                  int volume,
                   double balance,
                   int shares,
                   double value) :
-                  ohlcv(tm,open,high,low,close,volume),
+                  time_base(tm),
                   portfolio(balance,shares,value) {}
-snapshot::snapshot(ohlcv * o, portfolio* p): ohlcv(o), portfolio(p){}
-snapshot::snapshot(snapshot* s) : ohlcv(s), portfolio(s){}
+snapshot::snapshot(time_base * tb, portfolio* p): time_base(tb), portfolio(p){}
+snapshot::snapshot(snapshot* s) : time_base(s), portfolio(s){}
 void snapshot::print(){
   std::cout << std::put_time(std::localtime(&time_),"%c %Z") << " : ";
   std::cout << "balance : "<<std::to_string(get_balance())<<",";

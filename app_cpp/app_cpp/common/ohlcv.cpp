@@ -2,12 +2,10 @@
 #include "helpers.h"
 #include <iostream>
 ohlcv::ohlcv(std::time_t t, double o, double h, double l, double c, int v)
-    :time_(t),open_(o),high_(h),low_(l),close_(c),volume_(v){};
+    :time_base(t),open_(o),high_(h),low_(l),close_(c),volume_(v){};
 
-ohlcv::ohlcv(std::string t, double o, double h, double l, double c, int v) :
-    open_(o),high_(h),low_(l),close_(c),volume_(v){
-  time_ = datetime_to_time_t(t);
-}
+ohlcv::ohlcv(std::string t, double o, double h, double l, double c, int v)
+    : time_base(t),open_(o),high_(h),low_(l),close_(c),volume_(v){};
 
 ohlcv::ohlcv(ohlcv* o){
   set_time(o->get_time());
@@ -32,14 +30,6 @@ double ohlcv::get_close(){return close_;}
 
 void ohlcv::set_volume(int vol){volume_=vol;}
 int ohlcv::get_volume(){return volume_;}; 
-
-void ohlcv::set_time(std::time_t t){time_=t;}
-std::time_t ohlcv::get_time(){return time_;}
-
-ymd_date ohlcv::get_date(){
-  std::chrono::time_point tp = std::chrono::system_clock::from_time_t(time_);
-  return std::chrono::floor<std::chrono::days>(tp);
-}
 
 void ohlcv::print_ohlcv(){
   std::cout << std::put_time(std::localtime(&time_),"%c %Z") << " :";

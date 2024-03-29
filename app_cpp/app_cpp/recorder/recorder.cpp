@@ -20,22 +20,9 @@ void recorder::print_snapshots(){
   }
 }
 void recorder::print_days(){
-  if(snapshots_.size()>0){
-    ymd_date ymd = snapshots_.front().get_date();
-    for(auto s : snapshots_){
-      if(ymd!=s.get_date()){
-        s.print();
-        ymd=s.get_date();
-      }
-    }
-    snapshots_.back().print();
-  }
-}
-
-void recorder::print_ohlcv_days(){
   std::vector<snapshot> v = get_day_snapshots();
   for(auto i : v){
-    i.print_ohlcv();
+    i.print();
   }
 }
 std::vector<snapshot> recorder::get_snapshots(){
@@ -51,10 +38,6 @@ std::vector<snapshot> recorder::get_day_snapshots(){
         t = snapshot(i);
       }
       else{
-        t.set_high(std::max(t.get_high(),i.get_high()));
-        t.set_low(std::min(t.get_low(),i.get_low()));
-        t.set_close(i.get_close());
-        t.set_volume(t.get_volume()+i.get_volume());
         t.set_time(i.get_time());
       }
     }
