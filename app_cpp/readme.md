@@ -13,6 +13,8 @@
 - [ ] live usage
 - [ ] plot portfolio value
 - [ ] timestamps entered into database for grafana usage
+- [x] can OHLCV be removed as parent of snapshot?
+- [ ] portfolio_data created out of portfolio to remove transactions from snapshot
 
 ## docekrize
 - set up database
