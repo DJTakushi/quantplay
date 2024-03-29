@@ -9,6 +9,7 @@ class analyzer{
   std::vector<snapshot> get_max_drawdown_snapshots();
   double get_max_drawdown();
   double get_max_drawdown_duration();
+  void print_analysis();
   private:
   double calculate_max_drawdown(std::vector<snapshot> high_low);
 };

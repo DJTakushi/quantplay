@@ -1,4 +1,6 @@
 #include "analyzer.h"
+#include <iostream>
+#include <iomanip>
 #include <numeric>
 #include <math.h>
 double analyzer::compute_sharpe_ratio(){
@@ -84,4 +86,17 @@ double analyzer::get_max_drawdown_duration() {
     }
   }
   return max_drawdown_dur;
+}
+void analyzer::print_analysis(){
+  double sharpe_ratio = compute_sharpe_ratio();
+  std::cout << "Sharpe Ratio : " << std::fixed << std::setprecision(8);
+  std::cout << sharpe_ratio <<std::endl;
+
+  double max_drawdown = get_max_drawdown()*100.0;
+  std::cout << "Max Drawdown : %" << max_drawdown <<std::endl;
+
+  double max_drawdown_duration = get_max_drawdown_duration();
+  max_drawdown_duration /=(60*60*24);
+  std::cout << "Max Drawdown Duration : "<< std::setprecision(2);
+  std::cout << max_drawdown_duration << " days"<<std::endl;
 }
