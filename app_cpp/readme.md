@@ -17,9 +17,9 @@
 - [ ] portfolio_data created out of portfolio to remove transactions from snapshot
   - alternative
     1. [x] transactions removed from portfolio (where they're not needed) and placed in trader (where they're more relevant)
-    2. [ ] time_base added as parent class of portfolio
-    3. [ ] snapshot content merged into portfolio
-    4. [ ] snapshot replaced by portfolio
+    2. [x] time_base added as parent class of portfolio
+    3. [x] snapshot content merged into portfolio
+    4. [x] snapshot replaced by portfolio
 
 ## docekrize
 - set up database
