@@ -1,16 +1,16 @@
-#include "snapshot.h"
+#include "portfolio.h"
 #include "typedefs.h"
 #include <vector>
 class recorder{
   /** logs records for display later **/
 protected:
-  std::vector<snapshot> snapshots_;
+  std::vector<portfolio> portfolio_snapshots_;
 public:
   recorder();
   ymd_date get_current_date();
-  void add_data(snapshot d);
-  void print_snapshots();
+  void add_data(portfolio d);
+  void print_portfolio_snapshots();
   void print_days();
-  std::vector<snapshot> get_snapshots();
-  std::vector<snapshot> get_day_snapshots();
+  std::vector<portfolio> get_portfolio_snapshots();
+  std::vector<portfolio> get_day_portfolio_snapshots();
 };

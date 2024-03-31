@@ -22,8 +22,8 @@ TEST_F(algo1Test_demo, algo1_test_real){
   manager_->process(1);
 
   // confirm number of data loaded
-  std::vector<snapshot> snapshots = manager_->get_day_snapshots();
-  EXPECT_EQ(1504,snapshots.size());
+  std::vector<portfolio> portfolios = manager_->get_day_portfolio_snapshots();
+  EXPECT_EQ(1504,portfolios.size());
 
   double sharpe_ratio = manager_->compute_sharpe_ratio();
   EXPECT_DOUBLE_EQ(0.78931753834485100000,sharpe_ratio);

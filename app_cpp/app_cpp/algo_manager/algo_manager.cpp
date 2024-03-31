@@ -26,13 +26,14 @@ void algo_manager::process(int step){
     /** 4.  transaction processed by trader */
     t = process_transaction(t);
 
-    /** 5. transction logged in portfolio (if complete )*/
+    /** 5. transction logged in trader (if complete )*/
     log_transaction(t);
 
     /** 6. portfolio value recorded */
     ohlcv* d = new ohlcv(algo1_controller_->get_latest_data());
     portfolio_->set_current_value(d->get_close());
-    recorder_->add_data({d,portfolio_});
+    portfolio_->set_time(d->get_time());
+    recorder_->add_data(*portfolio_);
   }
 };
 void algo_manager::update_database_from_file(fs::path filepath){
@@ -57,14 +58,14 @@ double algo_manager::get_portfolio_value(){
 void algo_manager::print_days(){
   recorder_->print_days();
 }
-std::vector<snapshot> algo_manager::get_snapshots(){
- return recorder_->get_snapshots();
+std::vector<portfolio> algo_manager::get_portfolio_snapshots(){
+ return recorder_->get_portfolio_snapshots();
 }
 
-std::vector<snapshot> algo_manager::get_day_snapshots(){
-  return recorder_->get_day_snapshots();
+std::vector<portfolio> algo_manager::get_day_portfolio_snapshots(){
+  return recorder_->get_day_portfolio_snapshots();
 }
 
-void algo_manager::print_snapshots(){
-  recorder_->print_snapshots();
+void algo_manager::print_portfolio_snapshots(){
+  recorder_->print_portfolio_snapshots();
 }

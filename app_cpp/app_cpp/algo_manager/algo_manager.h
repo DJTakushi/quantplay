@@ -2,7 +2,6 @@
 #include "trader.h"
 #include "portfolio.h"
 #include "recorder.h"
-#include "snapshot.h"
 #include "analyzer.h"
 #include <mariadb/conncpp.hpp>
 
@@ -23,8 +22,8 @@ class algo_manager : public analyzer{
   void log_transaction(transaction* t);
   double get_portfolio_value();
   void print_days();
-  void print_snapshots();
-  std::vector<snapshot> get_snapshots();
-  std::vector<snapshot> get_day_snapshots();
+  void print_portfolio_snapshots();
+  std::vector<portfolio> get_portfolio_snapshots();
+  std::vector<portfolio> get_day_portfolio_snapshots();
   // void save_data(fs::path filepath); //todo
 };

@@ -5,7 +5,7 @@
 #include <math.h>
 double analyzer::compute_sharpe_ratio(){
   double output;
-  std::vector<snapshot> data = get_day_snapshots();
+  std::vector<portfolio> data = get_day_portfolio_snapshots();
   std::vector<double> excess_daily_return;
   for(size_t i =0; i <  data.size();i++){
     if(i>0){//skip first; no previous_day
@@ -30,16 +30,16 @@ double analyzer::compute_sharpe_ratio(){
 
   return double(sqrt(252))*mean/sd;
 }
-std::vector<snapshot> analyzer::get_max_drawdown_snapshots(){
-  /** return high/low pair of snapshots of max drawdown **/
-  std::vector<snapshot> record_s;
-  std::vector<snapshot> snapshots = get_snapshots();
-  if(snapshots.size()>0){
-    snapshot local_low_s = snapshots.front();
-    snapshot local_high_s = snapshots.front();
-    record_s.push_back(snapshots.front());
-    record_s.push_back(snapshots.front());
-    for(auto i : snapshots){
+std::vector<portfolio> analyzer::get_max_drawdown_portfolio_snapshots(){
+  /** return high/low pair of portfolios of max drawdown **/
+  std::vector<portfolio> record_s;
+  std::vector<portfolio> portfolios = get_portfolio_snapshots();
+  if(portfolios.size()>0){
+    portfolio local_low_s = portfolios.front();
+    portfolio local_high_s = portfolios.front();
+    record_s.push_back(portfolios.front());
+    record_s.push_back(portfolios.front());
+    for(auto i : portfolios){
       if(i.get_portfolio_value() < local_low_s.get_portfolio_value()){
         local_low_s = i;
         double drawdown = calculate_max_drawdown({local_high_s,local_low_s});
@@ -56,8 +56,8 @@ std::vector<snapshot> analyzer::get_max_drawdown_snapshots(){
   }
   return record_s;
 }
-double analyzer::calculate_max_drawdown(std::vector<snapshot> high_low){
-  /** calculate max-drawdown of high/low snapshots of max drawdown **/
+double analyzer::calculate_max_drawdown(std::vector<portfolio> high_low){
+  /** calculate max-drawdown of high/low portfolios of max drawdown **/
   double output = 0.0;
   if(high_low.size()==2){ // will be 0 if min/max detection failed
     double max = high_low[0].get_portfolio_value();
@@ -67,21 +67,21 @@ double analyzer::calculate_max_drawdown(std::vector<snapshot> high_low){
   return output;
 }
 double analyzer::get_max_drawdown(){
-  /** get max drawdown from snapshots of portfolio **/
-  std::vector<snapshot> record_timepoints = get_max_drawdown_snapshots();
+  /** get max drawdown from portfolios of portfolio **/
+  std::vector<portfolio> record_timepoints = get_max_drawdown_portfolio_snapshots();
   return calculate_max_drawdown(record_timepoints);
 }
 double analyzer::get_max_drawdown_duration() {
   /** returns max-drawdown-duration in seconds **/
   double max_drawdown_dur = 0.0;
-  std::vector<snapshot> snapshots = get_snapshots();
-  if(snapshots.size()>0){
-    snapshot max_snapshot = snapshots.front();
-    for(auto i : snapshots){
-      double this_dur = difftime(i.get_time(),max_snapshot.get_time());
+  std::vector<portfolio> portfolios = get_portfolio_snapshots();
+  if(portfolios.size()>0){
+    portfolio max_portfolio = portfolios.front();
+    for(auto i : portfolios){
+      double this_dur = difftime(i.get_time(),max_portfolio.get_time());
       max_drawdown_dur = std::max(max_drawdown_dur,this_dur);
-      if(i.get_portfolio_value() >= max_snapshot.get_portfolio_value()){
-        max_snapshot = i;
+      if(i.get_portfolio_value() >= max_portfolio.get_portfolio_value()){
+        max_portfolio = i;
       }
     }
   }

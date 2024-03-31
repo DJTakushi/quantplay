@@ -19,12 +19,6 @@ int main(int argc, char** argv){
   manager_->update_database_from_file(fs::path("app_cpp/3_4_ige.csv"));
   manager_->process(1);
 
-  // std::cout << "Snapshots :" << std::endl;
-  // manager_->print_snapshots();
-
-  // std::cout << "Days :" << std::endl;
-  // manager_->print_days();/s
-
   manager_->print_analysis();
 
   sql_connection_->close();

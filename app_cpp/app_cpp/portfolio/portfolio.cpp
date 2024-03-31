@@ -4,10 +4,11 @@
 portfolio::portfolio(double starting_balance){
   balance_ = starting_balance;
 }
-portfolio::portfolio(double bal, int shares, double val) :
-    balance_(bal), shares_(shares), value_current_(val){}
+portfolio::portfolio(std::string tm, double bal, int shares, double val) :
+    time_base(tm), balance_(bal), shares_(shares), value_current_(val){}
 
 portfolio::portfolio(portfolio* p){
+  time_ = p->get_time();
   balance_=p->get_balance();
   shares_=p->get_shares();
   value_current_=p->value_current_;
@@ -41,4 +42,12 @@ void portfolio::addTransaction(transaction t){
       std::cout << "unrecognized type"<<std::endl;
 
   }
+}
+void portfolio::print(){
+  std::cout << std::put_time(std::localtime(&time_),"%c %Z") << " : ";
+  std::cout << "balance : "<<std::to_string(get_balance())<<",";
+  std::cout << "shares : "<<std::to_string(get_shares());
+  std::cout << " at $"<<std::to_string(get_equity_value());
+  std::cout << "("<<std::to_string(get_portfolio_value())<<") [";
+  std::cout << std::to_string(get_portfolio_value())<<"]"<<std::endl;
 }
