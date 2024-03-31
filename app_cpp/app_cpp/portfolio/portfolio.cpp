@@ -28,7 +28,6 @@ void portfolio::set_current_value(double val){
   value_current_ = val;
 }
 void portfolio::addTransaction(transaction t){
-  transactions_.push_back(t);
   switch(t.get_type()){
     case transactionType::kBuy:
       shares_+=1;

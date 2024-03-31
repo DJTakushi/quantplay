@@ -2,7 +2,6 @@
 #include "transaction.h"
 #include <vector>
 class portfolio{
-  std::vector<transaction> transactions_;
   double balance_ = 0;
   int shares_ = 0;
   double value_current_ = 0;

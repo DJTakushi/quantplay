@@ -15,6 +15,11 @@
 - [ ] timestamps entered into database for grafana usage
 - [x] can OHLCV be removed as parent of snapshot?
 - [ ] portfolio_data created out of portfolio to remove transactions from snapshot
+  - alternative
+    1. [x] transactions removed from portfolio (where they're not needed) and placed in trader (where they're more relevant)
+    2. [ ] time_base added as parent class of portfolio
+    3. [ ] snapshot content merged into portfolio
+    4. [ ] snapshot replaced by portfolio
 
 ## docekrize
 - set up database
