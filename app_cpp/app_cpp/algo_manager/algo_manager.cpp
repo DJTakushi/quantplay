@@ -13,6 +13,8 @@ algo_manager::algo_manager(sql::Connection* connection) :
   }
 };
 void algo_manager::process(int step){
+  // TODO : add option to record with live timestamp when running live
+
   /** 1. update database (maybe) **/
   // update_database_from();//todo (maybe?)
 
