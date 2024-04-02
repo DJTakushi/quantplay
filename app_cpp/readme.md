@@ -12,7 +12,9 @@
 - [ ] try different algos
 - [ ] live usage
 - [ ] plot portfolio value
-- [ ] timestamps entered into database for grafana usage
+- [ ] grafana
+  - [x] grafana addition to docker-compose
+  - [ ] timestamps entered into database for grafana usage
 - [x] can OHLCV be removed as parent of snapshot?
 - [x] portfolio_data created out of portfolio to remove transactions from snapshot
   - alternative
@@ -107,3 +109,9 @@ sudo install lib/mariadb/plugin/* /usr/lib/mariadb/plugin
 git clone git@github.com:nlohmann/json.git
 sudo cp -r json/include/nlohmann /usr/local/include/
 ```
+
+# Grafana Notes
+- grafana content taken from demo (https://github.com/grafana/tutorial-environment.git)
+- grafana content taken from demo (++) (https://github.com/annea-ai/grafana-infrastructure/tree/master)
+- https://forums.docker.com/t/how-to-reach-localhost-on-host-from-docker-container/113321
+  - 172.17.0.1 is okay for dockerized mysql on linux
