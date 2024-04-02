@@ -4,6 +4,8 @@ services:
     restart: always
     environment:
       MARIADB_ROOT_PASSWORD: example
+      MYSQL_USER: grafana
+      MYSQL_PASSWORD: grafana_password
       MARIADB_DATABASE: 'quant'
     ports:
       - 3306:3306
