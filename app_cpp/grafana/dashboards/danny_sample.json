@@ -88,16 +88,20 @@
       },
       "id": 1,
       "options": {
+        "candleStyle": "candles",
+        "colorStrategy": "open-close",
+        "colors": {
+          "down": "red",
+          "up": "green"
+        },
+        "includeAllFields": false,
         "legend": {
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "mode": "candles+volume"
       },
       "targets": [
         {
@@ -106,9 +110,10 @@
             "type": "mysql",
             "uid": "P2ABB19EC46770D68"
           },
-          "editorMode": "builder",
+          "editorMode": "code",
           "format": "table",
-          "rawSql": "SELECT timestamp, close FROM quant.algo1 LIMIT 50 ",
+          "rawQuery": true,
+          "rawSql": "SELECT timestamp, open, close, low, high FROM quant.algo1",
           "refId": "A",
           "sql": {
             "columns": [
@@ -124,7 +129,34 @@
               {
                 "parameters": [
                   {
+                    "name": "open",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
                     "name": "close",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "low",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "high",
                     "type": "functionParameter"
                   }
                 ],
@@ -145,10 +177,9 @@
         }
       ],
       "title": "Panel Title",
-      "type": "timeseries"
+      "type": "candlestick"
     }
   ],
-  "refresh": "",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
@@ -156,12 +187,12 @@
   },
   "time": {
     "from": "2001-11-26T21:00:00.000Z",
-    "to": "2002-02-06T22:00:00.000Z"
+    "to": "2008-02-06T22:00:00.000Z"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "danny_sample",
   "uid": "adhhgzitbasxsf",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
