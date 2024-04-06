@@ -1,6 +1,7 @@
 #include "recorder_db.h"
 
-recorder_db::recorder_db(){}
+recorder_db::recorder_db(sql::Connection* connection) : connection_(connection)
+{}
 
 ymd_date recorder_db::get_current_date(){
   /** returns 1900-01-01 if no date initialized**/
