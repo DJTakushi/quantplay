@@ -15,6 +15,7 @@
 - [ ] grafana
   - [x] grafana addition to docker-compose
   - [ ] timestamps entered into database for grafana usage
+     - [ ] recorder data refactored to maintain content as DB
 - [x] can OHLCV be removed as parent of snapshot?
 - [x] portfolio_data created out of portfolio to remove transactions from snapshot
   - alternative
