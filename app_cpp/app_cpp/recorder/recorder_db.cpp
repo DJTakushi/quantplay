@@ -47,7 +47,28 @@ void recorder_db::print_days(){
   }
 }
 std::vector<portfolio> recorder_db::get_portfolio_snapshots(){
-  return portfolio_snapshots_;
+  // return portfolio_snapshots_;
+  std::vector<portfolio> output;
+  std::string cmd = "SELECT ";
+  cmd += " timestamp, balance, shares, value_current ";
+  cmd+="FROM "+table_name_+" ORDER BY timestamp;";
+  sql::Statement* stmnt =connection_->createStatement();
+  try{
+    std::unique_ptr<sql::ResultSet> res(stmnt->executeQuery(cmd));
+    while (res->next()){
+      std::string time_stamp_str = res->getString("timestamp").c_str();
+      time_t time_tmp = datetime_to_time_t(time_stamp_str);
+      double balance_tmp = res->getDouble("balance");
+      uint shares_tmp = res->getDouble("shares");
+      double value_curent_tmp = res->getDouble("value_current");
+
+      output.push_back(portfolio(res->getString("timestamp").c_str(),balance_tmp,shares_tmp,value_curent_tmp));
+    }
+  }
+  catch (sql::SQLException& e) {
+    std::cerr << "Error querying table: " << e.what() << std::endl;
+  }
+  return output;
 }
 std::vector<portfolio> recorder_db::get_day_portfolio_snapshots(){
   std::vector<portfolio> out;
