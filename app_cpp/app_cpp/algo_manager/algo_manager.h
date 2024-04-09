@@ -1,7 +1,7 @@
 #include "algo1_controller.h"
 #include "trader.h"
 #include "portfolio.h"
-#include "recorder_db.h"
+#include "recorder.h"
 #include "analyzer.h"
 #include <mariadb/conncpp.hpp>
 
@@ -9,7 +9,7 @@ class algo_manager : public analyzer{
   algo1_controller* algo1_controller_;
   trader* trader_;
   portfolio* portfolio_;
-  recorder_db* recorder_;
+  recorder* recorder_;
   sql::Connection* sql_connection_;
   public:
   algo_manager(sql::Connection* connection);

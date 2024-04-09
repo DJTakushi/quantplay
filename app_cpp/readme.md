@@ -17,8 +17,11 @@
   - [ ] timestamps entered into database for grafana usage
      - [ ] recorder data refactored to maintain content as DB
        - [x] recorder table added
-       - [ ] recorder table becomes single copy of data
-       - [ ] perforamnce improvement (recorder_i, recorder, recorder_db, recorder_factory)
+       - [x] recorder table becomes single copy of data [hybrid for now]
+       - [x] ~~perforamnce improvement (recorder_i, recorder, recorder_db, recorder_factory)~~
+       - [x] recorder inherits from recorder_db_handler; recorder manages data
+      - table of metrics (sharpe, drawdown, max-drawdown duration)
+    - [ ] save content into source repo to make deployment/version-control easier
 - [x] can OHLCV be removed as parent of snapshot?
 - [x] portfolio_data created out of portfolio to remove transactions from snapshot
   - alternative

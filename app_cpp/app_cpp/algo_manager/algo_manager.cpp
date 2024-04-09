@@ -5,7 +5,7 @@ algo_manager::algo_manager(sql::Connection* connection) :
   algo1_controller_ = new algo1_controller(connection);
   trader_ = new trader();
   portfolio_ = new portfolio(42.09);
-  recorder_ = new recorder_db(connection);
+  recorder_ = new recorder(connection);
 
   if (!sql_connection_) {
     std::cerr << "Invalid database connection" << std::endl;
@@ -35,6 +35,7 @@ void algo_manager::process(int step){
     portfolio_->set_time(d->get_time());
     recorder_->add_data(*portfolio_);
   }
+  recorder_->all_snapshots_to_db();
 };
 void algo_manager::update_database_from_file(fs::path filepath){
   algo1_controller_->update_database_from_file(filepath);
