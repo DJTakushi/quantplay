@@ -122,3 +122,6 @@ sudo cp -r json/include/nlohmann /usr/local/include/
 - grafana content taken from demo (++) (https://github.com/annea-ai/grafana-infrastructure/tree/master)
 - https://forums.docker.com/t/how-to-reach-localhost-on-host-from-docker-container/113321
   - 172.17.0.1 is okay for dockerized mysql on linux
+https://grafana.com/docs/grafana/latest/administration/provisioning/#provision-folders-structure-from-filesystem-to-grafana
+  - *it is not possible to automatically save the changes back to the provisioning source*
+  - UI modifications will still need to be exported into repo to be saved (sad)
