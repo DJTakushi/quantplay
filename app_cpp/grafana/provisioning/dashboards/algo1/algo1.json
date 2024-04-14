@@ -176,7 +176,7 @@
           "table": "algo1"
         }
       ],
-      "title": "Panel Title",
+      "title": "Asset Value",
       "type": "candlestick"
     }
   ],
@@ -186,8 +186,8 @@
     "list": []
   },
   "time": {
-    "from": "2001-11-26T21:00:00.000Z",
-    "to": "2008-02-06T22:00:00.000Z"
+    "from": "2001-11-26T00:00:00.000Z",
+    "to": "2007-11-15T00:00:00.000Z"
   },
   "timepicker": {},
   "timezone": "browser",
