@@ -9,12 +9,15 @@
   - [ ] return over maximum drawdown
   - [ ] Calmar Ratio
   - [ ] print function from analzyer to print all relevant metrics (neatly) for comparison
+- [ ] start using VOO data from alphaVantage
 - [ ] try different algos
+  - [ ] mean-reversion
+  - [ ] swing
 - [ ] live usage
-- [ ] plot portfolio value
-- [ ] grafana
+- [x] plot portfolio value
+- [x] grafana
   - [x] grafana addition to docker-compose
-  - [ ] timestamps entered into database for grafana usage
+  - [x] timestamps entered into database for grafana usage
      - [x] recorder data refactored to maintain content as DB
        - [x] recorder table added
        - [x] recorder table becomes single copy of data [hybrid for now]
