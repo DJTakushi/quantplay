@@ -1,0 +1,66 @@
+#include <iostream>
+#include "analyzer_db_handler.h"
+
+analyzer_db_handler::analyzer_db_handler(sql::Connection* connection,
+    std::string name) : connection_(connection), algo_name_(name) {
+  // drop_datatable();
+  create_datatable();
+  clear_table_of_name();
+}
+analyzer_db_handler::analyzer_db_handler() {}
+
+void analyzer_db_handler::drop_datatable(){
+  sql::Statement* stmnt =connection_->createStatement();
+  std::string cmd = "DROP TABLE "+table_name_+";";
+  try{
+    stmnt->executeUpdate(cmd);
+  }
+  catch (sql::SQLException& e) {
+    std::cerr << "Error dropping table "<<table_name_<<" : ";
+    std::cerr << e.what() << std::endl;
+  }
+}
+
+void analyzer_db_handler::clear_table_of_name(){
+  sql::Statement* stmnt =connection_->createStatement();
+  std::string cmd = "DELETE FROM "+table_name_+" WHERE ";
+  cmd+="name = '"+ algo_name_+"';";
+  try{ stmnt->executeUpdate(cmd); }
+  catch (sql::SQLException& e) {
+    std::cerr << "Error clearing table " << table_name_ << " : ";
+    std::cerr << e.what() << std::endl;
+  }
+}
+
+void analyzer_db_handler::create_datatable(){
+  sql::Statement* stmnt =connection_->createStatement();
+  std::string cmd = "CREATE TABLE IF NOT EXISTS "+table_name_+" (";
+  cmd+="name VARCHAR(20), ";
+  cmd+="sharpe_ratio float(8), ";
+  cmd+="max_drawdown float(4), ";
+  cmd+="max_drawdown_dur float(4));";
+  try{ stmnt->executeUpdate(cmd); }
+  catch (sql::SQLException& e) {
+    std::cerr << "Error creating table " << table_name_ << " : ";
+    std::cerr << e.what() << std::endl;
+  }
+}
+
+void analyzer_db_handler::insert_metrics(analysis a) {
+  sql:: Statement* stmnt =connection_->createStatement();
+  std::string cmd = "INSERT INTO "+table_name_+" (";
+  cmd+="name, sharpe_ratio, max_drawdown, max_drawdown_dur) VALUES ";
+  cmd+="('"+algo_name_+"',";
+  cmd+=std::to_string(a.sharpe_ratio) +",";
+  cmd+=std::to_string(a.max_drawdown_percent) +",";
+  cmd+=std::to_string(a.max_drawdown_duration) +");";
+  try{ stmnt->executeUpdate(cmd); }
+  catch (sql::SQLException& e) {
+    std::cerr << "Error altering table: " << e.what() << std::endl;
+  }
+  delete stmnt;
+}
+
+void analyzer_db_handler::update_database_analysis(){
+  insert_metrics(generate_analysis());
+}

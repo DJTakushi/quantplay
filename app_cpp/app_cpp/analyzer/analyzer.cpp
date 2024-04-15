@@ -3,6 +3,10 @@
 #include <iomanip>
 #include <numeric>
 #include <math.h>
+analyzer::analyzer(sql::Connection* connection,std::string name)
+    : analyzer_db_handler(connection,name){}
+analyzer::analyzer() {}
+
 double analyzer::compute_sharpe_ratio(){
   double output;
   std::vector<portfolio> data = get_day_portfolio_snapshots();
@@ -69,7 +73,7 @@ double analyzer::calculate_max_drawdown(std::vector<portfolio> high_low){
 double analyzer::get_max_drawdown(){
   /** get max drawdown from portfolios of portfolio **/
   std::vector<portfolio> record_timepoints = get_max_drawdown_portfolio_snapshots();
-  return calculate_max_drawdown(record_timepoints);
+  return calculate_max_drawdown(record_timepoints)*100.0;//get as percentage
 }
 double analyzer::get_max_drawdown_duration() {
   /** returns max-drawdown-duration in seconds **/
@@ -85,18 +89,25 @@ double analyzer::get_max_drawdown_duration() {
       }
     }
   }
+  max_drawdown_dur/=(60*60*24); // convert seconds to days
   return max_drawdown_dur;
 }
+analysis analyzer::generate_analysis() {
+  double sharpe_ratio = compute_sharpe_ratio();
+  double max_drawdown = get_max_drawdown();
+  double max_drawdown_duration = get_max_drawdown_duration();
+  return analysis{sharpe_ratio,max_drawdown,max_drawdown_duration};
+}
+
 void analyzer::print_analysis(){
   double sharpe_ratio = compute_sharpe_ratio();
   std::cout << "Sharpe Ratio : " << std::fixed << std::setprecision(8);
   std::cout << sharpe_ratio <<std::endl;
 
-  double max_drawdown = get_max_drawdown()*100.0;
+  double max_drawdown = get_max_drawdown();
   std::cout << "Max Drawdown : %" << max_drawdown <<std::endl;
 
   double max_drawdown_duration = get_max_drawdown_duration();
-  max_drawdown_duration /=(60*60*24);
   std::cout << "Max Drawdown Duration : "<< std::setprecision(2);
   std::cout << max_drawdown_duration << " days"<<std::endl;
 }

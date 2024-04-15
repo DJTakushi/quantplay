@@ -1,7 +1,7 @@
 #include "algo_manager.h"
 #include <iostream>
 algo_manager::algo_manager(sql::Connection* connection) :
-    sql_connection_(connection){
+    sql_connection_(connection), analyzer(connection,"algo1"){
   algo1_controller_ = new algo1_controller(connection);
   trader_ = new trader();
   portfolio_ = new portfolio(42.09);
@@ -36,6 +36,7 @@ void algo_manager::process(int step){
     recorder_->add_data(*portfolio_);
   }
   recorder_->all_snapshots_to_db();
+  update_database_analysis();
 };
 void algo_manager::update_database_from_file(fs::path filepath){
   algo1_controller_->update_database_from_file(filepath);

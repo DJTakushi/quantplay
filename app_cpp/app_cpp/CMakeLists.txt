@@ -4,6 +4,8 @@ project(app_cpp VERSION 0.0.0)
 
 # library creation
 add_library(${PROJECT_NAME}
+  analyzer/analyzer_db_handler.cpp
+  analyzer/analysis.cpp
   analyzer/analyzer.cpp
   trader/trader.cpp
   recorder/recorder.cpp

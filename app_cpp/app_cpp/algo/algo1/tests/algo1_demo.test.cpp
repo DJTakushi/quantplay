@@ -29,6 +29,6 @@ TEST_F(algo1Test_demo, algo1_test_real){
   EXPECT_DOUBLE_EQ(0.78931753834485100000,sharpe_ratio);
 
   double max_drawdown = manager_->get_max_drawdown();
-  EXPECT_DOUBLE_EQ(-0.31178396072013098,max_drawdown);
+  EXPECT_DOUBLE_EQ(-31.178396072013098,max_drawdown);
   sql_connection_->close();
 }

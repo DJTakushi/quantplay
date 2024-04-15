@@ -24,8 +24,8 @@ TEST_F(analyzerTest,investopedia_example){
   portfolios_.push_back({"2000-01-04 00:00:00",0,1,600000});
   portfolios_.push_back({"2000-01-05 00:00:00",0,1,350000});
   portfolios_.push_back({"2000-01-06 00:00:00",0,1,800000});
-  EXPECT_DOUBLE_EQ(-0.53333333333333333,get_max_drawdown());
-  EXPECT_DOUBLE_EQ(345600,get_max_drawdown_duration());
+  EXPECT_DOUBLE_EQ(-53.333333333333333,get_max_drawdown());
+  EXPECT_DOUBLE_EQ(4,get_max_drawdown_duration());
 
   std::vector<portfolio> mdd_high_low = get_max_drawdown_portfolio_snapshots();
   portfolio high = mdd_high_low[0];
