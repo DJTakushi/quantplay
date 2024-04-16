@@ -18,6 +18,9 @@ add_library(${PROJECT_NAME}
   algo/algo1/algo1.cpp
   algo/algo1/algo1_data_retriever.cpp
   algo/algo1/algo1_controller.cpp
+  algo/algo2/algo2.cpp
+  algo/algo2/algo2_data_retriever.cpp
+  algo/algo2/algo2_controller.cpp
   algo_manager/algo_manager.cpp
   )
 target_include_directories(${PROJECT_NAME}
@@ -74,6 +77,8 @@ add_executable(tests
   common/tests/transaction.test.cpp
   algo/algo1/tests/algo1.test.cpp
   algo/algo1/tests/algo1_demo.test.cpp
+  algo/algo2/tests/algo2.test.cpp
+  algo/algo2/tests/algo2_demo.test.cpp
 )
 set_property(TARGET tests PROPERTY CXX_STANDARD 20)
 target_include_directories(tests
@@ -81,6 +86,7 @@ target_include_directories(tests
   "${PROJECT_SOURCE_DIR}"
   "${PROJECT_SOURCE_DIR}/algo"
   "${PROJECT_SOURCE_DIR}/algo/algo1"
+  "${PROJECT_SOURCE_DIR}/algo/algo2"
   "${PROJECT_SOURCE_DIR}/algo_manager"
   "${PROJECT_SOURCE_DIR}/analyzer"
   "${PROJECT_SOURCE_DIR}/common"
