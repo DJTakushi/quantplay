@@ -87,7 +87,8 @@
       "regex": "cpp",
       "source_location": "cpp",
       "future": "cpp",
-      "cfenv": "cpp"
+      "cfenv": "cpp",
+      "filesystem": "cpp"
     }
   }
 }
