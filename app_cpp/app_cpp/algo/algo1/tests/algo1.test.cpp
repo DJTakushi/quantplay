@@ -8,7 +8,9 @@ TEST_F(algo1Test,no_data){
 }
 
 TEST_F(algo1Test,buy_once_nothing_afterwards){
-  std::list<algo1_data> data = {algo1_data(time(NULL),0.0,0.0,0.0,0.0,0)};
+  std::list<ohlcv*> data;
+  algo1_data* t_data = new algo1_data(time(NULL),0.0,0.0,0.0,0.0,0);
+  data.push_back(t_data);
   addData(data);
   transaction* output = process();
   EXPECT_NE(nullptr,output);

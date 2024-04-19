@@ -25,5 +25,5 @@ struct ohlcv : public time_base {
   void set_volume(int vol);
   int get_volume();
 
-  void print_ohlcv();
+  virtual void print_ohlcv(); // make this class polymorphic!
 };

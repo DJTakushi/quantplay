@@ -1,8 +1,12 @@
 #include "algo1.h"
 
-void algo1::addData(std::list<algo1_data> data_list){
+void algo1::addData(std::list<ohlcv*> data_list){
   /** data will be added in chronological order */
-  for(auto data : data_list) data_.push_back(data);
+  for(auto data : data_list){
+    ohlcv* p = data;
+    algo1_data* d_cast = dynamic_cast<algo1_data*>(p);
+    data_.push_back(d_cast);
+  }
 }
 
 transaction* algo1::process(){
@@ -19,6 +23,6 @@ transaction* algo1::process(){
   }
   return output;
 }
-algo1_data* algo1::get_latest_data(){
+ohlcv* algo1::get_latest_data(){
   return new algo1_data(data_.back());
 }

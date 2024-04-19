@@ -15,7 +15,7 @@ class algo1_data_retriever{
   algo1_data_retriever(sql::Connection* connection);
   void drop_datatable();
   void create_datatable();
-  std::list<algo1_data> get_next_data_from_database(int num = -1);
+  std::list<ohlcv*> get_next_data_from_database(int num = -1);
   // void update_database();//TODO
   void update_database_from_file(fs::path filepath);
   void update_database_from_json(std::string j);

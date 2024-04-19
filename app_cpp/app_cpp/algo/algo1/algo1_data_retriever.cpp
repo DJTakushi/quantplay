@@ -45,9 +45,9 @@ void algo1_data_retriever::create_datatable(){
   }
 }
 
-std::list<algo1_data> algo1_data_retriever::get_next_data_from_database(
+std::list<ohlcv*> algo1_data_retriever::get_next_data_from_database(
     int num) {
-  std::list<algo1_data> output;
+  std::list<ohlcv*> output;
   std::string cmd = "SELECT ";
   cmd += " timestamp, open, high, low, close, volume ";
   std::stringstream ss;
@@ -71,7 +71,7 @@ std::list<algo1_data> algo1_data_retriever::get_next_data_from_database(
 
       std::string time_stamp_str = res->getString("timestamp").c_str();
       latest_datapoint_ = datetime_to_time_t(time_stamp_str);
-      algo1_data tmp(latest_datapoint_,open,high,low,close,volume);
+      algo1_data* tmp = new algo1_data(latest_datapoint_,open,high,low,close,volume);
       output.push_back(tmp);
     }
   }

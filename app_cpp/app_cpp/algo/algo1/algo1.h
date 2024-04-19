@@ -7,7 +7,7 @@ class algo1 : public algo_i{
   bool bought = false;
 
   public:
-  void addData(std::list<algo1_data> data_list);
-  transaction* process();
-  algo1_data* get_latest_data();
+  void addData(std::list<ohlcv*> data_list);
+  transaction* process() override;
+  ohlcv* get_latest_data();
 };

@@ -10,6 +10,10 @@
   - [ ] Calmar Ratio
   - [ ] print function from analzyer to print all relevant metrics (neatly) for comparison
 - [ ] start using VOO data from alphaVantage
+- [ ] make controller generic
+  - [x] algo1 replace with interface
+  - [x] algo1_data_retreiver with interface
+  - [ ] factory to create algo_controller with appropriate algo and data_retriever
 - [ ] try different algos
   - [ ] mean-reversion
   - [ ] swing

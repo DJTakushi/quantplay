@@ -1,4 +1,5 @@
 #include "algo1_controller.h"
+#include "algo1.h"
 
 algo1_controller::algo1_controller(sql::Connection* connection){
   algo = new algo1();
@@ -13,9 +14,11 @@ void algo1_controller::update_database_from_file(fs::path filepath){
 }
 
 int algo1_controller::update_data(int num){
-  std::list<algo1_data> data = retriever->get_next_data_from_database(num);
+  std::list<ohlcv*> data = retriever->get_next_data_from_database(num);
   algo->addData(data);
-  return data.size();
+  int size = data.size();
+  for(auto i : data){ delete i; } // cleanup data
+  return size;
 }
 
 transaction* algo1_controller::get_transaction(){
