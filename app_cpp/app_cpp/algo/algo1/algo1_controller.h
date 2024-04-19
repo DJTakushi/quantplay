@@ -1,8 +1,8 @@
 #include <mariadb/conncpp.hpp>
 #include "algo_controller_i.h"
-#include "algo1_data_retriever.h"
+#include "algo_data_retriever_i.h"
 class algo1_controller : public algo_controller_i{
-  algo1_data_retriever* retriever;
+  algo_data_retriever_i* retriever;
 public:
   algo1_controller(sql::Connection* connection);
   void drop_datatable();
