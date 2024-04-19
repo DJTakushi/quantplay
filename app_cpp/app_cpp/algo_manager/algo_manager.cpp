@@ -31,7 +31,7 @@ void algo_manager::process(int step){
     log_transaction(t);
 
     /** 6. portfolio value recorded */
-    ohlcv* d = new ohlcv(algo_controller_->get_latest_data());
+    ohlcv* d = new ohlcv(algo_controller_->get_latest_data_from_algo());
     portfolio_->set_current_value(d->get_close());
     portfolio_->set_time(d->get_time());
     recorder_->add_data(*portfolio_);

@@ -9,5 +9,5 @@ class algo1 : public algo_i{
   public:
   void addData(std::list<ohlcv*> data_list);
   transaction* process() override;
-  ohlcv* get_latest_data();
+  ohlcv* get_latest_algo_data();
 };

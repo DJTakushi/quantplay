@@ -28,6 +28,6 @@ transaction* algo_controller::get_transaction(){
 
   return out; 
 }
-ohlcv* algo_controller::get_latest_data(){
-  return algo->get_latest_data();
+ohlcv* algo_controller::get_latest_data_from_algo(){
+  return algo->get_latest_algo_data();
 }

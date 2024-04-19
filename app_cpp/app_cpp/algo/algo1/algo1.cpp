@@ -23,6 +23,6 @@ transaction* algo1::process(){
   }
   return output;
 }
-ohlcv* algo1::get_latest_data(){
+ohlcv* algo1::get_latest_algo_data(){
   return new algo1_data(data_.back());
 }
