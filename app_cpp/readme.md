@@ -13,12 +13,14 @@
 - [ ] make controller generic
   - [x] algo1 replace with interface
   - [x] algo1_data_retreiver with interface
-  - [ ] factory to create common algo_controller with appropriate algo and data_retriever
+  - [x] factory to create common algo_controller with appropriate algo and data_retriever
+  - [ ] db_handler base class
 - [ ] try different algos
   - [ ] mean-reversion
   - [ ] swing
 - [ ] live usage
 - [x] plot portfolio value
+- [x] unit-test datbase output
 - [x] grafana
   - [x] grafana addition to docker-compose
   - [x] timestamps entered into database for grafana usage
