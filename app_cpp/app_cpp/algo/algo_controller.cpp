@@ -1,12 +1,8 @@
 #include "algo_controller.h"
-// #include "algo1.h"
-// #include "algo1_data_retriever.h"
 
 algo_controller::algo_controller(algo_i* algo, algo_data_retriever_i* retriever)
-    : algo(algo), retriever(retriever){
-  // algo = new algo1();
-  // retriever = new algo1_data_retriever(connection);
-}
+    : algo(algo), retriever(retriever){}
+
 void algo_controller::drop_datatable(){
   retriever->drop_datatable();
 }
