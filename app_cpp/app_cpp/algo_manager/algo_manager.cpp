@@ -2,7 +2,7 @@
 #include <iostream>
 algo_manager::algo_manager(sql::Connection* connection) :
     sql_connection_(connection), analyzer(connection,"algo1"){
-  algo1_controller_ = new algo1_controller(connection);
+  algo_controller_ = new algo1_controller(connection);
   trader_ = new trader();
   portfolio_ = new portfolio(42.09);
   recorder_ = new recorder(connection);
@@ -30,7 +30,7 @@ void algo_manager::process(int step){
     log_transaction(t);
 
     /** 6. portfolio value recorded */
-    ohlcv* d = new ohlcv(algo1_controller_->get_latest_data());
+    ohlcv* d = new ohlcv(algo_controller_->get_latest_data());
     portfolio_->set_current_value(d->get_close());
     portfolio_->set_time(d->get_time());
     recorder_->add_data(*portfolio_);
@@ -39,13 +39,13 @@ void algo_manager::process(int step){
   update_database_analysis();
 };
 void algo_manager::update_database_from_file(fs::path filepath){
-  algo1_controller_->update_database_from_file(filepath);
+  algo_controller_->update_database_from_file(filepath);
 }
 int algo_manager::update_data(int num){
-  return algo1_controller_->update_data(num);
+  return algo_controller_->update_data(num);
 }
 transaction* algo_manager::get_transaction(){
-  return algo1_controller_->get_transaction();
+  return algo_controller_->get_transaction();
 }
 transaction* algo_manager::process_transaction(transaction* t){
   return trader_->process_transaction(t);
