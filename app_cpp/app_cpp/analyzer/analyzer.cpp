@@ -3,8 +3,8 @@
 #include <iomanip>
 #include <numeric>
 #include <math.h>
-analyzer::analyzer(sql::Connection* connection,std::string name)
-    : analyzer_db_handler(connection,name){}
+analyzer::analyzer(sql::Connection* connection,algo_type_k type)
+    : analyzer_db_handler(connection,type){}
 analyzer::analyzer() {}
 
 double analyzer::compute_sharpe_ratio(){

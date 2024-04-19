@@ -1,5 +1,6 @@
-#include "analysis.h"
 #include <mariadb/conncpp.hpp>
+#include "analysis.h"
+#include "algo_types.h"
 
 class analyzer_db_handler {
   /** logs records for display later **/
@@ -12,7 +13,7 @@ class analyzer_db_handler {
   std::string algo_name_;
   virtual analysis generate_analysis() = 0;
  public:
-  analyzer_db_handler(sql::Connection* connection,std::string name);
+  analyzer_db_handler(sql::Connection* connection,algo_type_k type);
   analyzer_db_handler();
   void insert_metrics(analysis a);
   void update_database_analysis();

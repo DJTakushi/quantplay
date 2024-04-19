@@ -1,7 +1,9 @@
 #pragma once
 #include <list>
+#include "algo_types.h"
 #include "ohlcv.h"
 #include "transaction.h"
+
 class algo_i{
   public:
   virtual transaction* process() = 0;

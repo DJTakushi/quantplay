@@ -2,8 +2,9 @@
 #include "analyzer_db_handler.h"
 
 analyzer_db_handler::analyzer_db_handler(sql::Connection* connection,
-    std::string name) : connection_(connection), algo_name_(name) {
+    algo_type_k type) : connection_(connection) {
   // drop_datatable();
+  algo_name_ = algo_name[type];
   create_datatable();
   clear_table_of_name();
 }

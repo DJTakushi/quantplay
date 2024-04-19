@@ -1,4 +1,5 @@
-#include "algo1_controller.h"
+#include "algo_controller.h"
+#include "algo_types.h"
 #include "trader.h"
 #include "portfolio.h"
 #include "recorder.h"
@@ -12,7 +13,7 @@ class algo_manager : public analyzer{
   recorder* recorder_;
   sql::Connection* sql_connection_;
   public:
-  algo_manager(sql::Connection* connection);
+  algo_manager(algo_type_k type, sql::Connection* conn);
   void process(int step = -1);
   // void update_database(); //todo
   void update_database_from_file(fs::path filepath);

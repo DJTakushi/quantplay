@@ -17,10 +17,10 @@ add_library(${PROJECT_NAME}
   portfolio/portfolio.cpp
   algo/algo1/algo1.cpp
   algo/algo1/algo1_data_retriever.cpp
-  algo/algo1/algo1_controller.cpp
   # algo/algo2/algo2.cpp
   # algo/algo2/algo2_data_retriever.cpp
-  # algo/algo2/algo2_controller.cpp
+  algo/algo_controller.cpp
+  algo/algo_controller_factory.cpp
   algo_manager/algo_manager.cpp
   )
 target_include_directories(${PROJECT_NAME}

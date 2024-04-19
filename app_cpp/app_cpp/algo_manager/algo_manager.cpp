@@ -1,11 +1,12 @@
-#include "algo_manager.h"
 #include <iostream>
-algo_manager::algo_manager(sql::Connection* connection) :
-    sql_connection_(connection), analyzer(connection,"algo1"){
-  algo_controller_ = new algo1_controller(connection);
+#include "algo_manager.h"
+#include "algo_controller_factory.h"
+algo_manager::algo_manager(algo_type_k type, sql::Connection* conn) :
+    sql_connection_(conn), analyzer(conn,type){
+  algo_controller_ = algo_controller_factory::create_controller(type,conn);
   trader_ = new trader();
   portfolio_ = new portfolio(42.09);
-  recorder_ = new recorder(connection);
+  recorder_ = new recorder(conn);
 
   if (!sql_connection_) {
     std::cerr << "Invalid database connection" << std::endl;

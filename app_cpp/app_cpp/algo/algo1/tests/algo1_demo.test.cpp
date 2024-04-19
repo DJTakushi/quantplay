@@ -17,7 +17,7 @@ TEST_F(algo1Test_demo, algo1_test_real){
   // Establish Connection
   sql::Connection* sql_connection_ = driver->connect(url, properties);
 
-  algo_manager* manager_ = new algo_manager(sql_connection_);
+  algo_manager* manager_ = new algo_manager(algo1_k,sql_connection_);
   manager_->update_database_from_file(fs::path("app_cpp/3_4_ige.csv"));
   manager_->process(1);
 
