@@ -18,9 +18,6 @@ int algo1_controller::update_data(int num){
   return data.size();
 }
 
-void algo1_controller::update_data_single(){
-}
-
 transaction* algo1_controller::get_transaction(){
   transaction* out = algo->process();
 

@@ -1,8 +1,13 @@
+#include <filesystem>
+#include "ohlcv.h"
 #include "transaction.h"
+
+namespace fs = std::filesystem;
 
 class algo_controller_i{
 public:
   virtual int update_data(int num = -1) = 0;
-  virtual void update_data_single() = 0;
   virtual transaction* get_transaction() = 0;
+  virtual void update_database_from_file(fs::path filepath) = 0;
+  virtual ohlcv* get_latest_data() = 0;
 };

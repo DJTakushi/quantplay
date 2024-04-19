@@ -6,7 +6,7 @@
 #include <mariadb/conncpp.hpp>
 
 class algo_manager : public analyzer{
-  algo1_controller* algo_controller_;
+  algo_controller_i* algo_controller_;
   trader* trader_;
   portfolio* portfolio_;
   recorder* recorder_;
