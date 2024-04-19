@@ -13,7 +13,7 @@
 - [ ] make controller generic
   - [x] algo1 replace with interface
   - [x] algo1_data_retreiver with interface
-  - [ ] factory to create algo_controller with appropriate algo and data_retriever
+  - [ ] factory to create common algo_controller with appropriate algo and data_retriever
 - [ ] try different algos
   - [ ] mean-reversion
   - [ ] swing
