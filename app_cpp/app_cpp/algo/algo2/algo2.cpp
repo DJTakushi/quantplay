@@ -1,6 +1,6 @@
 #include "algo2.h"
 
-void algo2::addData(std::list<ohlcv> data_list){
+void algo2::addData(std::list<ohlcv*> data_list){
   /** data will be added in chronological order */
   for(auto data : data_list) data_.push_back(data);
 }
@@ -19,6 +19,6 @@ transaction* algo2::process(){
   }
   return output;
 }
-ohlcv* algo2::get_latest_data(){
+ohlcv* algo2::get_latest_algo_data(){
   return new ohlcv(data_.back());
 }

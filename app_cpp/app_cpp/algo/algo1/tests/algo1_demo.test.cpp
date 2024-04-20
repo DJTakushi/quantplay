@@ -1,5 +1,5 @@
-#include "algo_manager.h"
 #include <gtest/gtest.h>
+#include "algo_manager.h"
 
 class algo1Test_demo : public ::testing::Test{};
 
