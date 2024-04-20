@@ -4,7 +4,7 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 algo2_data_retriever::algo2_data_retriever(sql::Connection* connection)
-    : connection_(connection){
+    : algo_data_retriever_i(connection){
   drop_datatable();
   create_datatable();
   std::tm tm{};
@@ -45,9 +45,9 @@ void algo2_data_retriever::create_datatable(){
   }
 }
 
-std::list<ohlcv> algo2_data_retriever::get_next_data_from_database(
+std::list<ohlcv*> algo2_data_retriever::get_next_data_from_database(
     int num) {
-  std::list<ohlcv> output;
+  std::list<ohlcv*> output;
   std::string cmd = "SELECT ";
   cmd += " timestamp, open, high, low, close, volume ";
   std::stringstream ss;
@@ -71,7 +71,7 @@ std::list<ohlcv> algo2_data_retriever::get_next_data_from_database(
 
       std::string time_stamp_str = res->getString("timestamp").c_str();
       latest_datapoint_ = datetime_to_time_t(time_stamp_str);
-      ohlcv tmp(latest_datapoint_,open,high,low,close,volume);
+      ohlcv* tmp = new ohlcv(latest_datapoint_,open,high,low,close,volume);
       output.push_back(tmp);
     }
   }
