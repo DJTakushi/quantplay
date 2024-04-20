@@ -2,14 +2,15 @@
 #include <ctime>
 #include <filesystem>
 #include <list>
-#include <mariadb/conncpp.hpp>
+#include "db_handler_base.h"
 #include "helpers.h"
 #include "ohlcv.h"
 
 namespace fs = std::filesystem;
 
-class algo_data_retriever_i {
+class algo_data_retriever_i : public db_handler_base {
  public:
+  algo_data_retriever_i(sql::Connection* conn) : db_handler_base(conn) {}
   virtual void drop_datatable() = 0;
   virtual void create_datatable() = 0;
   virtual std::list<ohlcv*> get_next_data_from_database(int num = -1) = 0;

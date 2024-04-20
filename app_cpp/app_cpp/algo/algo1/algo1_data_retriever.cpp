@@ -4,7 +4,7 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 algo1_data_retriever::algo1_data_retriever(sql::Connection* connection)
-    : connection_(connection){
+    : algo_data_retriever_i(connection){
   drop_datatable();
   create_datatable();
   std::tm tm{};

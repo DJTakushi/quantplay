@@ -2,7 +2,6 @@
 #include "algo1_data.h"
 
 class algo1_data_retriever : public algo_data_retriever_i {
-  sql::Connection* connection_;
   std::time_t latest_datapoint_;
   void add_data_to_database(std::list<algo1_data> data_list,
       std::string timezone_s = "US/Eastern");
