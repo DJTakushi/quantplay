@@ -10,11 +10,11 @@
   - [ ] Calmar Ratio
   - [ ] print function from analzyer to print all relevant metrics (neatly) for comparison
 - [ ] start using VOO data from alphaVantage
-- [ ] make controller generic
+- [x] make controller generic
   - [x] algo1 replace with interface
   - [x] algo1_data_retreiver with interface
   - [x] factory to create common algo_controller with appropriate algo and data_retriever
-  - [ ] db_handler base class
+  - [x] db_handler base class
 - [ ] try different algos
   - [ ] mean-reversion
   - [ ] swing
