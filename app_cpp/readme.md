@@ -16,6 +16,9 @@
   - [x] factory to create common algo_controller with appropriate algo and data_retriever
   - [x] db_handler base class
 - [ ] try different algos
+  - [ ] structure
+    - [x] dashboard initial creation
+    - [ ] separate recorder tables with unique names
   - [ ] mean-reversion
   - [ ] swing
 - [ ] live usage

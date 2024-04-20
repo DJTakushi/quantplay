@@ -13,3 +13,14 @@ providers:
     options:
       path: /etc/grafana/provisioning/dashboards/algo1
       foldersFromFilesStructure: true
+  - name: algo2 # A uniquely identifiable name for the provider
+    # org_id: 2
+    folder: algo2 # The folder where to place the dashboards
+    type: file
+    disableDeletion: false
+    editable: true
+    updateIntervalSeconds: 5
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/algo2
+      foldersFromFilesStructure: true
