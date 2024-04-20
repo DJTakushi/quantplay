@@ -3,7 +3,8 @@
 #include <gtest/gtest.h>
 
 class analyzer_dummy : public analyzer {
-  public:
+ public:
+  analyzer_dummy() : analyzer(NULL,algoMax_k){}
   std::vector<portfolio> day_portfolios_;
   std::vector<portfolio> portfolios_;
   std::vector<portfolio> get_day_portfolio_snapshots() override {
@@ -13,7 +14,6 @@ class analyzer_dummy : public analyzer {
     return portfolios_;
   }
 };
-
 
 class analyzerTest : public ::testing::Test, public analyzer_dummy{};
 TEST_F(analyzerTest,investopedia_example){

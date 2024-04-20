@@ -2,13 +2,14 @@
 #include "analyzer_db_handler.h"
 
 analyzer_db_handler::analyzer_db_handler(sql::Connection* connection,
-    algo_type_k type) : connection_(connection) {
+    algo_type_k type) : db_handler_base(connection) {
   // drop_datatable();
   algo_name_ = algo_name[type];
-  create_datatable();
-  clear_table_of_name();
+  if(connection_ != NULL){
+    create_datatable();
+    clear_table_of_name();
+  }
 }
-analyzer_db_handler::analyzer_db_handler() {}
 
 void analyzer_db_handler::drop_datatable(){
   sql::Statement* stmnt =connection_->createStatement();

@@ -1,11 +1,10 @@
-#include "analyzer.h"
 #include <iostream>
 #include <iomanip>
 #include <numeric>
 #include <math.h>
+#include "analyzer.h"
 analyzer::analyzer(sql::Connection* connection,algo_type_k type)
     : analyzer_db_handler(connection,type){}
-analyzer::analyzer() {}
 
 double analyzer::compute_sharpe_ratio(){
   double output;
