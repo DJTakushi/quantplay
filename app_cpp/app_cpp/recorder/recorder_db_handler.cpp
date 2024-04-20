@@ -3,7 +3,7 @@
 #include <iostream>
 
 recorder_db_handler::recorder_db_handler(sql::Connection* connection)
-    : connection_(connection){
+    : db_handler_base(connection){
   drop_datatable();
   create_datatable();
 }
