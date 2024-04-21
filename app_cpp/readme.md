@@ -10,38 +10,22 @@
   - [ ] Calmar Ratio
   - [ ] print function from analzyer to print all relevant metrics (neatly) for comparison
 - [ ] start using VOO data from alphaVantage
-- [x] make controller generic
-  - [x] algo1 replace with interface
-  - [x] algo1_data_retreiver with interface
-  - [x] factory to create common algo_controller with appropriate algo and data_retriever
-  - [x] db_handler base class
 - [ ] try different algos
   - [ ] structure
     - [x] dashboard initial creation
     - [ ] separate recorder tables with unique names
+    - [ ] rename algo tables to include "analyzer" for clarity
   - [ ] mean-reversion
   - [ ] swing
-- [ ] live usage
-- [x] plot portfolio value
-- [x] unit-test datbase output
-- [x] grafana
-  - [x] grafana addition to docker-compose
-  - [x] timestamps entered into database for grafana usage
-     - [x] recorder data refactored to maintain content as DB
-       - [x] recorder table added
-       - [x] recorder table becomes single copy of data [hybrid for now]
-       - [x] ~~perforamnce improvement (recorder_i, recorder, recorder_db, recorder_factory)~~
-       - [x] recorder inherits from recorder_db_handler; recorder manages data
-      - [x] table of metrics (sharpe, drawdown, max-drawdown duration)
-    - [x] save content into source repo to make deployment/version-control easier
-- [x] can OHLCV be removed as parent of snapshot?
-- [x] portfolio_data created out of portfolio to remove transactions from snapshot
-  - alternative
-    1. [x] transactions removed from portfolio (where they're not needed) and placed in trader (where they're more relevant)
-    2. [x] time_base added as parent class of portfolio
-    3. [x] snapshot content merged into portfolio
-    4. [x] snapshot replaced by portfolio
-- [ ] create common baseclass for database handing
+- [ ] modes
+  - [ ] 1. analyze dataset (load all data into database once and process step-by-step)
+  - [ ] 2. simulate dataset (load data one-at-a-time, process to completion)
+  - [ ] 3. live (load data from API, process to completion; save data)
+- [ ] refactor into dedicated repo
+- [ ] API interface for data retriever
+  - [ ] save to database
+  - [ ] on exit, save database to a local filea
+- [ ] unit-test datbase output
 
 ## docekrize
 - set up database
