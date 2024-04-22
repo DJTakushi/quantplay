@@ -1,7 +1,7 @@
 #include "recorder.h"
 
-recorder::recorder(sql::Connection* connection)
-    : recorder_db_handler(connection){}
+recorder::recorder(sql::Connection* connection,std::string table_name)
+    : recorder_db_handler(connection,table_name){}
 
 ymd_date recorder::get_current_date(){
   /** returns 1900-01-01 if no date initialized**/

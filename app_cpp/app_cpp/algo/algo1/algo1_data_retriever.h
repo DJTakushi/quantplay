@@ -6,7 +6,7 @@ class algo1_data_retriever : public algo_data_retriever_i {
   void add_data_to_database(std::list<algo1_data> data_list,
       std::string timezone_s = "US/Eastern");
  public:
-  algo1_data_retriever(sql::Connection* connection);
+  algo1_data_retriever(sql::Connection* connection, std::string table_name);
   void drop_datatable() override;
   void create_datatable() override;
   std::list<ohlcv*> get_next_data_from_database(int num = -1) override;

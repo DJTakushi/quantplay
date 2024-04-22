@@ -3,8 +3,8 @@
 #include <iostream>
 #include <fstream>
 #include <nlohmann/json.hpp>
-algo1_data_retriever::algo1_data_retriever(sql::Connection* connection)
-    : algo_data_retriever_i(connection){
+algo1_data_retriever::algo1_data_retriever(sql::Connection* connection,
+    std::string table_name) : algo_data_retriever_i(connection,table_name){
   drop_datatable();
   create_datatable();
   std::tm tm{};

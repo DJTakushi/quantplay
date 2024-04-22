@@ -6,7 +6,7 @@ class recorder : public recorder_db_handler {
   /** logs records for display later **/
   std::vector<portfolio> portfolio_snapshots_;
 public:
-  recorder(sql::Connection* connection);
+  recorder(sql::Connection* connection,std::string table_name);
   ymd_date get_current_date();
   void add_data(portfolio d);
   void print_portfolio_snapshots();

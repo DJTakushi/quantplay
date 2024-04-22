@@ -6,7 +6,7 @@ algo_manager::algo_manager(algo_type_k type, sql::Connection* conn) :
   algo_controller_ = algo_controller_factory::create_controller(type,conn);
   trader_ = new trader();
   portfolio_ = new portfolio(42.09);
-  recorder_ = new recorder(conn);
+  recorder_ = new recorder(conn,"recorder_"+algo_name[type]);
 
   if (!sql_connection_) {
     std::cerr << "Invalid database connection" << std::endl;

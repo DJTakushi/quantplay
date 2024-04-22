@@ -9,7 +9,6 @@ class analyzer_db_handler : public db_handler_base {
   void drop_datatable();
   void clear_table_of_name();
   void create_datatable();
-  std::string table_name_ = "analysis";
   std::string algo_name_;
   virtual analysis generate_analysis() = 0;
  public:

@@ -7,9 +7,8 @@ class recorder_db_handler : public db_handler_base {
 protected:
   void drop_datatable();
   void create_datatable();
-  std::string table_name_ = "recorder";
 public:
-  recorder_db_handler(sql::Connection* connection);
+  recorder_db_handler(sql::Connection* connection,std::string table_name);
   void add_data_to_db(std::vector<portfolio> dv);
   std::vector<portfolio> get_portfolio_snapshots();
 };

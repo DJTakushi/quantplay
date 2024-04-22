@@ -2,8 +2,8 @@
 #include "helpers.h"
 #include <iostream>
 
-recorder_db_handler::recorder_db_handler(sql::Connection* connection)
-    : db_handler_base(connection){
+recorder_db_handler::recorder_db_handler(sql::Connection* connection,
+    std::string table_name) : db_handler_base(connection,table_name) {
   drop_datatable();
   create_datatable();
 }
