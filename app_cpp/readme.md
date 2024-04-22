@@ -14,6 +14,8 @@
   - [ ] structure
     - [x] dashboard initial creation
     - [ ] separate recorder tables with unique names
+      - [ ] fix dashboards to use correct databases
+      - [ ] algo data retrievers use table_name_
     - [ ] rename algo tables to include "analyzer" for clarity
   - [ ] mean-reversion
   - [ ] swing
