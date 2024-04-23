@@ -11,7 +11,7 @@ void algo_controller::update_database_from_file(fs::path filepath){
   retriever->update_database_from_file(filepath);
 }
 
-int algo_controller::update_data(int num){
+int algo_controller::update_algo_data(int num){
   std::list<ohlcv*> data = retriever->get_next_data_from_database(num);
   algo->addData(data);
   int size = data.size();

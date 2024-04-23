@@ -32,15 +32,15 @@ void algo_manager::process() {
 }
 void algo_manager::process_all_by_update_data_step(int step){
   // TODO : add option to record with live timestamp when running live
-  while(update_data(step)>0){
+  while(update_algo_data(step)>0){
     process();
   }
 };
 void algo_manager::update_database_from_file(fs::path filepath){
   algo_controller_->update_database_from_file(filepath);
 }
-int algo_manager::update_data(int num){
-  return algo_controller_->update_data(num);
+int algo_manager::update_algo_data(int num){
+  return algo_controller_->update_algo_data(num);
 }
 transaction* algo_manager::get_transaction(){
   return algo_controller_->get_transaction();

@@ -10,7 +10,7 @@ namespace fs = std::filesystem;
 
 class algo_controller_i{
  public:
-  virtual int update_data(int num = -1) = 0;
+  virtual int update_algo_data(int num = -1) = 0;
   virtual transaction* get_transaction() = 0;
   virtual void update_database_from_file(fs::path filepath) = 0;
   virtual ohlcv* get_latest_data_from_algo() = 0;
@@ -25,7 +25,7 @@ class algo_controller : public algo_controller_i{
   void drop_datatable();
   // void update_database();
   void update_database_from_file(fs::path filepath) override;
-  int update_data(int num = -1);
+  int update_algo_data(int num = -1);
   transaction* get_transaction();
   ohlcv* get_latest_data_from_algo() override;
 };
