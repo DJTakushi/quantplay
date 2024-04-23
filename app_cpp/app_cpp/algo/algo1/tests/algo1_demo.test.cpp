@@ -20,6 +20,8 @@ TEST_F(algo1Test_demo, algo1_test_real){
   algo_manager* manager_ = new algo_manager(algo1_k,sql_connection_);
   manager_->update_database_from_file(fs::path("app_cpp/3_4_ige.csv"));
   manager_->process(1);
+  manager_->all_snapshots_to_db();
+  manager_->update_database_analysis();
 
   // confirm number of data loaded
   std::vector<portfolio> portfolios = manager_->get_day_portfolio_snapshots();

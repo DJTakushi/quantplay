@@ -35,9 +35,8 @@ void algo_manager::process(int step){
     portfolio_->set_current_value(d->get_close());
     portfolio_->set_time(d->get_time());
     recorder_->add_data(*portfolio_);
+    if(snapshot_auto_save_){recorder_->add_data_to_db({*portfolio_});}
   }
-  recorder_->all_snapshots_to_db();
-  update_database_analysis();
 };
 void algo_manager::update_database_from_file(fs::path filepath){
   algo_controller_->update_database_from_file(filepath);
@@ -71,4 +70,8 @@ std::vector<portfolio> algo_manager::get_day_portfolio_snapshots(){
 
 void algo_manager::print_portfolio_snapshots(){
   recorder_->print_portfolio_snapshots();
+}
+
+void algo_manager::all_snapshots_to_db() {
+  recorder_->all_snapshots_to_db();
 }

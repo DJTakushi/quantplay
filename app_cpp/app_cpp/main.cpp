@@ -18,6 +18,8 @@ int main(int argc, char** argv){
   // manager_->update_database_from_file(fs::path("app_cpp/intraday_ibm.json"));
   manager_->update_database_from_file(fs::path("app_cpp/3_4_ige.csv"));
   manager_->process(1);
+  manager_->all_snapshots_to_db();
+  manager_->update_database_analysis();
 
   manager_->print_analysis();
 
