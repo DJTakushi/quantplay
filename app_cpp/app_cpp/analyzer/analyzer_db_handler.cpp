@@ -2,7 +2,7 @@
 #include "analyzer_db_handler.h"
 
 analyzer_db_handler::analyzer_db_handler(sql::Connection* connection,
-    algo_type_k type) : db_handler_base(connection,"analysis_"+algo_name[type]){
+    algo_type_k type) : db_handler_base(connection,"analysis"){
   // drop_datatable();
   algo_name_ = algo_name[type];
   if(connection_ != NULL){
