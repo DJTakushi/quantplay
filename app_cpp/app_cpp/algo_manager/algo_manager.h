@@ -14,7 +14,8 @@ class algo_manager : public analyzer{
   sql::Connection* sql_connection_;
   public:
   algo_manager(algo_type_k type, sql::Connection* conn);
-  void process(int step = -1);
+  void process();
+  void process_all_by_update_data_step(int step = -1);
   // void update_database(); //todo
   void update_database_from_file(fs::path filepath);
   int update_data(int num = -1);
@@ -29,5 +30,5 @@ class algo_manager : public analyzer{
   std::vector<portfolio> get_day_portfolio_snapshots();
   // void save_data(fs::path filepath); //todo
   int step_cache_data=1; // data to cache before processing
-  bool snapshot_auto_save_=false;  // save snapshots when generated?/s
+  bool snapshot_auto_save_=false;  // save snapshots when generated?
 };

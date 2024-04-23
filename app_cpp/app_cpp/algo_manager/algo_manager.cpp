@@ -13,29 +13,27 @@ algo_manager::algo_manager(algo_type_k type, sql::Connection* conn) :
     exit (EXIT_FAILURE);
   }
 };
-void algo_manager::process(int step){
+void algo_manager::process() {
+  /** 1. transaction generation from algo */
+  transaction* t = get_transaction();
+
+  /** 2.  transaction processed by trader */
+  t = process_transaction(t);
+
+  /** 3. transction logged in trader (if complete )*/
+  log_transaction(t);
+
+  /** 4. portfolio value recorded */
+  ohlcv* d = new ohlcv(algo_controller_->get_latest_data_from_algo());
+  portfolio_->set_current_value(d->get_close());
+  portfolio_->set_time(d->get_time());
+  recorder_->add_data(*portfolio_);
+  if(snapshot_auto_save_){recorder_->add_data_to_db({*portfolio_});}
+}
+void algo_manager::process_all_by_update_data_step(int step){
   // TODO : add option to record with live timestamp when running live
-
-  /** 1. update database (maybe) **/
-  // update_database_from();//todo (maybe?)
-
-  /** 2. data udpated */
   while(update_data(step)>0){
-    /** 3. transaction generation from algo */
-    transaction* t = get_transaction();
-
-    /** 4.  transaction processed by trader */
-    t = process_transaction(t);
-
-    /** 5. transction logged in trader (if complete )*/
-    log_transaction(t);
-
-    /** 6. portfolio value recorded */
-    ohlcv* d = new ohlcv(algo_controller_->get_latest_data_from_algo());
-    portfolio_->set_current_value(d->get_close());
-    portfolio_->set_time(d->get_time());
-    recorder_->add_data(*portfolio_);
-    if(snapshot_auto_save_){recorder_->add_data_to_db({*portfolio_});}
+    process();
   }
 };
 void algo_manager::update_database_from_file(fs::path filepath){
