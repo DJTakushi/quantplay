@@ -1,4 +1,9 @@
 # todo
+- [ ] modes
+  - [ ] type 1 simulation in unit-test
+    - [ ] update_database_from_file() refactor to optionally load DB one-by-one
+      - [ ] refactor update_database_from_file() and related content appropriately
+  - [ ] live
 - [ ] metric calculations
   - [x] sharpe ratio
     - [ ] programatic zero-risk rate
@@ -8,7 +13,7 @@
     - [ ] refactor to return timestamps
   - [ ] return over maximum drawdown
   - [ ] Calmar Ratio
-  - [ ] print function from analzyer to print all relevant metrics (neatly) for comparison
+  - [ ] execution time
 - [ ] start using VOO data from alphaVantage
 - [ ] try different algos
   - [ ] structure
@@ -19,15 +24,28 @@
     - [x] rename algo tables to include "data/recorder" for clarity
   - [ ] mean-reversion
   - [ ] swing
-- [ ] modes
-  - [ ] 1. analyze dataset (load all data into database once and process step-by-step)
-  - [ ] 2. simulate dataset (load data one-at-a-time, process to completion)
-  - [ ] 3. live (load data from API, process to completion; save data)
 - [ ] refactor into dedicated repo
 - [ ] API interface for data retriever
   - [ ] save to database
   - [ ] on exit, save database to a local filea
 - [ ] unit-test datbase output
+
+# Modes
+## 0. live
+- periodically retrieve data from API; algo processes between each load
+- update analysis each loop
+- ctrl+c or target-time to exit
+  - save DB to datafile to be capured in repo/s
+
+## 1. step-by database simulation
+- database loaded piece-by-piece; algo processes between each load
+  - should also load recorder data into db each time for better simulation
+- slower, but more closely approximates live mode
+
+## 2. step-by algo_data_cache simulation
+- database loaded once; algo loads from database piece-by-piece, processing between each load
+- faster since only one DB load is used
+  - better for unit-testing
 
 ## docekrize
 - set up database

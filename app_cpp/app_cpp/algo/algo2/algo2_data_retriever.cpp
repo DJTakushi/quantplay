@@ -100,7 +100,7 @@ void algo2_data_retriever::add_data_to_database(std::list<ohlcv> data_list,
   delete stmnt;
 }
 
-void algo2_data_retriever::update_database_from_file(fs::path filepath){
+int algo2_data_retriever::update_database_from_file(fs::path filepath, int no){
   std::ifstream inFile;
   inFile.open(filepath.string()); //open the input file
 
@@ -114,6 +114,8 @@ void algo2_data_retriever::update_database_from_file(fs::path filepath){
   else if(filepath.extension() == ".csv"){
     update_database_from_csv(str);
   }
+  // TODO refactor this and adjacent functions
+  return 1;
 }
 void algo2_data_retriever::update_database_from_json(std::string j){
   nlohmann::json data = nlohmann::json::parse(j);

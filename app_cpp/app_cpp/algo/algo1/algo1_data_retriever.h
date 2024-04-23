@@ -10,7 +10,7 @@ class algo1_data_retriever : public algo_data_retriever_i {
   void create_datatable() override;
   std::list<ohlcv*> get_next_data_from_database(int num = -1) override;
   // void update_database();//TODO
-  void update_database_from_file(fs::path filepath) override;
+  int update_database_from_file(fs::path filepath, int no = -1) override;
   void update_database_from_json(std::string j);
   void update_database_from_csv(std::string s);
 };

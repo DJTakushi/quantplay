@@ -17,7 +17,7 @@ class algo_manager : public analyzer{
   void process();
   void process_all_by_update_data_step(int step = -1);
   // void update_database(); //todo
-  void update_database_from_file(fs::path filepath);
+  int update_database_from_file(fs::path filepath, int no = -1);
   int update_algo_data(int num = -1);
   transaction* get_transaction();
   transaction* process_transaction(transaction* t);

@@ -36,8 +36,8 @@ void algo_manager::process_all_by_update_data_step(int step){
     process();
   }
 };
-void algo_manager::update_database_from_file(fs::path filepath){
-  algo_controller_->update_database_from_file(filepath);
+int algo_manager::update_database_from_file(fs::path filepath, int no){
+  return algo_controller_->update_database_from_file(filepath, no);
 }
 int algo_manager::update_algo_data(int num){
   return algo_controller_->update_algo_data(num);

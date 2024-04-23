@@ -14,5 +14,7 @@ class algo_data_retriever_i : public db_handler_base {
       : db_handler_base(conn,table_name) {}
   virtual void create_datatable() = 0;
   virtual std::list<ohlcv*> get_next_data_from_database(int num = -1) = 0;
-  virtual void update_database_from_file(fs::path filepath) = 0;
+
+  // return # of data entries added to DB for type1 simulations
+  virtual int update_database_from_file(fs::path filepath, int no = -1) = 0;
 };
