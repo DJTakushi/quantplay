@@ -200,7 +200,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT timestamp, value_current FROM quant.recorder",
+          "rawSql": "SELECT timestamp, value_current FROM quant.recorder_algo2",
           "refId": "A",
           "sql": {
             "columns": [
@@ -233,10 +233,10 @@
             ],
             "limit": 50
           },
-          "table": "recorder"
+          "table": "recorder_algo2"
         }
       ],
-      "title": "recorder",
+      "title": "recorder_algo2",
       "type": "timeseries"
     },
     {
@@ -331,7 +331,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT timestamp, open, close, low, high FROM quant.algo2",
+          "rawSql": "SELECT timestamp, open, close, low, high FROM quant.data_algo2",
           "refId": "A",
           "sql": {
             "columns": [
