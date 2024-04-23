@@ -29,6 +29,5 @@ class algo_manager : public analyzer{
   std::vector<portfolio> get_portfolio_snapshots();
   std::vector<portfolio> get_day_portfolio_snapshots();
   // void save_data(fs::path filepath); //todo
-  int step_cache_data=1; // data to cache before processing
   bool snapshot_auto_save_=false;  // save snapshots when generated?
 };
