@@ -19,7 +19,7 @@ algo1_data_retriever::algo1_data_retriever(sql::Connection* connection,
 
 void algo1_data_retriever::drop_datatable(){
   sql::Statement* stmnt =connection_->createStatement();
-  std::string cmd = "DROP TABLE algo1;";
+  std::string cmd = "DROP TABLE "+table_name_+";";
   try{
     stmnt->executeUpdate(cmd);
   }
@@ -29,7 +29,7 @@ void algo1_data_retriever::drop_datatable(){
 }
 void algo1_data_retriever::create_datatable(){
   sql::Statement* stmnt =connection_->createStatement();
-  std::string cmd = "CREATE TABLE IF NOT EXISTS algo1 (";
+  std::string cmd = "CREATE TABLE IF NOT EXISTS "+table_name_+" (";
   cmd+="timestamp TIMESTAMP, ";
   cmd+="open float(2), ";
   cmd+="high float(2), ";
@@ -53,7 +53,7 @@ std::list<ohlcv*> algo1_data_retriever::get_next_data_from_database(
   std::stringstream ss;
   ss << std::put_time(std::gmtime(&latest_datapoint_),TD_FORMAT);
   std::string tim = ss.str();
-  cmd+="FROM algo1 WHERE timestamp > \""+tim+"\" ";
+  cmd+="FROM "+table_name_+" WHERE timestamp > \""+tim+"\" ";
   cmd+= "ORDER BY timestamp";
   if(num > 0){
     cmd+=" LIMIT "+std::to_string(num);
@@ -85,7 +85,7 @@ void algo1_data_retriever::add_data_to_database(std::list<algo1_data> data_list,
       std::string timezone_s){
       /** TODO : correct time_t usage to ALWAYS use correct UTC timezone **/
   sql:: Statement* stmnt =connection_->createStatement();
-  std::string cmd = "INSERT INTO algo1 (";
+  std::string cmd = "INSERT INTO "+table_name_+" (";
   cmd+="timestamp, open, high, low, close, volume) VALUES ";
   for(auto data : data_list){
     std::string time_str;
