@@ -1,7 +1,10 @@
 #include "recorder.h"
 
 recorder::recorder(sql::Connection* connection,std::string table_name)
-    : recorder_db_handler(connection,table_name){}
+    : recorder_db_handler(connection,table_name){
+  drop_datatable();
+  create_datatable();
+}
 
 ymd_date recorder::get_current_date(){
   /** returns 1900-01-01 if no date initialized**/
@@ -47,7 +50,5 @@ std::vector<portfolio> recorder::get_day_portfolio_snapshots(){
   return out;
 }
 void recorder::all_snapshots_to_db(){
-  drop_datatable();
-  create_datatable();
   add_data_to_db(portfolio_snapshots_);
 }
