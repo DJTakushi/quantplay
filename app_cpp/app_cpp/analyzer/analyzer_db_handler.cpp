@@ -11,18 +11,6 @@ analyzer_db_handler::analyzer_db_handler(sql::Connection* connection,
   }
 }
 
-void analyzer_db_handler::drop_datatable(){
-  sql::Statement* stmnt =connection_->createStatement();
-  std::string cmd = "DROP TABLE "+table_name_+";";
-  try{
-    stmnt->executeUpdate(cmd);
-  }
-  catch (sql::SQLException& e) {
-    std::cerr << "Error dropping table "<<table_name_<<" : ";
-    std::cerr << e.what() << std::endl;
-  }
-}
-
 void analyzer_db_handler::clear_table_of_name(){
   sql::Statement* stmnt =connection_->createStatement();
   std::string cmd = "DELETE FROM "+table_name_+" WHERE ";

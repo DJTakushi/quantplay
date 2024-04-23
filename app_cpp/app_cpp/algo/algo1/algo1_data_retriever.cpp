@@ -17,16 +17,6 @@ algo1_data_retriever::algo1_data_retriever(sql::Connection* connection,
   latest_datapoint_ = std::mktime(&tm);
 }
 
-void algo1_data_retriever::drop_datatable(){
-  sql::Statement* stmnt =connection_->createStatement();
-  std::string cmd = "DROP TABLE "+table_name_+";";
-  try{
-    stmnt->executeUpdate(cmd);
-  }
-  catch (sql::SQLException& e) {
-    std::cerr << "Error dropping table: " << e.what() << std::endl;
-  }
-}
 void algo1_data_retriever::create_datatable(){
   sql::Statement* stmnt =connection_->createStatement();
   std::string cmd = "CREATE TABLE IF NOT EXISTS "+table_name_+" (";

@@ -51,17 +51,6 @@ std::vector<portfolio> recorder_db_handler::get_portfolio_snapshots(){
   }
   return output;
 }
-void recorder_db_handler::drop_datatable(){
-  sql::Statement* stmnt =connection_->createStatement();
-  std::string cmd = "DROP TABLE "+table_name_+";";
-  try{
-    stmnt->executeUpdate(cmd);
-  }
-  catch (sql::SQLException& e) {
-    std::cerr << "Error dropping table "<<table_name_<<" : ";
-    std::cerr << e.what() << std::endl;
-  }
-}
 
 void recorder_db_handler::create_datatable(){
   sql::Statement* stmnt =connection_->createStatement();

@@ -6,7 +6,6 @@
 class analyzer_db_handler : public db_handler_base {
   /** logs records for display later **/
  protected:
-  void drop_datatable();
   void clear_table_of_name();
   void create_datatable();
   std::string algo_name_;

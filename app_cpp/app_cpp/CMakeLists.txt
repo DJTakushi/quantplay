@@ -10,6 +10,7 @@ add_library(${PROJECT_NAME}
   trader/trader.cpp
   recorder/recorder.cpp
   recorder/recorder_db_handler.cpp
+  common/db_handler_base.cpp
   common/helpers.cpp
   common/transaction.cpp
   common/ohlcv.cpp
