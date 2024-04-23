@@ -13,10 +13,10 @@
 - [ ] try different algos
   - [ ] structure
     - [x] dashboard initial creation
-    - [ ] separate recorder tables with unique names
+    - [x] separate recorder tables with unique names
       - [x] algo_data_retrievers use table_name_
-      - [ ] fix dashboards to use correct databases
-    - [ ] rename algo tables to include "analyzer" for clarity
+      - [x] fix dashboards to use correct databases
+    - [x] rename algo tables to include "data/recorder" for clarity
   - [ ] mean-reversion
   - [ ] swing
 - [ ] modes
