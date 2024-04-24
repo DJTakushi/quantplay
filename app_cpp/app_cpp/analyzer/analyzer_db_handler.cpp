@@ -50,7 +50,3 @@ void analyzer_db_handler::insert_metrics(analysis a) {
   }
   delete stmnt;
 }
-
-void analyzer_db_handler::update_database_analysis(){
-  insert_metrics(generate_analysis());
-}

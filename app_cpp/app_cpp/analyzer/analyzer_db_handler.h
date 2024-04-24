@@ -9,9 +9,7 @@ class analyzer_db_handler : public db_handler_base {
   void clear_table_of_name();
   void create_datatable();
   std::string algo_name_;
-  virtual analysis generate_analysis() = 0;
  public:
   analyzer_db_handler(sql::Connection* connection,algo_type_k type);
   void insert_metrics(analysis a);
-  void update_database_analysis();
 };

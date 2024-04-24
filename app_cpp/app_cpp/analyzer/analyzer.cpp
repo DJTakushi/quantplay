@@ -110,3 +110,6 @@ void analyzer::print_analysis(){
   std::cout << "Max Drawdown Duration : "<< std::setprecision(2);
   std::cout << max_drawdown_duration << " days"<<std::endl;
 }
+void analyzer::update_database_analysis(){
+  insert_metrics(generate_analysis());
+}

@@ -6,7 +6,7 @@ class analyzer : public analyzer_db_handler {
  protected:
   virtual std::vector<portfolio> get_day_portfolio_snapshots() = 0;
   virtual std::vector<portfolio> get_portfolio_snapshots() = 0;
-  analysis generate_analysis() override;
+  analysis generate_analysis();
  public:
   analyzer(sql::Connection* connection,algo_type_k type);
   double compute_sharpe_ratio();
@@ -14,6 +14,7 @@ class analyzer : public analyzer_db_handler {
   double get_max_drawdown();
   double get_max_drawdown_duration();
   void print_analysis();
+  void update_database_analysis();
  private:
   double calculate_max_drawdown(std::vector<portfolio> high_low);
 };
