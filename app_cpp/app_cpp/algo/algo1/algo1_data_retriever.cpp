@@ -74,108 +74,143 @@ std::list<ohlcv*> algo1_data_retriever::get_next_data_from_database(
 void algo1_data_retriever::add_data_to_database(std::list<algo1_data> data_list,
       std::string timezone_s){
       /** TODO : correct time_t usage to ALWAYS use correct UTC timezone **/
-  sql:: Statement* stmnt =connection_->createStatement();
-  std::string cmd = "INSERT INTO "+table_name_+" (";
-  cmd+="timestamp, open, high, low, close, volume) VALUES ";
-  for(auto data : data_list){
-    std::string time_str;
-    char time_char[100];
-    const time_t time_ = data.get_time();
-    std::strftime(time_char,sizeof(time_char),TD_FORMAT,std::localtime(&time_));
+  if(data_list.size()>0) {
+    sql:: Statement* stmnt =connection_->createStatement();
+    std::string cmd = "INSERT INTO "+table_name_+" (";
+    cmd+="timestamp, open, high, low, close, volume) VALUES ";
+    for(auto data : data_list){
+      std::string time_str;
+      char time_char[100];
+      const time_t time_ = data.get_time();
+      std::strftime(time_char,sizeof(time_char),TD_FORMAT,std::localtime(&time_));
 
 
-    cmd+="(CONVERT_TZ(\""+std::string(time_char)+"\",'"+timezone_s+"','UTC'),";
-    cmd+=std::to_string(data.get_open()) +",";
-    cmd+=std::to_string(data.get_high()) +",";
-    cmd+=std::to_string(data.get_low()) +",";
-    cmd+=std::to_string(data.get_close()) +",";
-    cmd+=std::to_string(data.get_volume()) +"),";
+      cmd+="(CONVERT_TZ(\""+std::string(time_char)+"\",'"+timezone_s+"','UTC'),";
+      cmd+=std::to_string(data.get_open()) +",";
+      cmd+=std::to_string(data.get_high()) +",";
+      cmd+=std::to_string(data.get_low()) +",";
+      cmd+=std::to_string(data.get_close()) +",";
+      cmd+=std::to_string(data.get_volume()) +"),";
+    }
+    cmd = cmd.substr(0,cmd.length()-1);//get rid of comma
+    cmd += ";";
+    try{ stmnt->executeUpdate(cmd); }
+    catch (sql::SQLException& e) {
+      std::cerr << "Error altering table: " << e.what() << std::endl;
+    }
+    delete stmnt;
   }
-  cmd = cmd.substr(0,cmd.length()-1);//get rid of comma
-  cmd += ";";
-  try{ stmnt->executeUpdate(cmd); }
-  catch (sql::SQLException& e) {
-    std::cerr << "Error altering table: " << e.what() << std::endl;
-  }
-  delete stmnt;
 }
 
 int algo1_data_retriever::update_database_from_file(fs::path filepath, int no){
-  std::ifstream inFile;
-  inFile.open(filepath.string()); //open the input file
-
-  std::stringstream strStream;
-  strStream << inFile.rdbuf(); //read the file
-  std::string str = strStream.str(); //str holds the content of the file
-
+  int out = 0;
   if(filepath.extension() == ".json"){
-    update_database_from_json(str);
+    out = update_database_from_json(filepath,no);
   }
   else if(filepath.extension() == ".csv"){
-    update_database_from_csv(str);
+    out = update_database_from_csv(filepath,no);
   }
   // TODO refactor this and adjacent functions
-  return 1;
+  return out;
 }
-void algo1_data_retriever::update_database_from_json(std::string j){
-  nlohmann::json data = nlohmann::json::parse(j);
 
-  std::string timezone_s = data["Meta Data"]["6. Time Zone"];
+int algo1_data_retriever::update_database_from_json(fs::path filepath, int no){
+  static fs::path filepath_cache = "";
+  static std::string timezone_s;
+  static std::list<algo1_data> data_list;
+  if(filepath_cache != filepath){
+    filepath_cache = filepath;
+    std::ifstream inFile;
+    inFile.open(filepath_cache.string()); //open the input file
 
-  data = data["Time Series (5min)"];
-  std::list<algo1_data> data_list;
-  for(auto i : data.items()){
-    algo1_data d;
+    std::stringstream strStream;
+    strStream << inFile.rdbuf(); //read the file
+    std::string str = strStream.str(); //str holds the content of the file
 
-    time_t t = datetime_to_time_t(i.key());
-    d.set_time(t);
+    nlohmann::json data = nlohmann::json::parse(str);
+    timezone_s = data["Meta Data"]["6. Time Zone"];
 
-    d.set_open(std::stod(std::string(i.value()["1. open"])));
-    d.set_high(std::stod(std::string(i.value()["2. high"])));
-    d.set_low(std::stod(std::string(i.value()["3. low"])));
-    d.set_close(std::stod(std::string(i.value()["4. close"])));
-    d.set_volume(std::stoi(std::string(i.value()["5. volume"])));
-    data_list.push_back(d);
-  }
-  add_data_to_database(data_list,timezone_s);
-}
-void algo1_data_retriever::update_database_from_csv(std::string s){
-  std::istringstream iss(s);
-  std::list<algo1_data> data_list;
-  for (std::string line; std::getline(iss, line); ){
-    std::vector<std::string> items;
-    while(true){
-      std::string::size_type idx = line.find(",");
-      if(idx != std::string::npos){
-        items.push_back(line.substr(0,idx));
-        line = line.substr(idx+1);
-      }
-      else{ // delimeter not found; push remainder 
-        items.push_back(line);
-        break;
-      }
-    }
-    try{
-      struct tm tm;
-      std::string tm_str = items[0];
+    data = data["Time Series (5min)"];
 
-      //time is set to closing time; otherwise inonsistent hour will
-      // produce inconsistent results
-      tm_str += +" 17:00:00";
-      strptime(tm_str.c_str(), "%m/%d/%Y %H:%M:%S", &tm);
-      time_t t = mktime(&tm);  // t is now your desired time_t
-
-      double open = std::stod(items[1]);
-      double high = std::stod(items[2]);
-      double low = std::stod(items[3]);
-      double close = std::stod(items[6]);
-      int volume = std::stoi(items[5]);
-      data_list.push_back({t,open,high,low,close,volume});
-    }
-    catch (const std::exception &exc){
-      // catch anything thrown within try block that derives from std::exception
-      // std::cout << "exception : " << exc.what() <<std::endl;//annoying header
+    for(auto i : data.items()){
+      algo1_data d;
+      time_t t = datetime_to_time_t(i.key());
+      d.set_time(t);
+      d.set_open(std::stod(std::string(i.value()["1. open"])));
+      d.set_high(std::stod(std::string(i.value()["2. high"])));
+      d.set_low(std::stod(std::string(i.value()["3. low"])));
+      d.set_close(std::stod(std::string(i.value()["4. close"])));
+      d.set_volume(std::stoi(std::string(i.value()["5. volume"])));
+      data_list.push_back(d);
     }
   }
-  add_data_to_database(data_list);
+
+  std::list<algo1_data> data_list_t;
+  while((no != 0) & (data_list.size() != 0)){
+    data_list_t.push_back(data_list.front());
+    data_list.pop_front();
+  }
+  add_data_to_database(data_list_t,timezone_s);
+  return data_list_t.size();
+}
+
+int algo1_data_retriever::update_database_from_csv(fs::path filepath, int no){
+  static fs::path filepath_cache = "";
+  static std::list<algo1_data> data_list;
+
+  if(filepath_cache != filepath){
+    filepath_cache=filepath;
+    std::ifstream inFile;
+    inFile.open(filepath_cache.string()); //open the input file
+
+    std::stringstream strStream;
+    strStream << inFile.rdbuf(); //read the file
+    std::string str = strStream.str(); //str holds the content of the file
+
+    std::istringstream iss(str);
+    for (std::string line; std::getline(iss, line); ){
+      std::vector<std::string> items;
+      while(true){
+        std::string::size_type idx = line.find(",");
+        if(idx != std::string::npos){
+          items.push_back(line.substr(0,idx));
+          line = line.substr(idx+1);
+        }
+        else{ // delimeter not found; push remainder 
+          items.push_back(line);
+          break;
+        }
+      }
+      try{
+        struct tm tm;
+        std::string tm_str = items[0];
+
+        //time is set to closing time; otherwise inonsistent hour will
+        // produce inconsistent results
+        tm_str += +" 17:00:00";
+        strptime(tm_str.c_str(), "%m/%d/%Y %H:%M:%S", &tm);
+        time_t t = mktime(&tm);  // t is now your desired time_t
+
+        double open = std::stod(items[1]);
+        double high = std::stod(items[2]);
+        double low = std::stod(items[3]);
+        double close = std::stod(items[6]);
+        int volume = std::stoi(items[5]);
+        data_list.push_back({t,open,high,low,close,volume});
+      }
+      catch (const std::exception &exc){
+        // catch anything thrown within try block that derives from std::exception
+        std::cout << "exception : " << exc.what() <<std::endl;//annoying header
+      }
+    }
+  }
+
+  std::list<algo1_data> data_list_t;
+  while((no != 0) & (data_list.size() != 0)){
+    data_list_t.push_back(data_list.front());
+    data_list.pop_front();
+    no--;
+  }
+  add_data_to_database(data_list_t);
+  return data_list_t.size();
 }
