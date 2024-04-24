@@ -29,7 +29,7 @@
   - [ ] save to database
   - [ ] on exit, save database to a local filea
 - [ ] unit-test datbase output
-- [ ] type1 simulation
+- [x] type1 simulation
 
 # Modes
 ## 0. live
