@@ -4,7 +4,7 @@
     - [x] update_database_from_file() refactor to optionally load DB one-by-one
       - [x] refactor update_database_from_file() and related content appropriately
   - [ ] live
-    - [ ] loops that start/exit gracefully
+    - [x] loops that start/exit gracefully
     - [ ] save data db to file
     - [ ] retrieve data from API
 - [ ] metric calculations
