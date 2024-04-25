@@ -12,4 +12,5 @@ class analyzer_db_handler : public db_handler_base {
  public:
   analyzer_db_handler(sql::Connection* connection,algo_type_k type);
   void insert_metrics(analysis a);
+  double retrieve_sharpe_ratio();
 };
