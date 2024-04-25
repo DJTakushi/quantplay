@@ -34,6 +34,8 @@ TEST_F(algo1Test_demo, algo1_test_real){
   double max_drawdown = -31.178396072013098;
   EXPECT_DOUBLE_EQ(max_drawdown,manager_->get_max_drawdown());
   EXPECT_NEAR(max_drawdown,manager_->retrieve_max_drawdown(),0.00001);
+
+  EXPECT_DOUBLE_EQ(624,manager_->retrieve_max_drawdown_dur());
   sql_connection_->close();
 }
 
