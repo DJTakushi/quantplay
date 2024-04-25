@@ -110,7 +110,6 @@ int algo1_data_retriever::update_database_from_file(fs::path filepath, int no){
   else if(filepath.extension() == ".csv"){
     out = update_database_from_csv(filepath,no);
   }
-  // TODO refactor this and adjacent functions
   return out;
 }
 

@@ -1,9 +1,12 @@
 # todo
 - [ ] modes
-  - [ ] type 1 simulation in unit-test
-    - [ ] update_database_from_file() refactor to optionally load DB one-by-one
-      - [ ] refactor update_database_from_file() and related content appropriately
+  - [x] type 1 simulation in unit-test
+    - [x] update_database_from_file() refactor to optionally load DB one-by-one
+      - [x] refactor update_database_from_file() and related content appropriately
   - [ ] live
+    - [ ] loops that start/exit gracefully
+    - [ ] save data db to file
+    - [ ] retrieve data from API
 - [ ] metric calculations
   - [x] sharpe ratio
     - [ ] programatic zero-risk rate
@@ -28,7 +31,7 @@
 - [ ] API interface for data retriever
   - [ ] save to database
   - [ ] on exit, save database to a local filea
-- [ ] unit-test datbase output
+- [x] unit-test datbase output
 - [x] type1 simulation
 
 # Modes
