@@ -30,8 +30,13 @@ double analyzer::compute_sharpe_ratio(){
   double samples = excess_daily_return.size() - 1; // sample variance used
   var /= samples;
   double sd = double(sqrt(var));
-
-  return double(sqrt(252))*mean/sd;
+  output = double(sqrt(252))*mean/sd;
+  if(isnan(output)){
+    std::cout << "computed sharpe is nan;";
+    std::cout << " returning sharpe_ratio of 0.0" <<std::endl;
+    output = 0;
+  }
+  return output;
 }
 std::vector<portfolio> analyzer::get_max_drawdown_portfolio_snapshots(){
   /** return high/low pair of portfolios of max drawdown **/
