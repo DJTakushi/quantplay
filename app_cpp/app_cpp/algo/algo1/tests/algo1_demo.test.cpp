@@ -31,8 +31,9 @@ TEST_F(algo1Test_demo, algo1_test_real){
   EXPECT_DOUBLE_EQ(sharpe_ratio,manager_->compute_sharpe_ratio());
   EXPECT_NEAR(sharpe_ratio,manager_->retrieve_sharpe_ratio(),0.000001);
 
-  double max_drawdown = manager_->get_max_drawdown();
-  EXPECT_DOUBLE_EQ(-31.178396072013098,max_drawdown);
+  double max_drawdown = -31.178396072013098;
+  EXPECT_DOUBLE_EQ(max_drawdown,manager_->get_max_drawdown());
+  EXPECT_NEAR(max_drawdown,manager_->retrieve_max_drawdown(),0.00001);
   sql_connection_->close();
 }
 

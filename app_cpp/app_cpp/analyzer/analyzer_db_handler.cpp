@@ -53,12 +53,25 @@ void analyzer_db_handler::insert_metrics(analysis a) {
 double analyzer_db_handler::retrieve_sharpe_ratio(){
   double out = -999;
   std::string cmd = "SELECT sharpe_ratio FROM "+table_name_+" WHERE name = '" + algo_name_ + "';";
-  std::cout << "retrieve_sharpe_ratio() cmd : " << cmd << std::endl;
   sql::Statement* stmnt =connection_->createStatement();
   try {
     std::unique_ptr<sql::ResultSet> res(stmnt->executeQuery(cmd));
     res->next();
     out = res->getDouble("sharpe_ratio");
+  }
+  catch (sql::SQLException& e) {
+    std::cerr << "Error querying table: " << e.what() << std::endl;
+  }
+  return out;
+}
+double analyzer_db_handler::retrieve_max_drawdown(){
+  double out = -999;
+  std::string cmd = "SELECT max_drawdown FROM "+table_name_+" WHERE name = '" + algo_name_ + "';";
+  sql::Statement* stmnt =connection_->createStatement();
+  try {
+    std::unique_ptr<sql::ResultSet> res(stmnt->executeQuery(cmd));
+    res->next();
+    out = res->getDouble("max_drawdown");
   }
   catch (sql::SQLException& e) {
     std::cerr << "Error querying table: " << e.what() << std::endl;
