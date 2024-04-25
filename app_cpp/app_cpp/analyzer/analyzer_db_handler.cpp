@@ -66,32 +66,8 @@ double analyzer_db_handler::retrieve_double_attribute(std::string attr){
   return out;
 }
 double analyzer_db_handler::retrieve_sharpe_ratio(){
-  double out = -999;
-  std::string cmd = "SELECT sharpe_ratio FROM "+table_name_;
-  cmd += " WHERE name = '" + algo_name_ + "';";
-  sql::Statement* stmnt =connection_->createStatement();
-  try {
-    std::unique_ptr<sql::ResultSet> res(stmnt->executeQuery(cmd));
-    res->next();
-    out = res->getDouble("sharpe_ratio");
-  }
-  catch (sql::SQLException& e) {
-    std::cerr << "Error querying table: " << e.what() << std::endl;
-  }
-  return out;
+  return retrieve_double_attribute("sharpe_ratio");
 }
 double analyzer_db_handler::retrieve_max_drawdown(){
-  double out = -999;
-  std::string cmd = "SELECT max_drawdown FROM "+table_name_;
-  cmd += " WHERE name = '" + algo_name_ + "';";
-  sql::Statement* stmnt =connection_->createStatement();
-  try {
-    std::unique_ptr<sql::ResultSet> res(stmnt->executeQuery(cmd));
-    res->next();
-    out = res->getDouble("max_drawdown");
-  }
-  catch (sql::SQLException& e) {
-    std::cerr << "Error querying table: " << e.what() << std::endl;
-  }
-  return out;
+  return retrieve_double_attribute("max_drawdown");
 }
