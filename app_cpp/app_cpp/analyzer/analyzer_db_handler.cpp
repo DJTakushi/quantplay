@@ -71,3 +71,6 @@ double analyzer_db_handler::retrieve_sharpe_ratio(){
 double analyzer_db_handler::retrieve_max_drawdown(){
   return retrieve_double_attribute("max_drawdown");
 }
+double analyzer_db_handler::retrieve_max_drawdown_dur(){
+  return retrieve_double_attribute("max_drawdown_dur");
+}
