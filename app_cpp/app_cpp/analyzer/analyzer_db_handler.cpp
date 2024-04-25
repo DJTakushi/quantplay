@@ -47,6 +47,7 @@ void analyzer_db_handler::insert_metrics(analysis a) {
   try{ stmnt->executeUpdate(cmd); }
   catch (sql::SQLException& e) {
     std::cerr << "Error altering table: " << e.what() << std::endl;
+    std::cerr << "cmd was : " << cmd << std::endl;
   }
   delete stmnt;
 }

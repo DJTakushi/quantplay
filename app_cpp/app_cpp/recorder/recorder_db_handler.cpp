@@ -25,6 +25,7 @@ void recorder_db_handler::add_data_to_db(std::vector<portfolio> dv){
   try{ stmnt->executeUpdate(cmd); }
   catch (sql::SQLException& e) {
     std::cerr << "Error altering table: " << e.what() << std::endl;
+    std::cerr << "cmd was : " << cmd << std::endl;
   }
   delete stmnt;
 }
