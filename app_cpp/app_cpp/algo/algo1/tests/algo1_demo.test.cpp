@@ -27,8 +27,9 @@ TEST_F(algo1Test_demo, algo1_test_real){
   std::vector<portfolio> portfolios = manager_->get_day_portfolio_snapshots();
   EXPECT_EQ(1504,portfolios.size());
 
-  double sharpe_ratio = manager_->compute_sharpe_ratio();
-  EXPECT_DOUBLE_EQ(0.78931753834485100000,sharpe_ratio);
+  double sharpe_ratio = 0.78931753834485100000;
+  EXPECT_DOUBLE_EQ(sharpe_ratio,manager_->compute_sharpe_ratio());
+  EXPECT_NEAR(sharpe_ratio,manager_->retrieve_sharpe_ratio(),0.000001);
 
   double max_drawdown = manager_->get_max_drawdown();
   EXPECT_DOUBLE_EQ(-31.178396072013098,max_drawdown);
